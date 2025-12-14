@@ -12,7 +12,7 @@ import './App.css';
 
 function App() {
   return (
-    <Router>
+    <Router basename={import.meta.env.BASE_URL || '/Aventure-Alpine/'}>
       <div className="App">
         <header className="App-header">
           <h1>Aventures Alpines</h1>
