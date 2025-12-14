@@ -1,31 +1,15 @@
 import express from 'express';
 import cors from 'cors';
 import dotenv from 'dotenv';
-import jwt from 'jsonwebtoken';
 import { pool } from './db/pool.js';
 
 dotenv.config();
 
 const app = express();
 const PORT = process.env.PORT || 5000;
-const JWT_SECRET = process.env.JWT_SECRET || 'your_secret_key';
 
 app.use(cors());
 app.use(express.json());
-
-// Middleware d'authentification
-const verifyToken = (req, res, next) => {
-  const token = req.headers.authorization?.split(' ')[1];
-  if (!token) {
-    return res.status(401).json({ error: 'Token manquant' });
-  }
-  try {
-    jwt.verify(token, JWT_SECRET);
-    next();
-  } catch (err) {
-    res.status(401).json({ error: 'Token invalide' });
-  }
-};
 
 const safeQuery = async (res, sql, params = []) => {
   try {
@@ -36,19 +20,6 @@ const safeQuery = async (res, sql, params = []) => {
     return res.status(500).json({ error: 'Erreur base de données' });
   }
 };
-
-// Login
-app.post('/api/login', (req, res) => {
-  const { username, password } = req.body;
-  const adminUsername = process.env.ADMIN_USERNAME || 'admin';
-  const adminPassword = process.env.ADMIN_PASSWORD || 'password123';
-
-  if (username === adminUsername && password === adminPassword) {
-    const token = jwt.sign({ username }, JWT_SECRET, { expiresIn: '24h' });
-    return res.json({ token, username });
-  }
-  res.status(401).json({ error: 'Identifiants invalides' });
-});
 
 app.get('/api/health', async (req, res) => {
   try {
@@ -124,8 +95,8 @@ app.post('/api/experiences', async (req, res) => {
   }
 });
 
-// Contact messages (protected)
-app.get('/api/contact-messages', verifyToken, (req, res) =>
+// Contact messages
+app.get('/api/contact-messages', (req, res) =>
   safeQuery(
     res,
     `SELECT id, nom AS name, email, message, status, created_at AS createdAt
@@ -151,7 +122,7 @@ app.post('/api/contact-messages', async (req, res) => {
   }
 });
 
-app.patch('/api/contact-messages/:id', verifyToken, async (req, res) => {
+app.patch('/api/contact-messages/:id', async (req, res) => {
   const { id } = req.params;
   const { status } = req.body;
   if (!status) {
