@@ -18,7 +18,7 @@ function Contact() {
       message: formData.message 
     };
 
-    // Toujours sauvegarder en local
+    // Toujours sauvegarder en local d'abord
     const messages = JSON.parse(localStorage.getItem('contact_messages') || '[]');
     messages.push({
       ...messageData,
@@ -27,19 +27,22 @@ function Contact() {
     });
     localStorage.setItem('contact_messages', JSON.stringify(messages));
 
-    // Essayer d'envoyer à l'API aussi
-    const apiUrl = import.meta.env.VITE_API_URL || 'http://localhost:5000';
-    try {
-      await fetch(`${apiUrl}/api/contact-messages`, {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(messageData)
-      });
-    } catch (err) {
-      console.log('API non disponible, message sauvegardé localement');
+    // Essayer d'envoyer à l'API en arrière-plan (sans bloquer)
+    const apiUrl = import.meta.env.VITE_API_URL;
+    if (apiUrl && apiUrl !== 'http://localhost:5000') {
+      // Seulement envoyer à l'API si on est pas en localhost
+      try {
+        await fetch(`${apiUrl}/api/contact-messages`, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(messageData)
+        });
+      } catch (err) {
+        // Erreur silencieuse - le message est déjà sauvegardé localement
+      }
     }
 
-    // Toujours afficher succès (car au minimum c'est en localStorage)
+    // Toujours afficher succès
     alert(`Merci ${formData.name}, votre message a été reçu !`);
     setFormData({ name: '', email: '', message: '' });
     setLoading(false);
