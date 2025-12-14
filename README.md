@@ -1,240 +1,332 @@
+<div align="center">
+
 # 🏔️ Aventures Alpines
 
-> **Plateforme web moderne dédiée aux passionnés de sports de montagne**
+### Plateforme web dédiée aux passionnés de sports de montagne
 
-Une application React immersive avec un design sombre animé, permettant de découvrir des activités alpines, consulter des articles détaillés, visionner des vidéos et planifier des itinéraires en montagne.
+[![Live Demo](https://img.shields.io/badge/🌐_Demo-Live-success?style=for-the-badge)](https://aventure-alpine.vercel.app)
+[![API Status](https://img.shields.io/badge/API-Online-brightgreen?style=for-the-badge)](https://aventure-alpine.onrender.com)
+[![License](https://img.shields.io/badge/License-MIT-blue?style=for-the-badge)](LICENSE)
 
-[![Live Demo](https://img.shields.io/badge/demo-live-success)](https://aventure-alpine.vercel.app)
-[![React](https://img.shields.io/badge/React-18.2-blue)](https://reactjs.org/)
-[![Vite](https://img.shields.io/badge/Vite-5.0-646CFF)](https://vitejs.dev/)
+[Démo](https://aventure-alpine.vercel.app) • [API Documentation](#-api-endpoints) • [Installation](#-installation) • [Contribution](#-contribution)
 
----
-
-## ✨ Fonctionnalités
-
-- 🎯 **Navigation intuitive** avec React Router
-- 🎨 **Design moderne** : thème sombre avec fond animé en dégradé
-- 📱 **Responsive** : adapté mobile, tablette et desktop
-- 🔍 **Filtres avancés** : tri par catégorie, difficulté, date
-- 📊 **API REST** : backend Express + MySQL pour données dynamiques
-- 💬 **Formulaire de contact** : enregistrement des messages
-- ⚡ **Performance optimale** : Hot Module Replacement (HMR)
-
-### Pages disponibles
-
-| Page | Description |
-|------|-------------|
-| **Accueil** | Statistiques et appels à l'action |
-| **Activités** | Sports de montagne (randonnée, escalade, ski) |
-| **Articles** | Guides pratiques et retours d'expérience |
-| **Vidéos** | Galerie de vidéos immersives |
-| **Itinéraires** | Parcours détaillés avec niveaux de difficulté |
-| **Blog** | Articles communautaires et expériences terrain |
-| **Contact** | Formulaire de contact avec sauvegarde |
+</div>
 
 ---
 
-## 🚀 Démos en ligne
+## 📋 À propos du projet
 
-| Service | URL |
-|---------|-----|
-| **Frontend** | https://aventure-alpine.vercel.app |
-| **Backend API** | https://aventure-alpine.onrender.com |
-| **Repo GitHub** | https://github.com/maxlo245/Aventure-Alpine |
+**Aventures Alpines** est une application web moderne développée avec React et Express, offrant une plateforme complète pour les amateurs de sports de montagne. Elle permet de découvrir des activités, consulter des guides, visionner des vidéos immersives et planifier des itinéraires en altitude.
 
----
+### ✨ Caractéristiques principales
 
-## 🛠️ Technologies
-
-| Frontend | Backend | Base de Données | Déploiement |
-|----------|---------|-----------------|-------------|
-| React 18.2 | Node.js 22+ | MySQL 8.0 | Vercel |
-| React Router DOM 7 | Express 4.19 | PlanetScale | Render |
-| Vite 5.0 | cors, dotenv | mysql2/promise | GitHub |
-| CSS3 animations | | | |
+- 🎨 **Interface moderne** avec thème sombre et animations fluides
+- 📱 **Design responsive** optimisé pour tous les écrans
+- ⚡ **Performance élevée** grâce à Vite et React 18
+- 🔒 **API sécurisée** avec validation des données
+- 💾 **Persistance hybride** (localStorage + base de données)
+- 🚀 **Déploiement continu** via GitHub Actions
 
 ---
 
-## 📦 Installation locale
+## 🛠️ Stack Technique
+
+### Frontend
+- **Framework**: React 18.2 avec Hooks
+- **Build Tool**: Vite 5.0 (HMR ultra-rapide)
+- **Routing**: React Router DOM v7
+- **Styling**: CSS3 avec animations avancées
+- **HTTP Client**: Axios pour les requêtes API
+
+### Backend
+- **Runtime**: Node.js 22+
+- **Framework**: Express 4.19
+- **Base de données**: MySQL 8.0 (PlanetScale)
+- **ORM**: mysql2 avec Promises
+- **Sécurité**: CORS, dotenv pour les variables d'environnement
+
+### DevOps & Hébergement
+- **Frontend**: Vercel (CI/CD automatique)
+- **Backend**: Render (Free Tier)
+- **Database**: PlanetScale (Serverless MySQL)
+- **Version Control**: Git + GitHub
+- **Workflow**: GitHub Actions
+
+---
+
+## 🚀 Démarrage rapide
 
 ### Prérequis
 
-- Node.js 18+ → `node -v` et `npm -v`
-- MySQL 8.0 (ou PlanetScale distant)
-
-### Étapes
-
-**1. Cloner le projet**
 ```bash
+node --version  # v18.0.0 ou supérieur
+npm --version   # v9.0.0 ou supérieur
+mysql --version # v8.0 ou supérieur (optionnel en local)
+```
+
+### Installation
+
+```bash
+# Cloner le repository
 git clone https://github.com/maxlo245/Aventure-Alpine.git
 cd Aventure-Alpine
-```
 
-**2. Installer les dépendances**
-```bash
+# Installer les dépendances
 npm install
-```
 
-**3. Configurer l'environnement backend**
-```bash
+# Configurer l'environnement
 cp server/.env.example server/.env
-```
-Édite `server/.env` avec tes identifiants MySQL.
-
-**4. Initialiser la base de données (local)**
-```bash
-mysql -u root -p < server/db/schema.sql
+# Éditer server/.env avec vos identifiants MySQL
 ```
 
-**5. Lancer l'API (terminal 1)**
+### Développement local
+
+**Terminal 1 - Backend API**
 ```bash
 npm run server
+# API accessible sur http://localhost:5000
 ```
-✅ API disponible sur http://localhost:5000
 
-**6. Lancer le front (terminal 2)**
+**Terminal 2 - Frontend**
 ```bash
 npm run dev
+# Interface accessible sur http://localhost:5173
 ```
-✅ Front disponible sur http://localhost:5173
+
+### Build de production
+
+```bash
+npm run build
+# Génère le dossier dist/ prêt pour le déploiement
+```
 
 ---
 
 ## 🌐 Déploiement
 
-### Frontend sur Vercel (gratuit)
-
-1. Va sur https://vercel.com et crée un compte
-2. Importe le repo GitHub `maxlo245/Aventure-Alpine`
-3. Vercel auto-détecte Vite → Déploie ! 🚀
-4. Chaque `git push main` redéploie automatiquement
-
-**URL:** https://aventure-alpine.vercel.app
-
----
-
-### Backend + DB sur Render + PlanetScale (gratuit)
-
-#### Étape 1 : Créer une BD PlanetScale
-1. Va sur https://planetscale.com
-2. Crée une base `aventures_alpines`
-3. Clique "Connect" → copie l'URL MySQL
-4. Initialise le schema :
-   ```bash
-   mysql -h <host> -u <user> -p < server/db/schema.sql
-   ```
-
-#### Étape 2 : Créer un service Render
-1. Va sur https://render.com
-2. Crée un "Web Service" depuis le repo
-3. Runtime: Node
-4. Build Command: `npm install`
-5. Start Command: `node server/index.js`
-6. Ajoute les variables d'environnement :
-   - `DB_HOST` = host PlanetScale
-   - `DB_PORT` = 3306
-   - `DB_USER` = user PlanetScale
-   - `DB_PASSWORD` = password PlanetScale
-   - `DB_NAME` = aventures_alpines
-   - `NODE_ENV` = production
-   - `PORT` = 5000
-
-**URL API:** https://aventure-alpine.onrender.com
-
-#### Étape 3 : Brancher le front à l'API
-1. Va sur Vercel → Settings → Environment Variables
-2. Ajoute `VITE_API_URL` = `https://aventure-alpine.onrender.com`
-3. Redéploie le front
-
----
-
-## 📡 Endpoints API
+### Architecture de production
 
 ```
-GET  /api/health                      → Statut API
-GET  /api/activities                  → Activités
-GET  /api/articles                    → Articles blog
-GET  /api/videos                      → Vidéos
-GET  /api/routes                      → Itinéraires
-GET  /api/experiences                 → Expériences utilisateurs
-POST /api/experiences                 → Créer une expérience
-GET  /api/contact-messages            → Tous les messages
-POST /api/contact-messages            → Créer un message { name, email, message }
-PATCH /api/contact-messages/:id       → Mettre à jour status
+┌─────────────────┐      HTTPS      ┌──────────────────┐
+│   Utilisateur   │ ────────────────▶│  Vercel (CDN)    │
+│    (Browser)    │                  │  Frontend React  │
+└─────────────────┘                  └──────────────────┘
+         │                                     │
+         │ API Calls                           │
+         ▼                                     ▼
+┌─────────────────┐                  ┌──────────────────┐
+│  Render.com     │◀─────────────────│  Vercel Edge     │
+│  Express API    │     Serverless   │  Functions       │
+└─────────────────┘                  └──────────────────┘
+         │
+         │ MySQL Protocol
+         ▼
+┌─────────────────┐
+│  PlanetScale    │
+│  MySQL Database │
+└─────────────────┘
 ```
 
----
+### Frontend (Vercel)
 
-## 🧪 Scripts
+1. Importez le repo sur [Vercel](https://vercel.com)
+2. Configuration automatique (Vite détecté)
+3. Déploiement en 1 clic
+
+**Variables d'environnement:**
+```env
+VITE_API_URL=https://aventure-alpine.onrender.com
+```
+
+### Backend (Render + PlanetScale)
+
+**1. Base de données PlanetScale**
 
 ```bash
-npm run dev       # Lancer le front en développement
-npm run build     # Build Vite pour production
-npm run server    # Lancer l'API Express (local)
-npm run lint      # Linter le code
-npm run preview   # Prévisualiser le build prod
+# Créer une base sur https://planetscale.com
+# Récupérer les credentials de connexion
+# Initialiser le schéma
+mysql -h <HOST> -u <USER> -p < server/db/schema.sql
+```
+
+**2. Service Render**
+
+- Runtime: Node
+- Build: `npm install`
+- Start: `node server/index.js`
+
+**Variables d'environnement:**
+```env
+NODE_ENV=production
+PORT=5000
+DB_HOST=<planetscale_host>
+DB_PORT=3306
+DB_USER=<planetscale_user>
+DB_PASSWORD=<planetscale_password>
+DB_NAME=aventures_alpines
 ```
 
 ---
 
-## 💾 Stockage des messages
+## 📡 API Endpoints
 
-- **Local** (sans API) : localStorage du navigateur
-- **Distant** (avec API) : Base de données PlanetScale via l'API Render
-- **Fallback** : Si l'API échoue, les messages sont automatiquement sauvegardés en localStorage
+### Base URL
+```
+Production: https://aventure-alpine.onrender.com
+Local:      http://localhost:5000
+```
+
+### Endpoints disponibles
+
+| Method | Endpoint | Description | Body |
+|--------|----------|-------------|------|
+| `GET` | `/api/health` | Status de l'API | - |
+| `GET` | `/api/activities` | Liste des activités | - |
+| `GET` | `/api/articles` | Articles du blog | - |
+| `GET` | `/api/videos` | Galerie vidéos | - |
+| `GET` | `/api/routes` | Itinéraires montagne | - |
+| `GET` | `/api/experiences` | Expériences utilisateurs | - |
+| `POST` | `/api/experiences` | Créer une expérience | `{ author, title, body }` |
+| `GET` | `/api/contact-messages` | Messages de contact | - |
+| `POST` | `/api/contact-messages` | Nouveau message | `{ name, email, message }` |
+| `PATCH` | `/api/contact-messages/:id` | Modifier statut | `{ status }` |
+
+### Exemple d'utilisation
+
+```javascript
+// Récupérer les activités
+const response = await fetch('https://aventure-alpine.onrender.com/api/activities');
+const activities = await response.json();
+
+// Envoyer un message de contact
+await fetch('https://aventure-alpine.onrender.com/api/contact-messages', {
+  method: 'POST',
+  headers: { 'Content-Type': 'application/json' },
+  body: JSON.stringify({
+    name: 'Jean Dupont',
+    email: 'jean@example.com',
+    message: 'Demande d\'information'
+  })
+});
+```
 
 ---
 
-## 📝 Structure du projet
+## 📂 Structure du projet
 
 ```
 Aventure-Alpine/
+├── .github/
+│   └── workflows/
+│       └── deploy.yml          # GitHub Actions CI/CD
+├── server/
+│   ├── db/
+│   │   ├── pool.js             # Configuration MySQL
+│   │   └── schema.sql          # Schéma de base de données
+│   ├── index.js                # Serveur Express
+│   └── .env.example            # Template variables d'environnement
 ├── src/
+│   ├── data/                   # Données mock pour fallback
 │   ├── pages/
 │   │   ├── Activities.jsx
 │   │   ├── Articles.jsx
 │   │   ├── Videos.jsx
 │   │   ├── Routes.jsx
-│   ├── Contact.jsx
-│   ├── App.jsx
-│   ├── main.jsx
-│   └── index.css
-├── server/
-│   ├── db/
-│   │   ├── pool.js
-│   │   └── schema.sql
-│   ├── index.js
-│   └── .env.example
-├── package.json
-├── vite.config.js
-├── vercel.json
-└── README.md
+│   │   ├── Blog.jsx
+│   │   └── Adventures.jsx
+│   ├── App.jsx                 # Composant racine + routing
+│   ├── Contact.jsx             # Formulaire de contact
+│   ├── Home.jsx                # Page d'accueil
+│   ├── main.jsx                # Point d'entrée React
+│   ├── App.css                 # Styles globaux
+│   └── index.css               # Reset CSS
+├── public/                     # Assets statiques
+├── dist/                       # Build de production (généré)
+├── .env.local                  # Variables locales (non versionné)
+├── .env.production             # Variables de production
+├── package.json                # Dépendances et scripts
+├── vite.config.js              # Configuration Vite
+├── vercel.json                 # Configuration Vercel
+├── render.yaml                 # Configuration Render
+└── README.md                   # Documentation
 ```
+
+---
+
+## 🧪 Scripts disponibles
+
+| Commande | Description |
+|----------|-------------|
+| `npm run dev` | Lance le serveur de développement Vite |
+| `npm run build` | Compile l'application pour la production |
+| `npm run preview` | Prévisualise le build de production |
+| `npm run server` | Lance le serveur API Express |
+| `npm run lint` | Vérifie la qualité du code avec ESLint |
+
+---
+
+## 🔒 Sécurité
+
+- ✅ Variables d'environnement pour les secrets
+- ✅ CORS configuré pour les domaines autorisés
+- ✅ Validation des données côté serveur
+- ✅ Requêtes paramétrées pour éviter les injections SQL
+- ✅ HTTPS obligatoire en production
 
 ---
 
 ## 🤝 Contribution
 
-1. Fork le projet
-2. Crée une branche (`git checkout -b feature/AmazingFeature`)
-3. Commit les changements (`git commit -m 'Add some AmazingFeature'`)
-4. Push la branche (`git push origin feature/AmazingFeature`)
-5. Ouvre une Pull Request
+Les contributions sont les bienvenues ! Veuillez suivre ces étapes :
+
+1. **Fork** le projet
+2. **Créez** votre branche de fonctionnalité (`git checkout -b feature/AmazingFeature`)
+3. **Committez** vos changements (`git commit -m 'Add: Amazing Feature'`)
+4. **Pushez** vers la branche (`git push origin feature/AmazingFeature`)
+5. **Ouvrez** une Pull Request
+
+### Convention de commits
+
+- `feat:` Nouvelle fonctionnalité
+- `fix:` Correction de bug
+- `docs:` Documentation
+- `style:` Formatage, style
+- `refactor:` Refactorisation du code
+- `test:` Ajout de tests
+- `chore:` Maintenance
 
 ---
 
-## 📄 Licence
+## 📜 Licence
 
-Ce projet est open source. Libre de l'utiliser et le modifier.
-
----
-
-## 📞 Support
-
-- 📧 Email: info@aventuresalpines.com
-- 🐙 GitHub: https://github.com/maxlo245/Aventure-Alpine
-- 🌐 Site: https://aventure-alpine.vercel.app
+Ce projet est sous licence **MIT**. Voir le fichier [LICENSE](LICENSE) pour plus de détails.
 
 ---
 
-**Last updated:** 14 Décembre 2025
+## 📞 Contact & Support
+
+- **Site web**: [aventure-alpine.vercel.app](https://aventure-alpine.vercel.app)
+- **Repository**: [github.com/maxlo245/Aventure-Alpine](https://github.com/maxlo245/Aventure-Alpine)
+- **API**: [aventure-alpine.onrender.com](https://aventure-alpine.onrender.com)
+- **Email**: info@aventuresalpines.com
+
+---
+
+## 🙏 Remerciements
+
+- [React](https://reactjs.org/) - Bibliothèque UI
+- [Vite](https://vitejs.dev/) - Build tool ultra-rapide
+- [Vercel](https://vercel.com/) - Hébergement frontend
+- [Render](https://render.com/) - Hébergement backend
+- [PlanetScale](https://planetscale.com/) - Base de données serverless
+- [Unsplash](https://unsplash.com/) - Images de qualité
+
+---
+
+<div align="center">
+
+**Développé avec ❤️ par Maxime Laurent**
+
+⭐ **N'oubliez pas de mettre une étoile si ce projet vous a plu !**
+
+</div>
