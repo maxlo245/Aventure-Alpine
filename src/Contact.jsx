@@ -8,32 +8,49 @@ function Contact() {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
 
+  const saveToLocalStorage = (data) => {
+    const messages = JSON.parse(localStorage.getItem('contact_messages') || '[]');
+    messages.push({
+      ...data,
+      id: Date.now(),
+      createdAt: new Date().toISOString()
+    });
+    localStorage.setItem('contact_messages', JSON.stringify(messages));
+  };
+
   const handleSubmit = async (e) => {
     e.preventDefault();
     setLoading(true);
 
     const apiUrl = import.meta.env.VITE_API_URL || 'http://localhost:5000';
+    const messageData = { 
+      name: formData.name, 
+      email: formData.email, 
+      message: formData.message 
+    };
 
     try {
       const response = await fetch(`${apiUrl}/api/contact-messages`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ 
-          name: formData.name, 
-          email: formData.email, 
-          message: formData.message 
-        })
+        body: JSON.stringify(messageData)
       });
 
       if (response.ok) {
         alert(`Merci ${formData.name}, votre message a été envoyé !`);
         setFormData({ name: '', email: '', message: '' });
       } else {
-        alert('Erreur lors de l\'envoi. Veuillez réessayer.');
+        // Si l'API répond mais erreur, sauvegarder en local aussi
+        saveToLocalStorage(messageData);
+        alert(`Merci ${formData.name}, votre message a été enregistré localement.`);
+        setFormData({ name: '', email: '', message: '' });
       }
     } catch (error) {
-      console.error('Erreur:', error);
-      alert('Impossible de contacter le serveur. Vérifiez votre connexion.');
+      // Si l'API n'est pas accessible, sauvegarder en local
+      console.error('Erreur API:', error);
+      saveToLocalStorage(messageData);
+      alert(`Merci ${formData.name}, votre message a été enregistré (mode hors-ligne).`);
+      setFormData({ name: '', email: '', message: '' });
     } finally {
       setLoading(false);
     }
