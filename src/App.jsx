@@ -8,6 +8,7 @@ import Articles from './pages/Articles';
 import Videos from './pages/Videos';
 import RoutesPage from './pages/RoutesPage';
 import Blog from './pages/Blog';
+import Dashboard from './pages/Dashboard';
 import './App.css';
 
 function App() {
@@ -25,6 +26,7 @@ function App() {
               <li><Link to="/routes">Itinéraires</Link></li>
               <li><Link to="/blog">Blog</Link></li>
               <li><Link to="/contact">Contact</Link></li>
+              <li><Link to="/dashboard">📊 Dashboard</Link></li>
             </ul>
           </nav>
         </header>
@@ -38,6 +40,7 @@ function App() {
             <Route path="/blog" element={<Blog />} />
             <Route path="/adventures" element={<Adventures />} />
             <Route path="/contact" element={<Contact />} />
+            <Route path="/dashboard" element={<Dashboard />} />
           </Routes>
         </main>
         <footer>

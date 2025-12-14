@@ -49,6 +49,15 @@ CREATE TABLE IF NOT EXISTS experiences (
   created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
 
+CREATE TABLE IF NOT EXISTS contact_messages (
+  id INT AUTO_INCREMENT PRIMARY KEY,
+  nom VARCHAR(120) NOT NULL,
+  email VARCHAR(180) NOT NULL,
+  message TEXT NOT NULL,
+  status VARCHAR(30) DEFAULT 'nouveau',
+  created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
+
 INSERT INTO activities (nom, sport, resume, image_url, niveau, saison) VALUES
 ('Randonnée en balcon', 'Randonnée', 'Boucle panoramique pour débuter en douceur.', 'https://images.unsplash.com/photo-1441974231531-c6227db76b6e?auto=format&fit=crop&w=800&q=60', 'Facile', 'Été'),
 ('Grande voie école', 'Escalade', '200 m équipés, idéal pour progresser en tête.', 'https://images.unsplash.com/photo-1509644851169-2acc09a45ca0?auto=format&fit=crop&w=800&q=60', 'Intermédiaire', 'Été'),

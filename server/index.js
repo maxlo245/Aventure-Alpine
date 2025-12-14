@@ -95,6 +95,48 @@ app.post('/api/experiences', async (req, res) => {
   }
 });
 
+// Contact messages
+app.get('/api/contact-messages', (req, res) =>
+  safeQuery(
+    res,
+    `SELECT id, nom AS name, email, message, status, created_at AS createdAt
+     FROM contact_messages
+     ORDER BY created_at DESC`
+  )
+);
+
+app.post('/api/contact-messages', async (req, res) => {
+  const { name, email, message } = req.body;
+  if (!name || !email || !message) {
+    return res.status(400).json({ error: 'Champs manquants' });
+  }
+  try {
+    const [result] = await pool.query(
+      'INSERT INTO contact_messages (nom, email, message) VALUES (?, ?, ?)',
+      [name, email, message]
+    );
+    res.status(201).json({ id: result.insertId, name, email, message, status: 'nouveau', createdAt: new Date() });
+  } catch (error) {
+    console.error('DB error:', error.message);
+    res.status(500).json({ error: 'Erreur base de données' });
+  }
+});
+
+app.patch('/api/contact-messages/:id', async (req, res) => {
+  const { id } = req.params;
+  const { status } = req.body;
+  if (!status) {
+    return res.status(400).json({ error: 'Status manquant' });
+  }
+  try {
+    await pool.query('UPDATE contact_messages SET status = ? WHERE id = ?', [status, id]);
+    res.json({ success: true });
+  } catch (error) {
+    console.error('DB error:', error.message);
+    res.status(500).json({ error: 'Erreur base de données' });
+  }
+});
+
 app.listen(PORT, () => {
   console.log(`API Aventures Alpines en écoute sur http://localhost:${PORT}`);
 });
