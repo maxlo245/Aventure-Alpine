@@ -93,60 +93,51 @@ npm run dev
 
 ---
 
-## Démo & Déploiement GitHub Pages
+## 🌐 Déploiement sur Vercel (gratuit - repos privés ✅)
 
-[![GitHub Pages](https://img.shields.io/badge/GitHub%20Pages-Status-blue)](https://maxlo245.github.io/Aventure-Alpine/)
+[![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/new)
 
-👉 Démo: https://maxlo245.github.io/Aventure-Alpine/
+### Déploiement en 3 minutes
 
-### Déploiement sur GitHub Pages (gratuit)
+**1. Créer un compte Vercel**
+   - Allez sur https://vercel.com
+   - Cliquez "Sign Up" et connectez-vous avec GitHub
 
-### Première fois - Configuration GitHub
+**2. Importer le projet**
+   - Cliquez "Add New..." → "Project"
+   - Sélectionnez votre repo `Aventure-Alpine` (fonctionne même en privé ✅)
+   - Vercel détecte automatiquement Vite
 
-1) **Créer un dépôt GitHub**
-   - Allez sur https://github.com/new
-   - Nom du repo : `Aventure-Alpine` (exactement ce nom pour correspondre à vite.config.js)
-   - Créez le repo (public)
+**3. Configurer (optionnel - tout est pré-configuré)**
+   - Framework Preset: **Vite** (auto-détecté)
+   - Build Command: `npm run build`
+   - Output Directory: `dist`
 
-2) **Configurer GitHub Pages**
-   - Dans votre repo → Settings → Pages
-   - Source : GitHub Actions
+**4. Déployer**
+   - Cliquez "Deploy"
+   - Attendez 1-2 minutes ⏱️
+   - Votre site sera sur `https://aventure-alpine.vercel.app`
 
-3) **Pusher votre code**
-   ```bash
-   git init
-   git add .
-   git commit -m "Initial commit"
-   git branch -M main
-   git remote add origin https://github.com/VOTRE_USERNAME/Aventure-Alpine.git
-   git push -u origin main
-   ```
+### 🚀 Déploiements automatiques
 
-4) **Déploiement automatique**
-   - Le workflow `.github/workflows/deploy.yml` se déclenche automatiquement
-   - Attendez 2-3 minutes
-   - Votre site sera disponible sur : `https://VOTRE_USERNAME.github.io/Aventure-Alpine/`
+Chaque `git push` sur `main` déclenche un nouveau déploiement !
 
-### Mises à jour futures
+### Variables d'environnement (optionnel)
 
-Chaque fois que vous faites un `git push`, le site se met à jour automatiquement :
-```bash
-git add .
-git commit -m "Description des changements"
-git push
-```
+Pour connecter l'API hébergée ailleurs:
+1. Vercel → Settings → Environment Variables
+2. Ajoutez `VITE_API_URL` avec l'URL de votre API
+3. Redéployez
 
-### Dépannage GitHub Pages
-- 404 sur les sous-routes: le site utilise `HashRouter` (`#/...`). Rafraîchissez avec Ctrl+F5 si vous voyez une page blanche.
-- Actions échoue: vérifiez les permissions (Settings → Actions → Workflow permissions: Read and write) et relancez le job.
-- Source Pages: assurez-vous que Pages est configuré sur "GitHub Actions".
-- Cache navigateur: utilisez la navigation privée ou un hard refresh (Ctrl+F5).
+---
 
-### Note importante : API Backend
+## Note : API Backend
 
-GitHub Pages héberge uniquement le **front-end statique**. Pour l'API MySQL :
-- Option 1 : Héberger l'API sur Railway, Render ou Fly.io (gratuit aussi)
-- Option 2 : Le site fonctionne en mode local (fallback sur données locales)
+Vercel héberge le **front-end statique**. Pour l'API MySQL :
+- **Option 1**: Héberger sur Railway, Render ou Fly.io (gratuit)
+- **Option 2**: Mode local avec fallback vers `src/data/`
+
+---
 
 ## Technologies
 
