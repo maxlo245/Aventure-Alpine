@@ -93,7 +93,13 @@ npm run dev
 
 ---
 
-## Déploiement sur GitHub Pages (gratuit)
+## Démo & Déploiement GitHub Pages
+
+[![GitHub Pages](https://img.shields.io/badge/GitHub%20Pages-Status-blue)](https://maxlo245.github.io/Aventure-Alpine/)
+
+👉 Démo: https://maxlo245.github.io/Aventure-Alpine/
+
+### Déploiement sur GitHub Pages (gratuit)
 
 ### Première fois - Configuration GitHub
 
@@ -129,6 +135,12 @@ git add .
 git commit -m "Description des changements"
 git push
 ```
+
+### Dépannage GitHub Pages
+- 404 sur les sous-routes: le site utilise `HashRouter` (`#/...`). Rafraîchissez avec Ctrl+F5 si vous voyez une page blanche.
+- Actions échoue: vérifiez les permissions (Settings → Actions → Workflow permissions: Read and write) et relancez le job.
+- Source Pages: assurez-vous que Pages est configuré sur "GitHub Actions".
+- Cache navigateur: utilisez la navigation privée ou un hard refresh (Ctrl+F5).
 
 ### Note importante : API Backend
 
