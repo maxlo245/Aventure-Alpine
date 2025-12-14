@@ -3,6 +3,7 @@ services:
     name: aventure-alpine-api
     env: node
     plan: free
+    buildCommand: npm install
     startCommand: node server/index.js
     envVars:
       - key: NODE_ENV
