@@ -1,0 +1,38 @@
+export const articles = [
+  {
+    id: 1,
+    title: "Escalade sur granite : passer le 6b avec confiance",
+    excerpt: "Plan d'entraînement de 4 semaines et checklist matériel pour progresser en falaise alpine.",
+    category: "Escalade",
+    author: "Camille Dumas",
+    date: "2024-02-12",
+    readTime: 6,
+  },
+  {
+    id: 2,
+    title: "Randonnée sur glacier : sécurité et encordement",
+    excerpt: "Bases de progression, gestion des crevasses et protocole en cas de chute.",
+    category: "Randonnée",
+    author: "Lucien Perrin",
+    date: "2024-03-01",
+    readTime: 5,
+  },
+  {
+    id: 3,
+    title: "Ski de randonnée : choisir son itinéraire",
+    excerpt: "Lire un BRA, évaluer les pentes et planifier un D+ adapté au groupe.",
+    category: "Ski",
+    author: "Maya Fontaine",
+    date: "2024-01-20",
+    readTime: 7,
+  },
+  {
+    id: 4,
+    title: "Bivouac léger en altitude",
+    excerpt: "3 configurations de campement pour nuits à +2500m sans surcharge.",
+    category: "Randonnée",
+    author: "Julie Martin",
+    date: "2024-02-28",
+    readTime: 4,
+  },
+];
