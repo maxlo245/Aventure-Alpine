@@ -1,101 +1,101 @@
 # Aventures Alpines
 
-A modern web platform for mountain sports enthusiasts, built with React and Express. Provides activity discovery, route planning, multimedia content, and community features.
+Plateforme web moderne dédiée aux sports de montagne, construite avec React et Express. Offre la découverte d'activités, la planification d'itinéraires, du contenu multimédia et des fonctionnalités communautaires.
 
 [![Deploy Status](https://img.shields.io/badge/vercel-deployed-success)](https://aventure-alpine.vercel.app)
 [![API Status](https://img.shields.io/badge/api-online-brightgreen)](https://aventure-alpine.onrender.com)
 [![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](LICENSE)
 
-## Overview
+## Vue d'ensemble
 
-This application offers a comprehensive solution for discovering alpine activities, planning mountain routes, and accessing curated multimedia content. It features a React-based SPA frontend with server-side API integration and persistent data storage.
+Cette application propose une solution complète pour découvrir des activités alpines, planifier des itinéraires en montagne et accéder à du contenu multimédia. Elle comporte un frontend SPA React avec intégration API côté serveur et stockage persistant des données.
 
-**Key features:**
-- Activity catalog with advanced filtering
-- Route planning with difficulty metrics
-- Video gallery and blog content
-- Contact form with message persistence
-- Responsive design with dark theme
-- RESTful API with MySQL backend
+**Fonctionnalités principales :**
+- Catalogue d'activités avec filtrage avancé
+- Planification d'itinéraires avec métriques de difficulté
+- Galerie vidéo et contenu blog
+- Formulaire de contact avec persistance des messages
+- Design responsive avec thème sombre
+- API RESTful avec backend MySQL
 
-## Tech Stack
+## Stack technique
 
-**Frontend:**
-- React 18.2 with functional components
-- Vite 5.0 for build tooling
-- React Router DOM 7 for client-side routing
-- CSS3 animations
+**Frontend :**
+- React 18.2 avec composants fonctionnels
+- Vite 5.0 pour le build
+- React Router DOM 7 pour le routing côté client
+- Animations CSS3
 
-**Backend:**
-- Node.js 22+ runtime
-- Express 4.19 framework
-- MySQL 8.0 database (PlanetScale)
-- mysql2 driver with Promise API
+**Backend :**
+- Runtime Node.js 22+
+- Framework Express 4.19
+- Base de données MySQL 8.0 (PlanetScale)
+- Driver mysql2 avec Promise API
 
-**Infrastructure:**
-- Vercel for frontend hosting (CDN + Edge)
-- Render for backend API (Free Tier)
-- PlanetScale for serverless MySQL
-- GitHub Actions for CI/CD
+**Infrastructure :**
+- Vercel pour l'hébergement frontend (CDN + Edge)
+- Render pour l'API backend (Free Tier)
+- PlanetScale pour MySQL serverless
+- GitHub Actions pour CI/CD
 
 ## Installation
 
-### Prerequisites
+### Prérequis
 
 - Node.js >= 18.0.0
 - npm >= 9.0.0
-- MySQL >= 8.0 (or PlanetScale account)
+- MySQL >= 8.0 (ou compte PlanetScale)
 
-### Local Development
+### Développement local
 
-Clone the repository:
+Cloner le dépôt :
 ```bash
 git clone https://github.com/maxlo245/Aventure-Alpine.git
 cd Aventure-Alpine
 ```
 
-Install dependencies:
+Installer les dépendances :
 ```bash
 npm install
 ```
 
-Configure environment variables:
+Configurer les variables d'environnement :
 ```bash
 cp server/.env.example server/.env
 ```
 
-Edit `server/.env` with your database credentials:
+Éditer `server/.env` avec vos identifiants de base de données :
 ```env
 DB_HOST=localhost
 DB_PORT=3306
 DB_USER=root
-DB_PASSWORD=your_password
+DB_PASSWORD=votre_mot_de_passe
 DB_NAME=aventures_alpines
 PORT=5000
 ```
 
-Initialize database schema:
+Initialiser le schéma de base de données :
 ```bash
 mysql -u root -p < server/db/schema.sql
 ```
 
-Start the development servers:
+Démarrer les serveurs de développement :
 
-Terminal 1 (API):
+Terminal 1 (API) :
 ```bash
 npm run server
 ```
 
-Terminal 2 (Frontend):
+Terminal 2 (Frontend) :
 ```bash
 npm run dev
 ```
 
-Access the application at `http://localhost:5173`
+Accéder à l'application sur `http://localhost:5173`
 
-## Deployment
+## Déploiement
 
-### Production Architecture
+### Architecture de production
 
 ```
 ┌──────────────┐      ┌──────────────┐      ┌──────────────┐
@@ -114,23 +114,23 @@ Access the application at `http://localhost:5173`
                       └──────────────┘
 ```
 
-### Frontend Deployment (Vercel)
+### Déploiement frontend (Vercel)
 
-1. Import repository on Vercel
-2. Configure build settings (auto-detected for Vite)
-3. Set environment variable:
+1. Importer le dépôt sur Vercel
+2. Configurer les paramètres de build (auto-détectés pour Vite)
+3. Définir la variable d'environnement :
    ```
    VITE_API_URL=https://aventure-alpine.onrender.com
    ```
-4. Deploy
+4. Déployer
 
-### Backend Deployment (Render)
+### Déploiement backend (Render)
 
-1. Create new Web Service from GitHub repository
-2. Configure service:
-   - **Build Command**: `npm install`
-   - **Start Command**: `node server/index.js`
-3. Set environment variables:
+1. Créer un nouveau Web Service depuis le dépôt GitHub
+2. Configurer le service :
+   - **Build Command** : `npm install`
+   - **Start Command** : `node server/index.js`
+3. Définir les variables d'environnement :
    ```
    NODE_ENV=production
    PORT=5000
@@ -141,42 +141,42 @@ Access the application at `http://localhost:5173`
    DB_NAME=aventures_alpines
    ```
 
-### Database Setup (PlanetScale)
+### Configuration base de données (PlanetScale)
 
-1. Create database at https://planetscale.com
-2. Obtain connection credentials
-3. Initialize schema:
+1. Créer une base de données sur https://planetscale.com
+2. Obtenir les identifiants de connexion
+3. Initialiser le schéma :
    ```bash
    mysql -h <host> -u <user> -p < server/db/schema.sql
    ```
 
-## API Reference
+## Référence API
 
-**Base URL:** `https://aventure-alpine.onrender.com`
+**URL de base :** `https://aventure-alpine.onrender.com`
 
 ### Endpoints
 
-| Method | Endpoint | Description | Request Body |
-|--------|----------|-------------|--------------|
-| GET | `/api/health` | API health check | - |
-| GET | `/api/activities` | Retrieve all activities | - |
-| GET | `/api/articles` | Retrieve blog articles | - |
-| GET | `/api/videos` | Retrieve video gallery | - |
-| GET | `/api/routes` | Retrieve mountain routes | - |
-| GET | `/api/experiences` | Retrieve user experiences | - |
-| POST | `/api/experiences` | Create new experience | `{ author, title, body }` |
-| GET | `/api/contact-messages` | Retrieve contact messages | - |
-| POST | `/api/contact-messages` | Submit contact message | `{ name, email, message }` |
-| PATCH | `/api/contact-messages/:id` | Update message status | `{ status }` |
+| Méthode | Endpoint | Description | Corps de requête |
+|---------|----------|-------------|------------------|
+| GET | `/api/health` | Vérification santé API | - |
+| GET | `/api/activities` | Récupérer toutes les activités | - |
+| GET | `/api/articles` | Récupérer les articles du blog | - |
+| GET | `/api/videos` | Récupérer la galerie vidéo | - |
+| GET | `/api/routes` | Récupérer les itinéraires montagne | - |
+| GET | `/api/experiences` | Récupérer les expériences utilisateurs | - |
+| POST | `/api/experiences` | Créer une nouvelle expérience | `{ author, title, body }` |
+| GET | `/api/contact-messages` | Récupérer les messages de contact | - |
+| POST | `/api/contact-messages` | Soumettre un message de contact | `{ name, email, message }` |
+| PATCH | `/api/contact-messages/:id` | Mettre à jour le statut du message | `{ status }` |
 
-### Example Request
+### Exemple de requête
 
 ```javascript
 const response = await fetch('https://aventure-alpine.onrender.com/api/activities');
 const data = await response.json();
 ```
 
-## Project Structure
+## Structure du projet
 
 ```
 .
@@ -211,57 +211,57 @@ const data = await response.json();
 └── README.md
 ```
 
-## Available Scripts
+## Scripts disponibles
 
-| Command | Description |
-|---------|-------------|
-| `npm run dev` | Start Vite development server |
-| `npm run build` | Build for production |
-| `npm run preview` | Preview production build |
-| `npm run server` | Start Express API server |
-| `npm run lint` | Run ESLint |
+| Commande | Description |
+|----------|-------------|
+| `npm run dev` | Démarrer le serveur de développement Vite |
+| `npm run build` | Build pour la production |
+| `npm run preview` | Prévisualiser le build de production |
+| `npm run server` | Démarrer le serveur API Express |
+| `npm run lint` | Exécuter ESLint |
 
-## Security
+## Sécurité
 
-- Environment variables for sensitive data
-- CORS configuration for authorized domains
-- SQL injection prevention via parameterized queries
-- Input validation on API endpoints
-- HTTPS enforcement in production
+- Variables d'environnement pour les données sensibles
+- Configuration CORS pour les domaines autorisés
+- Prévention des injections SQL via requêtes paramétrées
+- Validation des entrées sur les endpoints API
+- Application HTTPS en production
 
-## Contributing
+## Contribution
 
-Contributions are welcome. Please follow these guidelines:
+Les contributions sont les bienvenues. Veuillez suivre ces directives :
 
-1. Fork the repository
-2. Create a feature branch (`git checkout -b feature/feature-name`)
-3. Commit changes (`git commit -m 'Add feature'`)
-4. Push to branch (`git push origin feature/feature-name`)
-5. Open a Pull Request
+1. Fork le dépôt
+2. Créer une branche de fonctionnalité (`git checkout -b feature/nom-fonctionnalite`)
+3. Commit les changements (`git commit -m 'Add feature'`)
+4. Push vers la branche (`git push origin feature/nom-fonctionnalite`)
+5. Ouvrir une Pull Request
 
-### Commit Convention
+### Convention de commit
 
-- `feat:` New feature
-- `fix:` Bug fix
-- `docs:` Documentation changes
-- `style:` Code style changes (formatting, etc.)
-- `refactor:` Code refactoring
-- `test:` Adding tests
-- `chore:` Maintenance tasks
+- `feat:` Nouvelle fonctionnalité
+- `fix:` Correction de bug
+- `docs:` Modifications de documentation
+- `style:` Modifications de style de code (formatage, etc.)
+- `refactor:` Refactorisation du code
+- `test:` Ajout de tests
+- `chore:` Tâches de maintenance
 
-## License
+## Licence
 
-This project is licensed under the MIT License. See [LICENSE](LICENSE) file for details.
+Ce projet est sous licence MIT. Voir le fichier [LICENSE](LICENSE) pour plus de détails.
 
-## Links
+## Liens
 
-- **Production:** https://aventure-alpine.vercel.app
-- **API:** https://aventure-alpine.onrender.com
-- **Repository:** https://github.com/maxlo245/Aventure-Alpine
+- **Production :** https://aventure-alpine.vercel.app
+- **API :** https://aventure-alpine.onrender.com
+- **Dépôt :** https://github.com/maxlo245/Aventure-Alpine
 
-## Acknowledgments
+## Remerciements
 
-Built with:
+Construit avec :
 - [React](https://reactjs.org/)
 - [Vite](https://vitejs.dev/)
 - [Express](https://expressjs.com/)
