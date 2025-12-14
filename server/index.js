@@ -30,6 +30,23 @@ app.get('/api/health', async (req, res) => {
   }
 });
 
+// Root route for Render health checks and browser tests
+app.get('/', (req, res) => {
+  res.json({
+    name: 'Aventures Alpines API',
+    status: 'running',
+    endpoints: [
+      '/api/health',
+      '/api/activities',
+      '/api/articles',
+      '/api/videos',
+      '/api/routes',
+      '/api/experiences',
+      '/api/contact-messages'
+    ]
+  });
+});
+
 app.get('/api/articles', (req, res) =>
   safeQuery(
     res,
