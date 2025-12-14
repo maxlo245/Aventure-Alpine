@@ -1,36 +1,97 @@
-# Aventures Alpines
+# 🏔️ Aventures Alpines
 
-Un site web React pour découvrir les aventures en montagne.
+> **Plateforme web moderne dédiée aux passionnés de sports de montagne**
 
-## Fonctionnalités
+Une application React immersive avec un design sombre animé, permettant de découvrir des activités alpines, consulter des articles détaillés, visionner des vidéos et planifier des itinéraires en montagne.
 
-- Page d'accueil avec introduction et bouton interactif.
-- Page des aventures avec images et descriptions.
-- Page de contact avec formulaire.
-- Navigation avec React Router.
+[![Live Demo](https://img.shields.io/badge/demo-live-success)](https://maxlo245.github.io/Aventure-Alpine/)
+[![React](https://img.shields.io/badge/React-18.2-blue)](https://reactjs.org/)
+[![Vite](https://img.shields.io/badge/Vite-5.0-646CFF)](https://vitejs.dev/)
 
-## Installation
+---
 
-1) Prérequis
-- Node.js 18+ (inclut npm). Vérifiez avec `node -v` et `npm -v`.
-- MySQL en local (port 3306) ou accessible sur le réseau.
-- Si `node` n'est pas reconnu sous Windows, ajoutez `C:\Program Files\nodejs` au `PATH` ou utilisez les commandes avec le chemin complet ci-dessous.
+## ✨ Fonctionnalités
 
-2) Installer les dépendances (client + serveur Express)
-- Depuis le dossier du projet : `npm install`
+- 🎯 **Navigation intuitive** avec React Router
+- 🎨 **Design moderne** : thème sombre avec fond animé en dégradé
+- 📱 **Responsive** : adapté mobile, tablette et desktop
+- 🔍 **Filtres avancés** : tri par catégorie, difficulté, date
+- 📊 **API REST** : backend Express + MySQL pour données dynamiques
+- 💬 **Partage d'expérience** : communauté interactive
+- ⚡ **Performance optimale** : Hot Module Replacement (HMR)
 
-3) Préparer la base MySQL
-- Créez la base et les tables avec le script : `mysql -u root -p < server/db/schema.sql`
-- Copiez `server/.env.example` en `server/.env` et ajustez DB_USER / DB_PASSWORD / DB_NAME au besoin.
+### Pages disponibles
 
-4) Lancer l'API Express (port 5000 par défaut)
-- `npm run server`
+| Page | Description |
+|------|-------------|
+| **Accueil** | Statistiques et appels à l'action |
+| **Activités** | Sports de montagne (randonnée, escalade, ski) |
+| **Articles** | Guides pratiques et retours d'expérience |
+| **Vidéos** | Galerie de vidéos immersives |
+| **Itinéraires** | Parcours détaillés avec niveaux de difficulté |
+| **Blog** | Articles communautaires et expériences terrain |
+| **Contact** | Formulaire de contact |
 
-5) Lancer le front Vite (port 5173 par défaut)
-- `npm run dev`
-- Ou, si `node` n'est pas dans le PATH : `& "C:\\Program Files\\nodejs\\npm.cmd" run dev`
+---
 
-L'API répond sur http://localhost:5000/api et le front sur http://localhost:5173.
+## 🚀 Démo en ligne
+
+👉 **[maxlo245.github.io/Aventure-Alpine](https://maxlo245.github.io/Aventure-Alpine/)**
+
+---
+
+## 🛠️ Technologies
+
+| Frontend | Backend | Outils |
+|----------|---------|--------|
+| React 18.2 | Node.js | Vite |
+| React Router DOM | Express | Git |
+| Axios | MySQL | GitHub Actions |
+| CSS3 (animations) | dotenv | |
+
+---
+
+## 📦 Installation
+
+### Prérequis
+
+- Node.js 18+ → `node -v` et `npm -v`
+- MySQL (port 3306)
+- Windows : ajouter `C:\Program Files\nodejs` au PATH
+
+### Étapes
+
+**1. Cloner le projet**
+```bash
+git clone https://github.com/maxlo245/Aventure-Alpine.git
+cd Aventure-Alpine
+```
+
+**2. Installer les dépendances**
+```bash
+npm install
+```
+
+**3. Configurer MySQL**
+```bash
+mysql -u root -p < server/db/schema.sql
+```
+Copier `server/.env.example` → `server/.env` et configurer vos identifiants.
+
+**4. Lancer l'API**
+```bash
+npm run server
+```
+
+**5. Lancer le front**
+```bash
+npm run dev
+```
+
+✅ API : http://localhost:5000/api  
+✅ Front : http://localhost:5173
+
+---
 
 ## Déploiement sur GitHub Pages (gratuit)
 
