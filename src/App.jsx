@@ -1,5 +1,5 @@
 import React from 'react';
-import { BrowserRouter as Router, Routes, Route, Link } from 'react-router-dom';
+import { HashRouter as Router, Routes, Route, Link } from 'react-router-dom';
 import Home from './Home';
 import Adventures from './Adventures';
 import Contact from './Contact';
@@ -12,7 +12,7 @@ import './App.css';
 
 function App() {
   return (
-    <Router basename={import.meta.env.BASE_URL || '/Aventure-Alpine/'}>
+    <Router>
       <div className="App">
         <header className="App-header">
           <h1>Aventures Alpines</h1>
