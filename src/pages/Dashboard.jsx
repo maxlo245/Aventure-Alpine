@@ -14,11 +14,14 @@ const Dashboard = () => {
   const loadMessages = async () => {
     setLoading(true);
     try {
-      const { data } = await api.get('/contact-messages');
+      const token = localStorage.getItem('token');
+      const { data } = await api.get('/contact-messages', {
+        headers: { Authorization: `Bearer ${token}` }
+      });
       setMessages(data);
       setError('');
     } catch (err) {
-      setError('Impossible de charger les messages. Vérifiez que l\'API est lancée.');
+      setError('Impossible de charger les messages. Vérifiez que l\'API est lancée ou reconnectez-vous.');
       console.error('Erreur:', err);
     } finally {
       setLoading(false);
@@ -27,7 +30,10 @@ const Dashboard = () => {
 
   const updateStatus = async (id, newStatus) => {
     try {
-      await api.patch(`/contact-messages/${id}`, { status: newStatus });
+      const token = localStorage.getItem('token');
+      await api.patch(`/contact-messages/${id}`, { status: newStatus }, {
+        headers: { Authorization: `Bearer ${token}` }
+      });
       setMessages(messages.map(m => m.id === id ? { ...m, status: newStatus } : m));
     } catch (err) {
       alert('Erreur lors de la mise à jour du statut');
