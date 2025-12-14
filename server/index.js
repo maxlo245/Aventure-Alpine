@@ -13,8 +13,8 @@ app.use(express.json());
 
 const safeQuery = async (res, sql, params = []) => {
   try {
-    const [rows] = await pool.query(sql, params);
-    return res.json(rows);
+    const result = await pool.query(sql, params);
+    return res.json(result.rows);
   } catch (error) {
     console.error('DB error:', error.message);
     return res.status(500).json({ error: 'Erreur base de données' });
@@ -101,11 +101,11 @@ app.post('/api/experiences', async (req, res) => {
     return res.status(400).json({ error: 'Champs manquants' });
   }
   try {
-    const [result] = await pool.query(
-      'INSERT INTO experiences (auteur, titre, contenu) VALUES (?, ?, ?)',
+    const result = await pool.query(
+      'INSERT INTO experiences (auteur, titre, contenu) VALUES ($1, $2, $3) RETURNING id, auteur AS author, titre AS title, contenu AS body, created_at AS createdAt',
       [author, title, body]
     );
-    res.status(201).json({ id: result.insertId, author, title, body, createdAt: new Date() });
+    res.status(201).json(result.rows[0]);
   } catch (error) {
     console.error('DB error:', error.message);
     res.status(500).json({ error: 'Erreur base de données' });
@@ -128,11 +128,11 @@ app.post('/api/contact-messages', async (req, res) => {
     return res.status(400).json({ error: 'Champs manquants' });
   }
   try {
-    const [result] = await pool.query(
-      'INSERT INTO contact_messages (nom, email, message) VALUES (?, ?, ?)',
+    const result = await pool.query(
+      'INSERT INTO contact_messages (name, email, message) VALUES ($1, $2, $3) RETURNING id, name, email, message, created_at AS createdAt',
       [name, email, message]
     );
-    res.status(201).json({ id: result.insertId, name, email, message, status: 'nouveau', createdAt: new Date() });
+    res.status(201).json(result.rows[0]);
   } catch (error) {
     console.error('DB error:', error.message);
     res.status(500).json({ error: 'Erreur base de données' });
@@ -146,7 +146,7 @@ app.patch('/api/contact-messages/:id', async (req, res) => {
     return res.status(400).json({ error: 'Status manquant' });
   }
   try {
-    await pool.query('UPDATE contact_messages SET status = ? WHERE id = ?', [status, id]);
+    await pool.query('UPDATE contact_messages SET status = $1 WHERE id = $2', [status, id]);
     res.json({ success: true });
   } catch (error) {
     console.error('DB error:', error.message);
