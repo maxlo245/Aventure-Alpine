@@ -317,6 +317,14 @@ export default function Ski() {
           margin: 0 auto;
         }
 
+        .container > p,
+        .intro-section p,
+        .discipline-card p,
+        .condition-card p,
+        .slope-card p {
+          color: #2d3748;
+        }
+
         h2 {
           font-size: 2rem;
           margin-bottom: 1rem;
@@ -324,7 +332,7 @@ export default function Ski() {
         }
 
         .section-intro {
-          color: #718096;
+          color: #4a5568;
           margin-bottom: 2rem;
         }
 

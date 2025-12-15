@@ -274,6 +274,13 @@ export default function Escalade() {
           margin: 0 auto;
         }
 
+        .container > p,
+        .intro-section p,
+        .tip-card p,
+        .site-description {
+          color: #2d3748;
+        }
+
         h2 {
           font-size: 2rem;
           margin-bottom: 1.5rem;

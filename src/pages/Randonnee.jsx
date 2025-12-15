@@ -318,8 +318,10 @@ export default function Randonnee() {
           margin: 0 auto;
         }
 
-        .container > p {
-          color: #4a5568;
+        .container > p,
+        .intro-section p,
+        .section-intro {
+          color: #2d3748;
         }
 
         h2 {
@@ -502,7 +504,7 @@ export default function Randonnee() {
           margin: 0;
           background: white;
           font-weight: 600;
-          color: #2d3748;
+          color: #1a202c;
         }
 
         .map-section {
