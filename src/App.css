@@ -524,3 +524,13 @@ footer {
     grid-template-columns: 1fr;
   }
 }
+
+/* Forcer les contrôles Leaflet sous le header */
+.leaflet-top,
+.leaflet-bottom {
+  z-index: 500 !important;
+}
+
+.leaflet-control {
+  z-index: 500 !important;
+}
