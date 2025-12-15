@@ -12,6 +12,9 @@ app.use(cors());
 app.use(express.json());
 
 const safeQuery = async (res, sql, params = []) => {
+  if (!pool) {
+    return res.status(503).json({ error: 'Base de données non configurée' });
+  }
   try {
     const result = await pool.query(sql, params);
     return res.json(result.rows);
@@ -22,9 +25,12 @@ const safeQuery = async (res, sql, params = []) => {
 };
 
 app.get('/api/health', async (req, res) => {
+  if (!pool) {
+    return res.json({ status: 'degraded', message: 'Base de données non configurée - Mode localStorage' });
+  }
   try {
     await pool.query('SELECT 1');
-    res.json({ status: 'ok' });
+    res.json({ status: 'ok', database: 'connected' });
   } catch (error) {
     res.status(500).json({ status: 'down', message: error.message });
   }
@@ -34,7 +40,8 @@ app.get('/api/health', async (req, res) => {
 app.get('/', (req, res) => {
   res.json({
     name: 'Aventures Alpines API',
-    status: 'running',
+    status: pool ? 'running' : 'running (database disabled)',
+    mode: pool ? 'full' : 'localStorage-only',
     endpoints: [
       '/api/health',
       '/api/activities',
@@ -43,7 +50,8 @@ app.get('/', (req, res) => {
       '/api/routes',
       '/api/experiences',
       '/api/contact-messages'
-    ]
+    ],
+    note: pool ? 'All endpoints available' : 'Database endpoints disabled - Use localStorage for contact form'
   });
 });
 
@@ -96,6 +104,9 @@ app.get('/api/experiences', (req, res) =>
 );
 
 app.post('/api/experiences', async (req, res) => {
+  if (!pool) {
+    return res.status(503).json({ error: 'Base de données non configurée' });
+  }
   const { author, title, body } = req.body;
   if (!author || !title || !body) {
     return res.status(400).json({ error: 'Champs manquants' });
@@ -123,6 +134,9 @@ app.get('/api/contact-messages', (req, res) =>
 );
 
 app.post('/api/contact-messages', async (req, res) => {
+  if (!pool) {
+    return res.status(503).json({ error: 'Base de données non configurée' });
+  }
   const { name, email, message } = req.body;
   if (!name || !email || !message) {
     return res.status(400).json({ error: 'Champs manquants' });
@@ -140,6 +154,9 @@ app.post('/api/contact-messages', async (req, res) => {
 });
 
 app.patch('/api/contact-messages/:id', async (req, res) => {
+  if (!pool) {
+    return res.status(503).json({ error: 'Base de données non configurée' });
+  }
   const { id } = req.params;
   const { status } = req.body;
   if (!status) {
