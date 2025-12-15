@@ -16,6 +16,7 @@
   padding: 16px 32px;
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
   border-bottom: 1px solid var(--border);
+  isolation: isolate;
 }
 
 .App-header h1 {
