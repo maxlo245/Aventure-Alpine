@@ -63,8 +63,8 @@ const Articles = () => {
     <section id="articles" style={{ padding: '2rem' }}>
       <div className="section-head" style={{ marginBottom: '2rem' }}>
         <div>
-          <h2 style={{ fontSize: '2rem', marginBottom: '0.5rem' }}>📚 Articles</h2>
-          <p style={{ color: '#718096' }}>Fiches pratiques, retours d'expérience et méthodes terrain.</p>
+          <h2 style={{ fontSize: '2rem', marginBottom: '0.5rem', color: '#1a202c' }}>📚 Articles</h2>
+          <p style={{ color: '#4a5568' }}>Fiches pratiques, retours d'expérience et méthodes terrain.</p>
         </div>
       </div>
 

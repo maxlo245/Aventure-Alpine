@@ -61,8 +61,8 @@ function Contact() {
 
   return (
     <section id="contact" style={{ padding: '2rem', maxWidth: '1200px', margin: '0 auto' }}>
-      <h2 style={{ fontSize: '2.5rem', marginBottom: '1rem', textAlign: 'center' }}>📞 Contactez-nous</h2>
-      <p style={{ textAlign: 'center', color: '#718096', marginBottom: '3rem' }}>
+      <h2 style={{ fontSize: '2.5rem', marginBottom: '1rem', textAlign: 'center', color: '#1a202c' }}>📞 Contactez-nous</h2>
+      <p style={{ textAlign: 'center', color: '#4a5568', marginBottom: '3rem' }}>
         Une question, une demande de réservation ou simplement envie de discuter de votre prochaine aventure ?
       </p>
 
@@ -219,8 +219,8 @@ function Contact() {
 
       {/* Carte de localisation */}
       <div style={{ marginTop: '3rem' }}>
-        <h3 style={{ fontSize: '1.75rem', marginBottom: '1rem' }}>🗺️ Nous trouver</h3>
-        <p style={{ color: '#718096', marginBottom: '1.5rem' }}>
+        <h3 style={{ fontSize: '1.75rem', marginBottom: '1rem', color: '#1a202c' }}>🗺️ Nous trouver</h3>
+        <p style={{ color: '#4a5568', marginBottom: '1.5rem' }}>
           Notre bureau est situé au cœur de Chamonix, au pied du Mont-Blanc
         </p>
         <div style={{ borderRadius: '12px', overflow: 'hidden', boxShadow: '0 4px 12px rgba(0,0,0,0.1)' }}>

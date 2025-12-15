@@ -75,8 +75,8 @@ const Videos = () => {
     <section id="videos" style={{ padding: '2rem' }}>
       <div className="section-head" style={{ marginBottom: '2rem' }}>
         <div>
-          <h2 style={{ fontSize: '2rem', marginBottom: '0.5rem' }}>🎥 Vidéos</h2>
-          <p style={{ color: '#718096' }}>Des images immersives pour préparer ou rêver la prochaine sortie.</p>
+          <h2 style={{ fontSize: '2rem', marginBottom: '0.5rem', color: '#1a202c' }}>🎥 Vidéos</h2>
+          <p style={{ color: '#4a5568' }}>Des images immersives pour préparer ou rêver la prochaine sortie.</p>
         </div>
       </div>
 
