@@ -69,14 +69,12 @@ Cette conception garantit la disponibilité des fonctionnalités essentielles in
 | CORS | 2.8 | Middleware de gestion Cross-Origin |
 | dotenv | 16.4 | Gestion des variables d'environnement |
 
-### Infrastructure
-
+│
 | Service | Rôle | Configuration |
 |---------|------|---------------|
 | Vercel | Hébergement frontend | CDN global, déploiement automatique |
 | Render | Hébergement API | Tier gratuit, démarrage à froid |
 | Supabase | Base de données | PostgreSQL serverless (optionnel) |
-| GitHub Actions | CI/CD | Déploiement automatisé |
 
 ## Installation
 
