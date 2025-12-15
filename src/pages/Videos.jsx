@@ -72,7 +72,7 @@ const Videos = () => {
   };
 
   return (
-    <section id="videos" style={{ padding: '2rem' }}>
+    <section id="videos" style={{ padding: '2rem', background: 'white', borderRadius: '12px', minHeight: '100vh' }}>
       <div className="section-head" style={{ marginBottom: '2rem' }}>
         <div>
           <h2 style={{ fontSize: '2rem', marginBottom: '0.5rem', color: '#1a202c' }}>🎥 Vidéos</h2>
