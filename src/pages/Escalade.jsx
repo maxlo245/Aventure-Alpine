@@ -284,11 +284,19 @@ export default function Escalade() {
         h2 {
           font-size: 2rem;
           margin-bottom: 1.5rem;
-          color: #1a202c;
+          color: #1a202c !important;
         }
 
         h3 {
-          color: #1a202c;
+          color: #1a202c !important;
+        }
+
+        .intro-section h2,
+        .beginners-section h2,
+        .safety-section h2,
+        .sites-section h2,
+        .videos-section h2 {
+          color: #1a202c !important;
         }
 
         .tips-grid {

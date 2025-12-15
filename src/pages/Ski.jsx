@@ -328,11 +328,20 @@ export default function Ski() {
         h2 {
           font-size: 2rem;
           margin-bottom: 1rem;
-          color: #1a202c;
+          color: #1a202c !important;
         }
 
         h3 {
-          color: #1a202c;
+          color: #1a202c !important;
+        }
+
+        .intro-section h2,
+        .disciplines-section h2,
+        .conditions-section h2,
+        .slopes-section h2,
+        .testimonials-section h2,
+        .offers-section h2 {
+          color: #1a202c !important;
         }
 
         .section-intro {

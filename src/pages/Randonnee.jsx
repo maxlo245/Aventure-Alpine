@@ -327,11 +327,18 @@ export default function Randonnee() {
         h2 {
           font-size: 2rem;
           margin-bottom: 1.5rem;
-          color: #1a202c;
+          color: #1a202c !important;
         }
 
         h3 {
-          color: #1a202c;
+          color: #1a202c !important;
+        }
+
+        .intro-section h2,
+        .routes-section h2,
+        .map-section h2,
+        .gallery-section h2 {
+          color: #1a202c !important;
         }
 
         .info-cards {
@@ -366,6 +373,10 @@ export default function Randonnee() {
 
         .safety-section {
           background: #f7fafc;
+        }
+
+        .safety-section h2 {
+          color: #1a202c !important;
         }
 
         .safety-grid {
