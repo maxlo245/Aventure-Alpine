@@ -69,7 +69,7 @@ function Contact() {
       <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))', gap: '3rem', marginBottom: '3rem' }}>
         {/* Formulaire de contact */}
         <div style={{ background: 'white', padding: '2rem', borderRadius: '12px', boxShadow: '0 2px 8px rgba(0,0,0,0.1)' }}>
-          <h3 style={{ marginBottom: '1.5rem', fontSize: '1.5rem' }}>✉️ Envoyez-nous un message</h3>
+          <h3 style={{ marginBottom: '1.5rem', fontSize: '1.5rem', color: '#1a202c' }}>✉️ Envoyez-nous un message</h3>
           <form onSubmit={handleSubmit} style={{ display: 'flex', flexDirection: 'column', gap: '1rem' }}>
             <div>
               <label style={{ display: 'block', marginBottom: '0.5rem', fontWeight: '600', color: '#2d3748' }}>Nom complet</label>
@@ -85,6 +85,7 @@ function Contact() {
                   border: '2px solid #e2e8f0',
                   borderRadius: '8px',
                   fontSize: '1rem',
+                  color: '#1a202c',
                   outline: 'none',
                   transition: 'border 0.2s'
                 }}
@@ -106,6 +107,7 @@ function Contact() {
                   border: '2px solid #e2e8f0',
                   borderRadius: '8px',
                   fontSize: '1rem',
+                  color: '#1a202c',
                   outline: 'none',
                   transition: 'border 0.2s'
                 }}
@@ -127,6 +129,7 @@ function Contact() {
                   border: '2px solid #e2e8f0',
                   borderRadius: '8px',
                   fontSize: '1rem',
+                  color: '#1a202c',
                   outline: 'none',
                   resize: 'vertical',
                   fontFamily: 'inherit',
@@ -161,7 +164,7 @@ function Contact() {
         {/* Informations de contact */}
         <div style={{ display: 'flex', flexDirection: 'column', gap: '2rem' }}>
           <div style={{ background: 'white', padding: '2rem', borderRadius: '12px', boxShadow: '0 2px 8px rgba(0,0,0,0.1)' }}>
-            <h3 style={{ marginBottom: '1.5rem', fontSize: '1.5rem' }}>📍 Nos coordonnées</h3>
+            <h3 style={{ marginBottom: '1.5rem', fontSize: '1.5rem', color: '#1a202c' }}>📍 Nos coordonnées</h3>
             <div style={{ display: 'flex', flexDirection: 'column', gap: '1rem' }}>
               <div style={{ display: 'flex', alignItems: 'start', gap: '1rem' }}>
                 <span style={{ fontSize: '1.5rem' }}>🏢</span>
