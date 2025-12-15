@@ -1,150 +1,218 @@
-# Aventures Alpines
+<div align="center">
 
-> Plateforme web moderne dédiée aux sports de montagne et activités alpines
+# ⛰️ Aventures Alpines
 
-[![Deploy Status](https://img.shields.io/badge/vercel-deployed-success)](https://aventure-alpine.vercel.app)
-[![Node Version](https://img.shields.io/badge/node-%3E%3D18.0.0-brightgreen)](https://nodejs.org)
-[![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](LICENSE)
+**Plateforme web moderne pour les passionnés de sports de montagne**
 
-## Table des matières
+[![Vercel](https://img.shields.io/badge/vercel-deployed-success?style=flat&logo=vercel)](https://aventure-alpine.vercel.app)
+[![Node.js](https://img.shields.io/badge/node-%3E%3D18.0.0-brightgreen?style=flat&logo=node.js)](https://nodejs.org)
+[![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg?style=flat)](LICENSE)
 
-- [Vue d'ensemble](#vue-densemble)
-- [Architecture](#architecture)
-- [Stack technique](#stack-technique)
-- [Installation](#installation)
-- [Configuration](#configuration)
-- [Déploiement](#déploiement)
-- [API Reference](#référence-api)
-- [Structure du projet](#structure-du-projet)
-- [Contribution](#contribution)
-- [Licence](#licence)
+[Demo](https://aventure-alpine.vercel.app) • [Guide de déploiement](SUPABASE_SETUP.md) • [Signaler un bug](../../issues)
 
-## Vue d'ensemble
+</div>
 
-Aventures Alpines est une application web full-stack offrant une plateforme complète pour les passionnés de sports de montagne. Le système combine une interface utilisateur réactive avec une architecture backend modulaire permettant la gestion de contenu dynamique et la collecte de données utilisateurs.
+---
 
-### Fonctionnalités
+## 📖 Table des matières
 
+- [À propos](#-à-propos)
+- [Fonctionnalités](#-fonctionnalités)
+- [Technologies](#-technologies)
+- [Démarrage rapide](#-démarrage-rapide)
+- [Installation](#-installation)
+- [Configuration](#️-configuration)
+- [Déploiement](#-déploiement)
+- [API](#-api)
+- [Structure du projet](#-structure-du-projet)
+- [Contribution](#-contribution)
+- [Licence](#-licence)
 
-## Liens rapides
+---
 
-- Frontend (Production) : https://aventure-alpine.vercel.app
-- API (Optionnelle) : https://aventure-alpine.onrender.com
-- Guide DB (Supabase) : `SUPABASE_SETUP.md`
+## 🎯 À propos
 
-### Architecture
+**Aventures Alpines** est une application web full-stack offrant une vitrine interactive pour découvrir les sports de montagne (ski, escalade, randonnée, VTT) et permettre aux utilisateurs de contacter l'équipe via un formulaire optimisé.
 
-L'application adopte une architecture découplée permettant un fonctionnement autonome du frontend :
+L'architecture découplée garantit une **haute disponibilité** : le frontend fonctionne de manière autonome avec localStorage, tandis que le backend et la base de données restent optionnels.
+
+### Points clés
+
+✅ **Progressive Enhancement** - Fonctionne sans backend  
+✅ **Mobile-first** - Responsive sur tous les appareils  
+✅ **SEO-ready** - Métadonnées optimisées  
+✅ **Production-grade** - Déployé sur Vercel + Render
+
+---
+
+## ✨ Fonctionnalités
+
+### 🏠 Pages principales
+
+- **Accueil** - Hero section, présentation générale
+- **Activités** - Catalogue des sports alpins (ski, escalade, randonnée, VTT)
+- **Itinéraires** - Parcours détaillés avec niveaux de difficulté et cartographie
+- **Articles** - Blog sur les techniques, matériel et conseils
+- **Vidéos** - Galerie multimédia de documentaires et tutoriels
+- **Contact** - Formulaire avec validation et persistance localStorage
+
+### 🛡️ Architecture
 
 ```
-Client (Browser) → Vercel CDN → React SPA
-                                    ↓
-                              localStorage (données locales)
-                                    ↓
-                         [Optionnel] API REST
-                                    ↓
-                         [Optionnel] PostgreSQL
+┌─────────────────┐
+│   Utilisateur   │
+└────────┬────────┘
+         │
+    ┌────▼─────┐
+    │  Vercel  │ (CDN global)
+    └────┬─────┘
+         │
+    ┌────▼─────────────────┐
+    │   React SPA          │
+    │  (HashRouter)        │
+    └──┬────────────────┬──┘
+       │                │
+┌──────▼───────┐   ┌───▼──────────────┐
+│ localStorage │   │  API (optionnel) │
+└──────────────┘   └───┬──────────────┘
+                       │
+              ┌────────▼──────────┐
+              │  PostgreSQL       │
+              │  (Supabase)       │
+              └───────────────────┘
 ```
 
-Cette conception garantit la disponibilité des fonctionnalités essentielles indépendamment de l'état du backend.
+**Progressive Enhancement** : Le frontend fonctionne sans backend. Si l'API est configurée (`VITE_API_URL`), les données sont synchronisées avec PostgreSQL.
 
-## Stack technique
+---
+
+## 🚀 Technologies
 
 ### Frontend
 
-| Technologie | Version | Utilisation |
-|------------|---------|-------------|
-| React | 18.2 | Bibliothèque UI avec architecture component-based |
-| Vite | 5.0 | Build tool et serveur de développement |
-| React Router DOM | 7.x | Gestion du routing côté client (HashRouter) |
-| Axios | 1.7 | Client HTTP pour les requêtes API |
+| Technologie | Version | Rôle |
+|-------------|---------|------|
+| **React** | 18.2 | Interface utilisateur avec hooks et state management |
+| **Vite** | 5.0 | Build tool ultra-rapide (HMR, ESM) |
+| **React Router** | 7.x | Routing côté client avec HashRouter |
+| **Axios** | 1.7 | Client HTTP pour appels API |
 
 ### Backend
 
-| Technologie | Version | Utilisation |
-|------------|---------|-------------|
-| Node.js | ≥18.0 | Runtime JavaScript serveur |
-| Express | 4.19 | Framework web minimaliste |
-| pg | 8.11 | Driver PostgreSQL avec support async/await |
-| CORS | 2.8 | Middleware de gestion Cross-Origin |
-| dotenv | 16.4 | Gestion des variables d'environnement |
+| Technologie | Version | Rôle |
+|-------------|---------|------|
+| **Node.js** | ≥18.0 | Runtime JavaScript serveur |
+| **Express** | 4.19 | API REST minimaliste |
+| **pg** | 8.11 | Driver PostgreSQL natif |
+| **CORS** | 2.8 | Gestion Cross-Origin Resource Sharing |
+| **dotenv** | 16.4 | Variables d'environnement |
 
-│
-| Service | Rôle | Configuration |
-|---------|------|---------------|
-| Vercel | Hébergement frontend | CDN global, déploiement automatique |
-| Render | Hébergement API | Tier gratuit, démarrage à froid |
-| Supabase | Base de données | PostgreSQL serverless (optionnel) |
+### Infrastructure
 
-## Installation
+| Service | Rôle | Plan |
+|---------|------|------|
+| **Vercel** | Hosting frontend | Free (CDN global, auto-deploy) |
+| **Render** | Hosting API | Free (cold start après inactivité) |
+| **Supabase** | Database PostgreSQL | Free (500MB, optionnel) |
 
-### Prérequis système
+---
 
-- Node.js version 18.0.0 ou supérieure
-- npm version 9.0.0 ou supérieure
-- PostgreSQL 13+ (optionnel, requis uniquement pour la persistance centralisée)
+## 🏁 Démarrage rapide
 
-### Installation des dépendances
+### Prérequis
 
-Cloner le dépôt et installer les packages npm :
+- **Node.js** ≥ 18.0.0
+- **npm** ≥ 9.0.0
+- **Git**
+
+### Installation en 3 étapes
 
 ```bash
+# 1. Cloner le projet
 git clone https://github.com/maxlo245/Aventure-Alpine.git
 cd Aventure-Alpine
+
+# 2. Installer les dépendances
 npm install
+
+# 3. Lancer le développement
+npm run dev
 ```
 
-### Configuration locale
+✅ Ouvrez http://localhost:5173 dans votre navigateur
 
-L'application peut fonctionner en deux modes :
+---
 
-#### Mode standalone (recommandé pour le développement)
+## 📦 Installation
 
-Lancer uniquement le frontend sans configuration additionnelle :
+### Mode standalone (frontend uniquement)
+
+Le plus simple pour débuter. Aucune configuration requise.
 
 ```bash
 npm run dev
 ```
 
-L'application sera accessible sur `http://localhost:5173`. Le formulaire de contact utilisera localStorage pour la persistance des données.
+Le formulaire de contact sauvegarde les messages dans **localStorage** (navigateur local).
 
-#### Mode full-stack (optionnel)
+### Mode full-stack (frontend + backend + base de données)
 
-Pour activer la couche backend et la base de données :
+Pour activer la synchronisation avec PostgreSQL :
 
-1. Copier le fichier de configuration :
+#### Étape 1 : Configuration de la base de données
+
+Consultez le guide complet : **[SUPABASE_SETUP.md](SUPABASE_SETUP.md)**
+
+Résumé :
+1. Créer un compte Supabase gratuit
+2. Créer un nouveau projet
+3. Récupérer les identifiants de connexion
+
+#### Étape 2 : Variables d'environnement
+
+Créez un fichier `.env` à la racine :
+
 ```bash
 cp .env.supabase.example .env
 ```
 
-2. Renseigner les variables d'environnement dans `.env` :
+Remplissez les variables :
+
 ```env
+# Backend - API Server
+PORT=5000
+
+# Database - Supabase PostgreSQL
 DB_HOST=xxxxx.supabase.co
 DB_USER=postgres
-DB_PASSWORD=votre_mot_de_passe
+DB_PASSWORD=votre_mot_de_passe_supabase
 DB_NAME=postgres
 DB_PORT=5432
-PORT=5000
 ```
 
-3. Initialiser le schéma de base de données :
+#### Étape 3 : Initialisation du schéma
+
 ```bash
 npm run init-db
 ```
 
-4. Démarrer les deux serveurs (terminaux séparés) :
+Cette commande crée les tables nécessaires dans Supabase.
 
-Terminal 1 - Frontend :
+#### Étape 4 : Lancement des serveurs
+
+**Terminal 1** (Frontend) :
 ```bash
 npm run dev
 ```
 
-Terminal 2 - API :
+**Terminal 2** (API) :
 ```bash
 npm run server
 ```
 
-## Configuration
+---
+
+## ⚙️ Configuration
 
 ### Variables d'environnement
 
@@ -154,7 +222,7 @@ npm run server
 |----------|--------|-------------|-------------------|
 | `VITE_API_URL` | Non | URL de l'API backend | - |
 
-Remarque : en l'absence de cette variable, l'application fonctionne en mode autonome avec localStorage.
+**Remarque** : Sans cette variable, l'application fonctionne en mode autonome avec localStorage.
 
 #### Backend (Render)
 
@@ -168,402 +236,325 @@ Remarque : en l'absence de cette variable, l'application fonctionne en mode aut
 | `DB_NAME` | Non* | Nom de la base de données | `postgres` |
 | `DB_PORT` | Non* | Port PostgreSQL | `5432` |
 
-***Variables DB** : L'API démarre sans ces variables et opère en mode dégradé (retourne HTTP 503 pour les endpoints nécessitant la base).
+***Variables DB optionnelles** : L'API démarre sans ces variables et retourne HTTP 503 pour les endpoints nécessitant la base de données.
 
-## Déploiement
+---
 
-### Architecture de production
+## 🚢 Déploiement
 
-L'architecture de production adopte une approche progressive permettant de déployer uniquement le frontend ou l'ensemble du stack complet.
+### Déploiement Vercel (Frontend)
 
-```
-Client Application
-       │
-       ▼
-   Vercel CDN (Global Edge Network)
-       │
-       ▼
-   React SPA (Static Assets)
-       │
-       ├──────────────────┐
-       │                  │
-       ▼                  ▼
-   localStorage    API REST (Optionnel)
-   (Messages)           │
-                        ▼
-                 Render Platform
-                        │
-                        ▼
-              PostgreSQL Database
-               (Supabase - Optionnel)
-```
+**Prérequis** : Compte Vercel connecté à GitHub
 
-### Déploiement du frontend
-
-**Plateforme :** Vercel  
-**Prérequis :** Compte Vercel connecté au repository GitHub
-
-**Procédure :**
-
-1. Connecter le repository sur la plateforme Vercel
-2. Configuration de build (auto-détectée) :
-   - Framework Preset: `Vite`
-   - Build Command: `npm run build`
-   - Output Directory: `dist`
+1. Importer le repository sur [vercel.com](https://vercel.com)
+2. Configuration automatiquement détectée :
+   - **Framework** : Vite
+   - **Build Command** : `npm run build`
+   - **Output Directory** : `dist`
 3. Variables d'environnement (optionnel) :
    ```
-   VITE_API_URL=https://votre-api.onrender.com
+   VITE_API_URL=https://aventure-alpine.onrender.com
    ```
-4. Démarrer le déploiement
+4. Déployer
 
-**Résultat :** Application accessible via URL Vercel avec distribution CDN globale.
+✅ **URL de production** : https://aventure-alpine.vercel.app
 
-### Déploiement du backend (optionnel)
+### Déploiement Render (Backend - optionnel)
 
-**Plateforme :** Render  
-**Prérequis :** Compte Render, repository GitHub  
-**Tier :** Free (limitations : démarrage à froid après inactivité)
+**Prérequis** : Compte Render connecté à GitHub
 
-**Plateforme :** Render  
-**Prérequis :** Compte Render, repository GitHub  
-**Tier :** Free (limitations : démarrage à froid après inactivité)
+#### Option 1 : Mode dégradé (sans base de données)
 
-**Procédure :**
-
-1. Créer un nouveau Web Service depuis le repository GitHub
-2. Configuration du service :
-   - Type: `Web Service`
-   - Build Command: `npm install`
-   - Start Command: `node server/index.js`
-   - Instance Type: `Free`
-
-3. Configuration des variables d'environnement (optionnel) :
-
-   **Mode minimal (API sans base de données) :**
+1. Créer un **Web Service**
+2. Configurer :
+   - **Build Command** : `npm install`
+   - **Start Command** : `node server/index.js`
+3. Variables d'environnement :
    ```
    NODE_ENV=production
    PORT=5000
    ```
 
-   **Mode complet (avec PostgreSQL) :**
+L'API retournera 503 pour les endpoints DB. Le frontend utilisera localStorage automatiquement.
+
+#### Option 2 : Mode complet (avec PostgreSQL)
+
+Suivez **[SUPABASE_SETUP.md](SUPABASE_SETUP.md)** puis :
+
+1. Créer le Web Service (comme ci-dessus)
+2. Ajouter les variables Supabase :
    ```
    NODE_ENV=production
    PORT=5000
    DB_HOST=xxxxx.supabase.co
    DB_PORT=5432
    DB_USER=postgres
-   DB_PASSWORD=<credential_supabase>
+   DB_PASSWORD=votre_mot_de_passe_supabase
    DB_NAME=postgres
    ```
-
-4. Déployer le service
-
-**Comportement :**
-- Sans variables DB : L'API démarre en mode dégradé (HTTP 503 sur endpoints base de données)
-- Avec variables DB : Fonctionnalité complète avec persistance PostgreSQL
-
-### Configuration de la base de données (Supabase)
-
-**Service :** Supabase PostgreSQL  
-**Plan :** Free Tier (500MB, connexions illimitées)  
-**Documentation complète :** Consulter [SUPABASE_SETUP.md](SUPABASE_SETUP.md)
-
-**Procédure abrégée :**
-
-1. Créer un projet sur [supabase.com](https://supabase.com)
-2. Configurer la région et le mot de passe
-3. Récupérer les credentials (Settings → Database → Connection String)
-4. Initialiser le schéma :
+3. Initialiser le schéma (en local) :
    ```bash
    npm run init-db
    ```
-5. Configurer les variables d'environnement sur Render
 
-Remarque : la base de données peut se mettre en pause après inactivité prolongée et se réactiver automatiquement à la première requête.
+✅ **URL de l'API** : https://aventure-alpine.onrender.com
 
-**Note :** La base de données entre en pause après 7 jours d'inactivité et se réactive automatiquement à la première requête.
+**Note** : Render Free Tier = cold start après 15 min d'inactivité (~30s de latence au premier appel).
 
-## Référence API
+---
 
-### Informations générales
+## 📡 API
 
-**URL de base :** `https://aventure-alpine.onrender.com`  
-**Format des réponses :** JSON  
-**Authentification :** Aucune (API publique)  
-**Rate limiting :** Aucun
+### URL de base
 
-### Comportement sans base de données
-
-L'API peut fonctionner en mode dégradé sans configuration de base de données. Les endpoints nécessitant une persistance retournent HTTP 503 (Service Unavailable). Le frontend bascule automatiquement sur localStorage dans ce cas.
-
-### Endpoints disponibles
-
-| Méthode | Endpoint | Description | Réponse sans DB | Paramètres |
-|---------|----------|-------------|-----------------|------------|
-| GET | `/` | Métadonnées de l'API | 200 OK | - |
-| GET | `/api/health` | État de santé du service | 200 (degraded) | - |
-| GET | `/api/activities` | Liste des activités alpines | 503 | - |
-| GET | `/api/articles` | Articles du blog | 503 | - |
-| GET | `/api/videos` | Bibliothèque vidéo | 503 | - |
-| GET | `/api/routes` | Itinéraires de montagne | 503 | - |
-| GET | `/api/experiences` | Récits d'expériences | 503 | - |
-| POST | `/api/experiences` | Créer une expérience | 503 | `{author, title, body}` |
-| GET | `/api/contact-messages` | Messages de contact | 503 | - |
-| POST | `/api/contact-messages` | Soumettre un message | 503 | `{name, email, message}` |
-
-### Exemples d'utilisation
-
-**Health check :**
-```javascript
-fetch('https://aventure-alpine.onrender.com/api/health')
-  .then(response => response.json())
-  .then(data => console.log(data))
-  // { status: 'degraded', message: 'Base de données non configurée - Mode localStorage' }
+```
+https://aventure-alpine.onrender.com
 ```
 
-**Récupération des activités avec fallback :**
+### Format
 
-**Récupération des activités avec fallback :**
+- **Réponses** : JSON
+- **Authentification** : Aucune
+- **CORS** : Activé (toutes origines)
+
+### Endpoints
+
+#### `GET /`
+
+Métadonnées de l'API.
+
+**Réponse** :
+```json
+{
+  "name": "Aventures Alpines API",
+  "version": "1.0.0",
+  "status": "running"
+}
+```
+
+---
+
+#### `GET /api/health`
+
+État de santé du service.
+
+**Réponse avec DB** :
+```json
+{
+  "status": "ok",
+  "database": "connected"
+}
+```
+
+**Réponse sans DB** :
+```json
+{
+  "status": "degraded",
+  "database": "not configured"
+}
+```
+
+---
+
+#### `POST /api/contact-messages`
+
+Soumettre un message de contact.
+
+**Body** :
+```json
+{
+  "name": "John Doe",
+  "email": "john@example.com",
+  "message": "Demande d'information"
+}
+```
+
+**Réponse 201** :
+```json
+{
+  "id": 42,
+  "name": "John Doe",
+  "email": "john@example.com",
+  "message": "Demande d'information",
+  "created_at": "2025-12-15T10:30:00Z"
+}
+```
+
+**Réponse 503** (sans DB) :
+```json
+{
+  "error": "Base de données non configurée"
+}
+```
+
+---
+
+#### Autres endpoints
+
+| Méthode | Route | Description | Status sans DB |
+|---------|-------|-------------|----------------|
+| `GET` | `/api/activities` | Liste des sports de montagne | 503 |
+| `GET` | `/api/articles` | Articles du blog | 503 |
+| `GET` | `/api/videos` | Galerie vidéo | 503 |
+| `GET` | `/api/routes` | Itinéraires de randonnée | 503 |
+| `GET` | `/api/experiences` | Récits utilisateurs | 503 |
+| `POST` | `/api/experiences` | Créer un récit | 503 |
+
+### Gestion des erreurs
+
+Le client frontend gère automatiquement les erreurs 503 en basculant sur localStorage.
+
+**Exemple** :
 ```javascript
-async function loadActivities() {
-  try {
-    const response = await fetch('https://aventure-alpine.onrender.com/api/activities');
-    
-    if (response.ok) {
-      const data = await response.json();
-      return data;
-    }
-    
-    // Fallback : utiliser les données statiques ou localStorage
-    console.warn('API indisponible - Utilisation des données locales');
-    return loadLocalData();
-    
-  } catch (error) {
-    console.error('Erreur réseau:', error);
-    return loadLocalData();
+try {
+  const res = await axios.post(`${API_URL}/api/contact-messages`, data);
+  console.log('Sauvegardé sur serveur:', res.data);
+} catch (error) {
+  if (error.response?.status === 503) {
+    // Fallback localStorage
+    const messages = JSON.parse(localStorage.getItem('messages') || '[]');
+    messages.push({ ...data, id: Date.now() });
+    localStorage.setItem('messages', JSON.stringify(messages));
   }
 }
 ```
 
-**Soumission d'un message de contact :**
-```javascript
-const payload = {
-  name: "John Doe",
-  email: "john@example.com",
-  message: "Demande d'information"
-};
+---
 
-fetch('https://aventure-alpine.onrender.com/api/contact-messages', {
-  method: 'POST',
-  headers: { 'Content-Type': 'application/json' },
-  body: JSON.stringify(payload)
-})
-.then(response => {
-  if (response.status === 503) {
-    // Base de données non configurée : sauvegarde locale
-    localStorage.setItem('messages', JSON.stringify([payload, ...existing]));
-  }
-  return response.json();
-})
-.then(data => console.log('Message enregistré:', data))
-.catch(error => console.error('Erreur:', error));
-```
-
-## Structure du projet
+## 📂 Structure du projet
 
 ```
 aventure-alpine/
 │
-├── .github/
-│   └── workflows/
-│       └── deploy.yml           # CI/CD GitHub Actions
+├── index.html                   # Point d'entrée HTML
+├── package.json                 # Dépendances et scripts npm
+├── vite.config.js               # Configuration Vite
+├── vercel.json                  # Configuration Vercel
+├── render.yaml                  # Configuration Render
+├── LICENSE                      # Licence MIT
+├── README.md                    # Documentation (ce fichier)
+├── SUPABASE_SETUP.md            # Guide complet Supabase
 │
 ├── server/                      # Backend Express
-│   ├── db/
-│   │   ├── pool.js              # Configuration pool PostgreSQL
-│   │   ├── init-supabase.js     # Script d'initialisation DB
-│   │   └── schema.sql           # Schéma SQL (référence legacy)
-│   └── index.js                 # Point d'entrée API Express
+│   ├── index.js                 # API REST
+│   └── db/
+│       ├── pool.js              # Connection pool PostgreSQL
+│       ├── init-supabase.js     # Script d'initialisation DB
+│       └── schema.sql           # Schéma SQL (référence)
 │
-├── src/                         # Frontend React
-│   ├── api/
-│   │   └── client.js            # Client HTTP Axios
-│   ├── components/              # Composants réutilisables
-│   │   ├── ArticleCard.jsx
-│   │   ├── ExperienceFeed.jsx
-│   │   ├── HikingRouteCard.jsx
-│   │   └── VideoCard.jsx
-│   ├── data/                    # Données statiques (activités, routes)
-│   │   ├── activities.js
-│   │   ├── articles.js
-│   │   ├── routes.js
-│   │   ├── sports.js
-│   │   └── videos.js
-│   ├── pages/                   # Composants de pages
-│   │   ├── Activities.jsx
-│   │   ├── Articles.jsx
-│   │   ├── Blog.jsx
-│   │   ├── RoutesPage.jsx
-│   │   └── Videos.jsx
-│   ├── App.jsx                  # Composant racine
-│   ├── App.css                  # Styles globaux
-│   ├── Adventures.jsx           # Page aventures
-│   ├── Contact.jsx              # Formulaire de contact
-│   ├── Home.jsx                 # Page d'accueil
-│   ├── index.css                # Reset CSS
-│   └── main.jsx                 # Point d'entrée React
-│
-├── .env.supabase.example        # Template configuration DB
-├── .gitignore                   # Exclusions Git
-├── index.html                   # Template HTML principal
-├── LICENSE                      # Licence MIT
-├── package.json                 # Dépendances et scripts npm
-├── package-lock.json            # Lock file des dépendances
-├── README.md                    # Documentation principale
-├── render.yaml                  # Configuration Render
-├── SUPABASE_SETUP.md            # Guide détaillé Supabase
-├── vercel.json                  # Configuration Vercel
-└── vite.config.js               # Configuration Vite
+└── src/                         # Frontend React
+    ├── main.jsx                 # Point d'entrée React
+    ├── App.jsx                  # Composant racine + routing
+    ├── index.css                # Styles globaux
+    ├── App.css                  # Styles du composant App
+    │
+    ├── pages/
+    │   ├── Activities.jsx       # Page activités (sports)
+    │   ├── Articles.jsx         # Page blog articles
+    │   ├── Blog.jsx             # Page récits utilisateurs
+    │   ├── RoutesPage.jsx       # Page itinéraires
+    │   └── Videos.jsx           # Page galerie vidéo
+    │
+    ├── components/
+    │   ├── ArticleCard.jsx      # Carte article
+    │   ├── VideoCard.jsx        # Carte vidéo
+    │   ├── HikingRouteCard.jsx  # Carte itinéraire
+    │   └── ExperienceFeed.jsx   # Fil d'expériences
+    │
+    ├── data/
+    │   ├── sports.js            # Données statiques sports
+    │   ├── articles.js          # Données statiques articles
+    │   ├── videos.js            # Données statiques vidéos
+    │   └── routes.js            # Données statiques itinéraires
+    │
+    ├── Home.jsx                 # Page d'accueil
+    ├── Adventures.jsx           # Page aventures
+    └── Contact.jsx              # Formulaire de contact
 ```
-│   │   └── VideoCard.jsx
-│   ├── App.jsx
-│   ├── Contact.jsx              # Formulaire avec localStorage
-│   ├── Home.jsx
-│   ├── main.jsx
-│   ├── App.css
-│   └── index.css
-├── .env.supabase.example        # Template de configuration
-├── package.json
-└── vite.config.js               # Configuration Vite
-```
-
-## Scripts npm
-
-| Commande | Description | Utilisation |
-|----------|-------------|-------------|
-| `npm run dev` | Serveur de développement Vite | Développement frontend avec HMR |
-| `npm run build` | Build de production | Compilation optimisée pour production |
-| `npm run preview` | Preview du build | Test du build avant déploiement |
-| `npm run server` | Serveur API Express | Développement backend (optionnel) |
-| `npm run init-db` | Initialisation base de données | Setup schéma PostgreSQL (optionnel) |
-| `npm run lint` | Analyse statique ESLint | Vérification de la qualité du code |
-
-## Considérations de sécurité
-
-### Gestion des secrets
-
-- Utilisation exclusive de variables d'environnement pour les credentials
-- Fichier `.env` exclu du versioning via `.gitignore`
-- Secrets configurés via interfaces sécurisées (Vercel, Render, Supabase)
-
-### API et backend
-
-- Configuration CORS restrictive limitée aux domaines autorisés
-- Requêtes paramétrées pour prévenir les injections SQL
-- Validation des entrées utilisateur sur tous les endpoints
-- Gestion d'erreurs n'exposant pas d'informations sensibles
-
-### Production
-
-- Transmission HTTPS obligatoire (TLS 1.2+)
-- Headers de sécurité configurés (CSP, X-Frame-Options, etc.)
-- Dépendances régulièrement auditées (`npm audit`)
-
-## Contribution
-
-Ce projet accepte les contributions selon les principes de l'open source. Veuillez respecter les conventions suivantes :
-
-### Workflow de contribution
-
-1. Fork du repository
-2. Création d'une branche feature : `git checkout -b feature/description`
-3. Commits suivant la convention Conventional Commits
-4. Push de la branche : `git push origin feature/description`
-5. Ouverture d'une Pull Request avec description détaillée
-2. Créer une branche de fonctionnalité (`git checkout -b feature/nom-fonctionnalite`)
-3. Commit les changements (`git commit -m 'Add feature'`)
-4. Push vers la branche (`git push origin feature/nom-fonctionnalite`)
-5. Ouvrir une Pull Request
-
-5. Ouverture d'une Pull Request avec description détaillée
-
-### Convention de messages de commit (Conventional Commits)
-
-```
-<type>(<scope>): <description>
-
-[corps optionnel]
-
-[pied optionnel]
-```
-
-**Types acceptés :**
-- `feat`: Nouvelle fonctionnalité
-- `fix`: Correction de bug
-- `docs`: Documentation
-- `style`: Formatage (sans modification logique)
-- `refactor`: Refactorisation du code
-- `test`: Ajout ou modification de tests
-- `chore`: Tâches de maintenance (build, config, etc.)
-- `perf`: Amélioration des performances
-
-**Exemples :**
-```
-feat(contact): add email validation
-fix(api): resolve CORS configuration issue
-docs(readme): update deployment instructions
-```
-
-### Standards de code
-
-- **JavaScript/JSX** : ESLint avec configuration React
-- **Style** : Indentation 2 espaces, point-virgules optionnels
-- **Composants React** : Composants fonctionnels avec hooks
-- **Nommage** : camelCase pour variables/fonctions, PascalCase pour composants
-
-## Licence
-
-Ce projet est distribué sous licence MIT. Consultez le fichier [LICENSE](LICENSE) pour les termes complets.
-
-## Ressources et liens
-
-### Application
-
-- **Production (Frontend)** : https://aventure-alpine.vercel.app
-- **API (Backend)** : https://aventure-alpine.onrender.com  
-- **Repository GitHub** : https://github.com/maxlo245/Aventure-Alpine
-
-### Documentation
-
-- [Guide de configuration Supabase](SUPABASE_SETUP.md)
-- [Configuration Vercel](vercel.json)
-- [Configuration Render](render.yaml)
-
-## Dépendances principales
-
-## Dépendances principales
-
-### Production
-
-| Package | Version | Rôle |
-|---------|---------|------|
-| react | ^18.2.0 | Bibliothèque UI |
-| react-dom | ^18.2.0 | Rendu DOM React |
-| react-router-dom | ^7.10.1 | Routing applicatif |
-| express | ^4.19.2 | Framework web backend |
-| pg | ^8.11.3 | Client PostgreSQL |
-| axios | ^1.7.7 | Client HTTP |
-| cors | ^2.8.5 | Middleware CORS |
-| dotenv | ^16.4.7 | Variables d'environnement |
-
-### Développement
-
-| Package | Version | Rôle |
-|---------|---------|------|
-| vite | ^5.0.8 | Build tool et dev server |
-| @vitejs/plugin-react | ^4.2.1 | Plugin React pour Vite |
-| eslint | ^8.55.0 | Linter JavaScript |
 
 ---
 
-Pour toute question ou suggestion, veuillez ouvrir une issue sur GitHub.
+## 🤝 Contribution
+
+Les contributions sont les bienvenues ! Voici comment participer :
+
+### Workflow de contribution
+
+1. **Fork** le projet
+2. **Créer une branche** pour votre fonctionnalité :
+   ```bash
+   git checkout -b feature/AmazingFeature
+   ```
+3. **Commit** vos changements :
+   ```bash
+   git commit -m 'feat: add AmazingFeature'
+   ```
+4. **Push** vers votre fork :
+   ```bash
+   git push origin feature/AmazingFeature
+   ```
+5. **Ouvrir une Pull Request**
+
+### Conventions de code
+
+- **Commits** : Format [Conventional Commits](https://www.conventionalcommits.org/)
+  - `feat:` nouvelle fonctionnalité
+  - `fix:` correction de bug
+  - `docs:` documentation
+  - `style:` formatage code
+  - `refactor:` refactoring
+  - `test:` ajout de tests
+  - `chore:` tâches de maintenance
+
+- **Code style** :
+  - Indentation : 2 espaces
+  - Quotes : single quotes `'` pour JS
+  - Trailing commas : oui
+  - Semicolons : non requis (sauf cas spéciaux)
+
+### Bonnes pratiques
+
+- ✅ Tester vos changements localement
+- ✅ Vérifier ESLint : `npm run lint`
+- ✅ Documenter les nouvelles fonctionnalités
+- ✅ Garder les PR focalisées (1 feature = 1 PR)
+
+---
+
+## 📄 Licence
+
+Ce projet est sous licence **MIT**. Voir le fichier [LICENSE](LICENSE) pour plus de détails.
+
+```
+MIT License
+
+Copyright (c) 2025 Aventures Alpines
+
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the "Software"), to deal
+in the Software without restriction, including without limitation the rights
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the Software is
+furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in all
+copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+SOFTWARE.
+```
+
+---
+
+<div align="center">
+
+**Développé avec ❤️ par l'équipe Aventures Alpines**
+
+[⬆️ Retour en haut](#️-aventures-alpines)
+
+</div>
