@@ -138,6 +138,15 @@ export default function Randonnee() {
                 placeholder="Rechercher un itinéraire ou une région..."
                 value={searchTerm}
                 onChange={(e) => setSearchTerm(e.target.value)}
+                style={{
+                  width: '100%',
+                  padding: '0.75rem 1rem',
+                  border: '2px solid #e2e8f0',
+                  borderRadius: '8px',
+                  fontSize: '1rem',
+                  color: '#1a202c',
+                  outline: 'none'
+                }}
               />
             </div>
             
@@ -427,6 +436,7 @@ export default function Randonnee() {
           border: 2px solid #e2e8f0;
           border-radius: 8px;
           font-size: 1rem;
+          color: #1a202c;
         }
 
         .search-box input:focus {

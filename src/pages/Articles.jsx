@@ -89,6 +89,7 @@ const Articles = () => {
               border: '2px solid #e2e8f0',
               borderRadius: '8px',
               fontSize: '1rem',
+              color: '#1a202c',
               outline: 'none',
               transition: 'border 0.2s'
             }}
