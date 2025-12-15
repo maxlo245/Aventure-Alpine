@@ -7,7 +7,7 @@
 .App-header {
   position: sticky;
   top: 0;
-  z-index: 1000;
+  z-index: 9999;
   overflow: hidden;
   border-radius: 0;
   background: rgba(15, 15, 35, 0.95);
@@ -16,7 +16,6 @@
   padding: 16px 32px;
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
   border-bottom: 1px solid var(--border);
-  isolation: isolate;
 }
 
 .App-header h1 {
