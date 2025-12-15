@@ -306,11 +306,20 @@ export default function Randonnee() {
         .routes-section,
         .gallery-section {
           padding: 3rem 2rem;
+          background: white;
+        }
+
+        .map-section {
+          background: white;
         }
 
         .container {
           max-width: 1200px;
           margin: 0 auto;
+        }
+
+        .container > p {
+          color: #4a5568;
         }
 
         h2 {
@@ -343,6 +352,10 @@ export default function Randonnee() {
         .info-card h3 {
           margin: 0 0 0.5rem 0;
           color: #2d5016;
+        }
+
+        .info-card p {
+          color: #4a5568;
         }
 
         .safety-section {

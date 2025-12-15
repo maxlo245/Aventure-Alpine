@@ -258,10 +258,15 @@ export default function Escalade() {
         .sites-section,
         .videos-section {
           padding: 3rem 2rem;
+          background: white;
         }
 
         .beginners-section {
           background: #f0f9ff;
+        }
+
+        .safety-section {
+          background: #fef2f2;
         }
 
         .container {

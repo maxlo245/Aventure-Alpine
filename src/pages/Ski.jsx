@@ -293,14 +293,23 @@ export default function Ski() {
         .testimonials-section,
         .offers-section {
           padding: 3rem 2rem;
+          background: white;
         }
 
         .disciplines-section {
           background: #f0f9ff;
         }
 
+        .conditions-section {
+          background: #fef3c7;
+        }
+
         .slopes-section {
           background: #f7fafc;
+        }
+
+        .testimonials-section {
+          background: #fef2f2;
         }
 
         .container {
