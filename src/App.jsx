@@ -11,6 +11,9 @@ import Blog from './pages/Blog';
 import Login from './pages/Login';
 import Register from './pages/Register';
 import Dashboard from './pages/Dashboard';
+import Randonnee from './pages/Randonnee';
+import Escalade from './pages/Escalade';
+import Ski from './pages/Ski';
 import './App.css';
 
 function App() {
@@ -25,6 +28,9 @@ function App() {
           <ul>
             <li><Link to="/">Accueil</Link></li>
             <li><Link to="/activities">Activités</Link></li>
+            <li><Link to="/randonnee">Randonnée</Link></li>
+            <li><Link to="/escalade">Escalade</Link></li>
+            <li><Link to="/ski">Ski</Link></li>
             <li><Link to="/articles">Articles</Link></li>
             <li><Link to="/videos">Vidéos</Link></li>
             <li><Link to="/routes">Itinéraires</Link></li>
@@ -47,6 +53,9 @@ function App() {
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/activities" element={<Activities />} />
+          <Route path="/randonnee" element={<Randonnee />} />
+          <Route path="/escalade" element={<Escalade />} />
+          <Route path="/ski" element={<Ski />} />
           <Route path="/articles" element={<Articles />} />
           <Route path="/videos" element={<Videos />} />
           <Route path="/routes" element={<RoutesPage />} />
