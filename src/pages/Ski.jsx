@@ -331,6 +331,10 @@ export default function Ski() {
           color: #1a202c;
         }
 
+        h3 {
+          color: #1a202c;
+        }
+
         .section-intro {
           color: #4a5568;
           margin-bottom: 2rem;

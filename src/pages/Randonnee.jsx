@@ -330,6 +330,10 @@ export default function Randonnee() {
           color: #1a202c;
         }
 
+        h3 {
+          color: #1a202c;
+        }
+
         .info-cards {
           display: grid;
           grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));

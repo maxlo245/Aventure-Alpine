@@ -287,6 +287,10 @@ export default function Escalade() {
           color: #1a202c;
         }
 
+        h3 {
+          color: #1a202c;
+        }
+
         .tips-grid {
           display: grid;
           grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
