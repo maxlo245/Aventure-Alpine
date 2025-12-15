@@ -462,7 +462,7 @@ export default function Ski() {
           width: 100%;
           padding: 0.75rem;
           background: #0284c7;
-          color: white;
+          color: white !important;
           border: none;
           border-radius: 8px;
           font-weight: 600;

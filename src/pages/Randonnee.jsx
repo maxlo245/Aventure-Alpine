@@ -444,6 +444,7 @@ export default function Randonnee() {
           padding: 0.75rem 1.5rem;
           border: 2px solid #e2e8f0;
           background: white;
+          color: #1a202c;
           border-radius: 8px;
           cursor: pointer;
           font-weight: 600;
@@ -483,7 +484,7 @@ export default function Randonnee() {
           margin-top: 1rem;
           padding: 0.75rem 1.5rem;
           background: #2d5016;
-          color: white;
+          color: white !important;
           border: none;
           border-radius: 8px;
           cursor: pointer;
