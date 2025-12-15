@@ -1,7 +1,12 @@
 import pkg from 'pg';
 import dotenv from 'dotenv';
+import fs from 'fs';
+import path from 'path';
+import { fileURLToPath } from 'url';
 
 const { Client } = pkg;
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
 
 dotenv.config();
 
@@ -12,116 +17,106 @@ const initDatabase = async () => {
     password: process.env.DB_PASSWORD,
     database: process.env.DB_NAME,
     port: Number(process.env.DB_PORT) || 5432,
+    ssl: process.env.NODE_ENV === 'production' ? { rejectUnauthorized: false } : false
   });
 
-  console.log('Connexion à Supabase...');
+  console.log('\n🔧 Initialisation de la base de données Aventures Alpines...\n');
+  console.log(`📡 Connexion à: ${process.env.DB_HOST}`);
   
   try {
     await client.connect();
-    console.log('✅ Connexion réussie à Supabase');
+    console.log('✅ Connexion réussie à Supabase PostgreSQL\n');
 
-    // Table activities
-    await client.query(`
-      CREATE TABLE IF NOT EXISTS activities (
-        id SERIAL PRIMARY KEY,
-        nom VARCHAR(100) NOT NULL,
-        description TEXT,
-        difficulte VARCHAR(50),
-        saison VARCHAR(50),
-        image_url VARCHAR(255),
-        created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
-      )
-    `);
-    console.log('✅ Table activities créée');
+    // Lire le fichier schema.sql
+    const schemaPath = path.join(__dirname, 'schema.sql');
+    const schemaSql = fs.readFileSync(schemaPath, 'utf-8');
 
-    // Table articles_blog
-    await client.query(`
-      CREATE TABLE IF NOT EXISTS articles_blog (
-        id SERIAL PRIMARY KEY,
-        titre VARCHAR(200) NOT NULL,
-        contenu TEXT,
-        auteur VARCHAR(100),
-        date_publication DATE,
-        image_url VARCHAR(255),
-        created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
-      )
-    `);
-    console.log('✅ Table articles_blog créée');
+    // Convertir le SQL MySQL en PostgreSQL
+    const postgresqlSchema = schemaSql
+      // Remplacer AUTO_INCREMENT par SERIAL
+      .replace(/INT AUTO_INCREMENT PRIMARY KEY/g, 'SERIAL PRIMARY KEY')
+      .replace(/AUTO_INCREMENT/g, '')
+      // Supprimer les commandes MySQL spécifiques
+      .replace(/CREATE DATABASE IF NOT EXISTS.*?;/g, '')
+      .replace(/USE .*?;/g, '')
+      .replace(/CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci/g, '')
+      // Remplacer CURRENT_DATE par CURRENT_TIMESTAMP::DATE
+      .replace(/DEFAULT CURRENT_DATE/g, 'DEFAULT CURRENT_TIMESTAMP::DATE')
+      // Nettoyer les espaces multiples
+      .replace(/\s+/g, ' ')
+      .trim();
 
-    // Table videos
-    await client.query(`
-      CREATE TABLE IF NOT EXISTS videos (
-        id SERIAL PRIMARY KEY,
-        titre VARCHAR(200) NOT NULL,
-        url VARCHAR(255) NOT NULL,
-        description TEXT,
-        duree VARCHAR(20),
-        created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
-      )
-    `);
-    console.log('✅ Table videos créée');
+    // Diviser en requêtes individuelles (en ignorant les commentaires)
+    const queries = postgresqlSchema
+      .split(';')
+      .map(q => q.trim())
+      .filter(q => q.length > 0 && !q.startsWith('--'));
 
-    // Table routes
-    await client.query(`
-      CREATE TABLE IF NOT EXISTS routes (
-        id SERIAL PRIMARY KEY,
-        nom VARCHAR(100) NOT NULL,
-        lieu VARCHAR(100),
-        distance_km DECIMAL(5,2),
-        denivele_m INT,
-        difficulte VARCHAR(50),
-        description TEXT,
-        gpx_file VARCHAR(255),
-        created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
-      )
-    `);
-    console.log('✅ Table routes créée');
+    console.log(`📋 Exécution de ${queries.length} requêtes SQL...\n`);
 
-    // Table experiences
-    await client.query(`
-      CREATE TABLE IF NOT EXISTS experiences (
-        id SERIAL PRIMARY KEY,
-        titre VARCHAR(200) NOT NULL,
-        date_experience DATE,
-        lieu VARCHAR(100),
-        recit TEXT,
-        photos JSONB,
-        created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
-      )
-    `);
-    console.log('✅ Table experiences créée');
+    let successCount = 0;
+    let errorCount = 0;
 
-    // Table contact_messages
-    await client.query(`
-      CREATE TABLE IF NOT EXISTS contact_messages (
-        id SERIAL PRIMARY KEY,
-        name VARCHAR(100) NOT NULL,
-        email VARCHAR(100) NOT NULL,
-        message TEXT NOT NULL,
-        created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
-      )
-    `);
-    console.log('✅ Table contact_messages créée');
-
-    // Insérer des données de démonstration (si la table est vide)
-    const result = await client.query('SELECT COUNT(*) FROM activities');
-    if (result.rows[0].count === 0) {
-      await client.query(`
-        INSERT INTO activities (nom, description, difficulte, saison, image_url) VALUES
-        ('Ski de randonnée', 'Exploration des sommets enneigés', 'Intermédiaire', 'Hiver', '/images/ski.jpg'),
-        ('Alpinisme', 'Ascension de sommets mythiques', 'Avancé', 'Été', '/images/alpinisme.jpg'),
-        ('VTT', 'Descentes et trails en montagne', 'Tous niveaux', 'Été', '/images/vtt.jpg')
-      `);
-      console.log('✅ Données de démonstration ajoutées');
+    for (const query of queries) {
+      try {
+        // Détecter le type de requête
+        const isCREATE = query.toUpperCase().includes('CREATE TABLE');
+        const isINSERT = query.toUpperCase().includes('INSERT INTO');
+        
+        if (isCREATE || isINSERT) {
+          await client.query(query);
+          
+          if (isCREATE) {
+            const tableName = query.match(/CREATE TABLE IF NOT EXISTS (\w+)/i)?.[1];
+            console.log(`✅ Table créée: ${tableName}`);
+          } else if (isINSERT) {
+            const tableName = query.match(/INSERT INTO (\w+)/i)?.[1];
+            console.log(`✅ Données insérées: ${tableName}`);
+          }
+          successCount++;
+        }
+      } catch (error) {
+        // Ignorer les erreurs "table already exists" ou "duplicate key"
+        if (error.message.includes('already exists') || error.message.includes('duplicate key')) {
+          console.log(`⚠️  Ignoré: ${error.message.split('\n')[0]}`);
+        } else {
+          console.error(`❌ Erreur:`, error.message.split('\n')[0]);
+          errorCount++;
+        }
+      }
     }
 
-    console.log('\n🎉 Base de données Supabase initialisée avec succès!');
-    
+    console.log('\n' + '='.repeat(50));
+    console.log(`📊 Résumé:`);
+    console.log(`   ✅ Succès: ${successCount}`);
+    console.log(`   ❌ Erreurs: ${errorCount}`);
+    console.log('='.repeat(50));
+
+    // Vérifier les tables créées
+    console.log('\n📋 Vérification des tables...\n');
+    const result = await client.query(`
+      SELECT table_name 
+      FROM information_schema.tables 
+      WHERE table_schema = 'public' 
+      AND table_type = 'BASE TABLE'
+      ORDER BY table_name
+    `);
+
+    console.log(`✅ ${result.rows.length} tables détectées:\n`);
+    result.rows.forEach((row, index) => {
+      console.log(`   ${(index + 1).toString().padStart(2, '0')}. ${row.table_name}`);
+    });
+
+    console.log('\n🎉 Initialisation terminée avec succès!\n');
+
   } catch (error) {
-    console.error('❌ Erreur:', error.message);
+    console.error('\n❌ Erreur lors de l\'initialisation:', error);
+    process.exit(1);
   } finally {
     await client.end();
+    console.log('👋 Déconnexion de la base de données\n');
   }
 };
 
+// Exécuter l'initialisation
 initDatabase();

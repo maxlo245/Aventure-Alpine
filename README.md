@@ -47,14 +47,30 @@ L'architecture découplée garantit une **haute disponibilité** : le frontend f
 
 ## ✨ Fonctionnalités
 
+### 🔐 Authentification & Compte utilisateur
+
+- **Inscription/Connexion** - Système JWT sécurisé avec hashage bcrypt
+- **Dashboard personnel** - Profil utilisateur et gestion de compte
+- **Réservations** - Système complet de réservation de prestations
+- **Routes protégées** - Accès sécurisé aux fonctionnalités membres
+
 ### 🏠 Pages principales
 
 - **Accueil** - Hero section, présentation générale
 - **Activités** - Catalogue des sports alpins (ski, escalade, randonnée, VTT)
-- **Itinéraires** - Parcours détaillés avec niveaux de difficulté et cartographie
+- **Sites d'escalade** - Base de données complète des voies et falaises
+- **Stations de ski** - Conditions en temps réel, domaines skiables
+- **Itinéraires** - Parcours détaillés avec niveaux de difficulté et guides
 - **Articles** - Blog sur les techniques, matériel et conseils
 - **Vidéos** - Galerie multimédia de documentaires et tutoriels
 - **Contact** - Formulaire avec validation et persistance localStorage
+
+### 🎫 Système de réservation
+
+- **Prestations** - Catalogue d'activités et stages disponibles
+- **Booking** - Réservation en ligne avec validation dates
+- **Gestion** - Suivi des réservations (en attente, confirmée, annulée)
+- **Clients** - Profil client lié au compte utilisateur
 
 ### 🛡️ Architecture
 
@@ -104,6 +120,8 @@ L'architecture découplée garantit une **haute disponibilité** : le frontend f
 | **Node.js** | ≥18.0 | Runtime JavaScript serveur |
 | **Express** | 4.19 | API REST minimaliste |
 | **pg** | 8.11 | Driver PostgreSQL natif |
+| **bcryptjs** | 2.4 | Hashage sécurisé des mots de passe |
+| **jsonwebtoken** | 9.0 | Authentification JWT |
 | **CORS** | 2.8 | Gestion Cross-Origin Resource Sharing |
 | **dotenv** | 16.4 | Variables d'environnement |
 
@@ -230,6 +248,7 @@ npm run server
 |----------|--------|-------------|---------|
 | `NODE_ENV` | Oui | Environnement d'exécution | `production` |
 | `PORT` | Non | Port d'écoute du serveur | `5000` |
+| `JWT_SECRET` | **Oui** | Secret pour tokens JWT (min. 32 chars) | - |
 | `DB_HOST` | Non* | Hôte PostgreSQL | `xxxxx.supabase.co` |
 | `DB_USER` | Non* | Utilisateur base de données | `postgres` |
 | `DB_PASSWORD` | Non* | Mot de passe base de données | - |
@@ -237,6 +256,8 @@ npm run server
 | `DB_PORT` | Non* | Port PostgreSQL | `5432` |
 
 ***Variables DB optionnelles** : L'API démarre sans ces variables et retourne HTTP 503 pour les endpoints nécessitant la base de données.
+
+**⚠️ IMPORTANT** : En production, générez un `JWT_SECRET` unique et sécurisé !
 
 ---
 
@@ -319,16 +340,26 @@ https://aventure-alpine.onrender.com
 
 ### Endpoints
 
+#### Endpoints publics
+
 #### `GET /`
 
-Métadonnées de l'API.
+Métadonnées de l'API et liste complète des endpoints.
 
 **Réponse** :
 ```json
 {
   "name": "Aventures Alpines API",
-  "version": "1.0.0",
-  "status": "running"
+  "status": "running",
+  "endpoints": [
+    "/api/health",
+    "/api/auth/register",
+    "/api/auth/login",
+    "/api/activities",
+    "/api/sites-escalade",
+    "/api/stations-ski",
+    "..."
+  ]
 }
 ```
 
@@ -346,11 +377,186 @@ Métadonnées de l'API.
 }
 ```
 
-**Réponse sans DB** :
+---
+
+#### `POST /api/auth/register`
+
+Créer un nouveau compte utilisateur.
+
+**Body** :
 ```json
 {
-  "status": "degraded",
-  "database": "not configured"
+  "nom_utilisateur": "jeandupont",
+  "email": "jean@email.com",
+  "mot_de_passe": "password123",
+  "nom": "Dupont",
+  "prenom": "Jean"
+}
+```
+
+**Réponse 201** :
+```json
+{
+  "message": "Inscription réussie",
+  "user": {
+    "id": 1,
+    "nom_utilisateur": "jeandupont",
+    "email": "jean@email.com"
+  },
+  "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9..."
+}
+```
+
+---
+
+#### `POST /api/auth/login`
+
+Se connecter avec un compte existant.
+
+**Body** :
+```json
+{
+  "email": "jean@email.com",
+  "mot_de_passe": "password123"
+}
+```
+
+**Réponse 200** :
+```json
+{
+  "message": "Connexion réussie",
+  "user": { "id": 1, "nom_utilisateur": "jeandupont" },
+  "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9..."
+}
+```
+
+---
+
+#### `GET /api/sites-escalade`
+
+Liste de tous les sites d'escalade.
+
+**Réponse 200** :
+```json
+[
+  {
+    "id": 1,
+    "name": "Voie du Pilier Sud",
+    "difficulty": "experimente",
+    "location": "Massif du Mont-Blanc",
+    "duration": "6h00"
+  }
+]
+```
+
+---
+
+#### `GET /api/stations-ski`
+
+Liste de toutes les stations de ski.
+
+**Réponse 200** :
+```json
+[
+  {
+    "id": 1,
+    "name": "Les Grands Montets",
+    "snowConditions": "Excellent - 180cm base",
+    "slopeType": "noire",
+    "hasLifts": true
+  }
+]
+```
+
+---
+
+#### `GET /api/prestations`
+
+Liste des prestations disponibles (stages, activités).
+
+**Réponse 200** :
+```json
+[
+  {
+    "id": 1,
+    "name": "Stage Escalade Débutant",
+    "activityType": "escalade",
+    "basePrice": 180.00,
+    "durationDays": 2
+  }
+]
+```
+
+---
+
+#### Endpoints protégés (authentification requise)
+
+**Headers requis** :
+```
+Authorization: Bearer <votre_token_jwt>
+```
+
+#### `GET /api/auth/me`
+
+Récupérer les informations de l'utilisateur connecté.
+
+**Réponse 200** :
+```json
+{
+  "id": 1,
+  "nom_utilisateur": "jeandupont",
+  "email": "jean@email.com",
+  "date_inscription": "2025-12-15T10:30:00Z"
+}
+```
+
+---
+
+#### `GET /api/reservations`
+
+Liste des réservations de l'utilisateur connecté.
+
+**Réponse 200** :
+```json
+[
+  {
+    "id": 1,
+    "prestationName": "Stage Escalade Débutant",
+    "startDate": "2025-07-15",
+    "endDate": "2025-07-17",
+    "numPeople": 2,
+    "totalPrice": 360.00,
+    "status": "confirmee"
+  }
+]
+```
+
+---
+
+#### `POST /api/reservations`
+
+Créer une nouvelle réservation.
+
+**Body** :
+```json
+{
+  "prestationId": 1,
+  "startDate": "2025-07-15",
+  "endDate": "2025-07-17",
+  "numPeople": 2,
+  "totalPrice": 360.00
+}
+```
+
+**Réponse 201** :
+```json
+{
+  "message": "Réservation créée avec succès",
+  "reservation": {
+    "id": 1,
+    "startDate": "2025-07-15",
+    "status": "en_attente"
+  }
 }
 ```
 
@@ -391,14 +597,26 @@ Soumettre un message de contact.
 
 #### Autres endpoints
 
-| Méthode | Route | Description | Status sans DB |
-|---------|-------|-------------|----------------|
-| `GET` | `/api/activities` | Liste des sports de montagne | 503 |
-| `GET` | `/api/articles` | Articles du blog | 503 |
-| `GET` | `/api/videos` | Galerie vidéo | 503 |
-| `GET` | `/api/routes` | Itinéraires de randonnée | 503 |
-| `GET` | `/api/experiences` | Récits utilisateurs | 503 |
-| `POST` | `/api/experiences` | Créer un récit | 503 |
+| Méthode | Route | Description | Auth requise |
+|---------|-------|-------------|--------------|
+| `POST` | `/api/auth/register` | Inscription utilisateur | Non |
+| `POST` | `/api/auth/login` | Connexion utilisateur | Non |
+| `GET` | `/api/auth/me` | Profil utilisateur | Oui |
+| `GET` | `/api/activities` | Liste des sports de montagne | Non |
+| `GET` | `/api/sites-escalade` | Sites d'escalade | Non |
+| `POST` | `/api/sites-escalade` | Créer un site | Oui |
+| `GET` | `/api/stations-ski` | Stations de ski | Non |
+| `POST` | `/api/stations-ski` | Créer une station | Oui |
+| `GET` | `/api/prestations` | Prestations disponibles | Non |
+| `POST` | `/api/prestations` | Créer une prestation | Oui |
+| `GET` | `/api/reservations` | Mes réservations | Oui |
+| `POST` | `/api/reservations` | Créer une réservation | Oui |
+| `GET` | `/api/articles` | Articles du blog | Non |
+| `GET` | `/api/videos` | Galerie vidéo | Non |
+| `GET` | `/api/routes` | Itinéraires de randonnée | Non |
+| `GET` | `/api/experiences` | Récits utilisateurs | Non |
+| `POST` | `/api/experiences` | Créer un récit | Non |
+| `POST` | `/api/contact-messages` | Message de contact | Non |
 
 ### Gestion des erreurs
 
@@ -437,14 +655,16 @@ aventure-alpine/
 │
 ├── server/                      # Backend Express
 │   ├── index.js                 # API REST
+│   ├── middleware/
+│   │   └── auth.js              # Middleware JWT authentification
 │   └── db/
 │       ├── pool.js              # Connection pool PostgreSQL
 │       ├── init-supabase.js     # Script d'initialisation DB
-│       └── schema.sql           # Schéma SQL (référence)
+│       └── schema.sql           # Schéma SQL complet (13 tables)
 │
 └── src/                         # Frontend React
     ├── main.jsx                 # Point d'entrée React
-    ├── App.jsx                  # Composant racine + routing
+    ├── App.jsx                  # Composant racine + routing + auth
     ├── index.css                # Styles globaux
     ├── App.css                  # Styles du composant App
     │
@@ -453,7 +673,10 @@ aventure-alpine/
     │   ├── Articles.jsx         # Page blog articles
     │   ├── Blog.jsx             # Page récits utilisateurs
     │   ├── RoutesPage.jsx       # Page itinéraires
-    │   └── Videos.jsx           # Page galerie vidéo
+    │   ├── Videos.jsx           # Page galerie vidéo
+    │   ├── Login.jsx            # Page connexion
+    │   ├── Register.jsx         # Page inscription
+    │   └── Dashboard.jsx        # Tableau de bord utilisateur
     │
     ├── components/
     │   ├── ArticleCard.jsx      # Carte article
@@ -467,10 +690,33 @@ aventure-alpine/
     │   ├── videos.js            # Données statiques vidéos
     │   └── routes.js            # Données statiques itinéraires
     │
+    ├── api/
+    │   └── client.js            # Configuration axios
+    │
     ├── Home.jsx                 # Page d'accueil
     ├── Adventures.jsx           # Page aventures
     └── Contact.jsx              # Formulaire de contact
 ```
+
+### Tables de la base de données
+
+**13 tables** avec relations complètes :
+
+1. **utilisateurs** - Comptes utilisateurs (JWT auth)
+2. **guides** - Guides de montagne
+3. **clients** - Profils clients liés aux utilisateurs
+4. **activities** - Activités génériques
+5. **sites_escalade** - Sites d'escalade détaillés
+6. **stations_ski** - Stations de ski avec conditions
+7. **routes** - Itinéraires de randonnée
+8. **prestations** - Services et stages disponibles
+9. **reservations** - Réservations clients
+10. **articles_blog** - Articles du blog
+11. **videos** - Galerie vidéos
+12. **experiences** - Récits partagés
+13. **contact_messages** - Messages de contact
+
+Voir [schema.sql](server/db/schema.sql) pour le schéma complet.
 
 ---
 
