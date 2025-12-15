@@ -1,0 +1,21 @@
+{
+  "name": "aventure-alpine-tests",
+  "version": "1.0.0",
+  "description": "Tests automatisés Selenium pour Aventures Alpines",
+  "main": "index.js",
+  "scripts": {
+    "test": "mocha tests/**/*.test.js --timeout 30000",
+    "test:auth": "mocha tests/auth.test.js --timeout 30000",
+    "test:navigation": "mocha tests/navigation.test.js --timeout 30000",
+    "test:filters": "mocha tests/filters.test.js --timeout 30000"
+  },
+  "keywords": ["selenium", "testing", "e2e"],
+  "author": "Aventures Alpines Team",
+  "license": "MIT",
+  "devDependencies": {
+    "selenium-webdriver": "^4.16.0",
+    "mocha": "^10.2.0",
+    "chai": "^4.3.10",
+    "chromedriver": "^120.0.0"
+  }
+}
