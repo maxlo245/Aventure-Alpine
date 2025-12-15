@@ -3,9 +3,8 @@
 > Plateforme web moderne dédiée aux sports de montagne et activités alpines
 
 [![Deploy Status](https://img.shields.io/badge/vercel-deployed-success)](https://aventure-alpine.vercel.app)
-[![API Status](https://img.shields.io/badge/api-online-brightgreen)](https://aventure-alpine.onrender.com)
-[![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](LICENSE)
 [![Node Version](https://img.shields.io/badge/node-%3E%3D18.0.0-brightgreen)](https://nodejs.org)
+[![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](LICENSE)
 
 ## Table des matières
 
@@ -26,12 +25,12 @@ Aventures Alpines est une application web full-stack offrant une plateforme comp
 
 ### Fonctionnalités
 
-- **Catalogue d'activités** : Exploration des activités de montagne avec système de filtrage et catégorisation
-- **Planification d'itinéraires** : Gestion des parcours avec métriques détaillées (distance, dénivelé, difficulté)
-- **Médiathèque** : Bibliothèque de contenus multimédias (vidéos, articles, guides)
-- **Blog** : Publication et consultation de récits d'expériences
-- **Contact** : Système de messagerie avec persistance locale et synchronisation optionnelle
-- **Interface responsive** : Adaptation multi-dispositifs avec thème sombre
+
+## Liens rapides
+
+- Frontend (Production) : https://aventure-alpine.vercel.app
+- API (Optionnelle) : https://aventure-alpine.onrender.com
+- Guide DB (Supabase) : `SUPABASE_SETUP.md`
 
 ### Architecture
 
@@ -157,7 +156,7 @@ npm run server
 |----------|--------|-------------|-------------------|
 | `VITE_API_URL` | Non | URL de l'API backend | - |
 
-**Note :** En l'absence de cette variable, l'application fonctionne en mode autonome avec localStorage.
+Remarque : en l'absence de cette variable, l'application fonctionne en mode autonome avec localStorage.
 
 #### Backend (Render)
 
@@ -282,7 +281,7 @@ Client Application
    ```
 5. Configurer les variables d'environnement sur Render
 
-**Note :** La base de données entre en pause après 7 jours d'inactivité et se réactive automatiquement à la première requête.
+Remarque : la base de données peut se mettre en pause après inactivité prolongée et se réactiver automatiquement à la première requête.
 
 **Note :** La base de données entre en pause après 7 jours d'inactivité et se réactive automatiquement à la première requête.
 
@@ -569,8 +568,4 @@ Ce projet est distribué sous licence MIT. Consultez le fichier [LICENSE](LICENS
 
 ---
 
-**Version actuelle :** 1.0.0  
-**Statut :** Production  
-**Dernière mise à jour :** Décembre 2025
-
-Pour toute question ou problème, veuillez ouvrir une issue sur GitHub.
+Pour toute question ou suggestion, veuillez ouvrir une issue sur GitHub.
