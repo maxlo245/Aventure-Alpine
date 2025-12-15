@@ -469,6 +469,31 @@ textarea {
   resize: vertical;
 }
 
+/* Badges de difficulté pour les itinéraires */
+.difficulty-badge {
+  padding: 4px 12px;
+  border-radius: 4px;
+  font-weight: 600;
+  font-size: 13px;
+  text-transform: capitalize;
+}
+
+.difficulty-badge.facile {
+  background: #10b981;
+  color: white;
+}
+
+.difficulty-badge.intermediaire,
+.difficulty-badge.intermédiaire {
+  background: #f59e0b;
+  color: white;
+}
+
+.difficulty-badge.difficile {
+  background: #ef4444;
+  color: white;
+}
+
 footer {
   margin-top: 28px;
   text-align: center;

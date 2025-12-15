@@ -35,7 +35,7 @@ export default function Randonnee() {
       console.error('Erreur chargement données:', error);
       // Fallback sur données locales
       import('../data/routes').then(module => {
-        setRoutes(module.default);
+        setRoutes(module.routes || []);
       });
     } finally {
       setLoading(false);
@@ -278,7 +278,7 @@ export default function Randonnee() {
         </div>
       </section>
 
-      <style jsx="true">{`
+      <style>{`
         .randonnee-page {
           min-height: 100vh;
         }
