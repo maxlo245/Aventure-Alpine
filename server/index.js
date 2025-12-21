@@ -3,7 +3,7 @@ import cors from 'cors';
 import dotenv from 'dotenv';
 import bcrypt from 'bcryptjs';
 import { pool } from './db/pool.js';
-import { authenticateToken, generateToken } from './middleware/auth.js';
+import { authenticateToken, generateToken, requireAdmin } from './middleware/auth.js';
 
 dotenv.config();
 
@@ -108,10 +108,10 @@ app.post('/api/auth/register', async (req, res) => {
     
     // Créer l'utilisateur
     const result = await pool.query(
-      `INSERT INTO utilisateurs (nom_utilisateur, email, mot_de_passe, nom, prenom)
-       VALUES ($1, $2, $3, $4, $5)
-       RETURNING id, nom_utilisateur, email, nom, prenom, date_inscription`,
-      [nom_utilisateur, email, hashedPassword, nom || null, prenom || null]
+      `INSERT INTO utilisateurs (nom_utilisateur, email, mot_de_passe, nom, prenom, role)
+       VALUES ($1, $2, $3, $4, $5, $6)
+       RETURNING id, nom_utilisateur, email, nom, prenom, role, date_inscription`,
+      [nom_utilisateur, email, hashedPassword, nom || null, prenom || null, 'user']
     );
     
     const user = result.rows[0];
@@ -128,6 +128,7 @@ app.post('/api/auth/register', async (req, res) => {
         email: user.email,
         nom: user.nom,
         prenom: user.prenom,
+        role: user.role,
         date_inscription: user.date_inscription
       },
       token
@@ -182,6 +183,7 @@ app.post('/api/auth/login', async (req, res) => {
         email: user.email,
         nom: user.nom,
         prenom: user.prenom,
+        role: user.role,
         date_inscription: user.date_inscription
       },
       token
@@ -200,7 +202,7 @@ app.get('/api/auth/me', authenticateToken, async (req, res) => {
   
   try {
     const result = await pool.query(
-      'SELECT id, nom_utilisateur, email, nom, prenom, date_inscription FROM utilisateurs WHERE id = $1',
+      'SELECT id, nom_utilisateur, email, nom, prenom, role, date_inscription FROM utilisateurs WHERE id = $1',
       [req.user.id]
     );
     
@@ -213,6 +215,19 @@ app.get('/api/auth/me', authenticateToken, async (req, res) => {
     console.error('Erreur récupération utilisateur:', error.message);
     res.status(500).json({ error: 'Erreur lors de la récupération des données utilisateur' });
   }
+});
+
+// Vérifier si l'utilisateur est admin
+app.get('/api/auth/check-admin', authenticateToken, requireAdmin, (req, res) => {
+  res.json({ 
+    isAdmin: true,
+    user: {
+      id: req.user.id,
+      nom_utilisateur: req.user.nom_utilisateur,
+      email: req.user.email,
+      role: req.user.role
+    }
+  });
 });
 
 // ============================================

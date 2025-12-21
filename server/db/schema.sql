@@ -11,9 +11,11 @@ CREATE TABLE IF NOT EXISTS utilisateurs (
   mot_de_passe VARCHAR(255) NOT NULL, -- Haché avec bcrypt
   nom VARCHAR(120),
   prenom VARCHAR(120),
+  role VARCHAR(20) DEFAULT 'user', -- 'user' ou 'admin'
   date_inscription TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
   INDEX idx_email (email),
-  INDEX idx_nom_utilisateur (nom_utilisateur)
+  INDEX idx_nom_utilisateur (nom_utilisateur),
+  INDEX idx_role (role)
 );
 
 -- ============================================

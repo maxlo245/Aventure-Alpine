@@ -1,16 +1,13 @@
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import axios from 'axios';
 
-// Identifiants admin (à terme, à stocker dans une base de données avec hash)
-const ADMIN_CREDENTIALS = {
-  username: 'admin',
-  password: 'AdminAlpine2025!'
-};
+const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:5000';
 
 export default function AdminLogin() {
   const navigate = useNavigate();
   const [formData, setFormData] = useState({
-    username: '',
+    email: '',
     password: ''
   });
   const [error, setError] = useState('');
@@ -24,29 +21,46 @@ export default function AdminLogin() {
     setError('');
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
     setError('');
     setLoading(true);
 
-    setTimeout(() => {
-      if (
-        formData.username === ADMIN_CREDENTIALS.username &&
-        formData.password === ADMIN_CREDENTIALS.password
-      ) {
-        // Connexion réussie
-        const adminSession = {
-          username: formData.username,
-          role: 'admin',
-          loginTime: new Date().toISOString()
-        };
-        localStorage.setItem('adminSession', JSON.stringify(adminSession));
-        navigate('/admin/dashboard');
+    try {
+      // Connexion via l'API
+      const response = await axios.post(`${API_URL}/api/auth/login`, {
+        email: formData.email,
+        mot_de_passe: formData.password
+      });
+
+      const { token, user } = response.data;
+
+      // Vérifier que l'utilisateur est admin
+      if (user.role !== 'admin') {
+        setError('Accès refusé - Droits administrateur requis');
+        setLoading(false);
+        return;
+      }
+
+      // Stocker le token et les infos utilisateur
+      localStorage.setItem('token', token);
+      localStorage.setItem('user', JSON.stringify(user));
+      localStorage.setItem('adminSession', JSON.stringify({
+        username: user.nom_utilisateur,
+        role: user.role,
+        loginTime: new Date().toISOString()
+      }));
+
+      navigate('/admin/dashboard');
+    } catch (err) {
+      console.error('Erreur connexion admin:', err);
+      if (err.response?.status === 401) {
+        setError('Email ou mot de passe incorrect');
       } else {
-        setError('Identifiant ou mot de passe incorrect');
+        setError(err.response?.data?.error || 'Erreur lors de la connexion');
       }
       setLoading(false);
-    }, 500);
+    }
   };
 
   return (
@@ -104,15 +118,16 @@ export default function AdminLogin() {
               fontWeight: '600',
               color: '#333'
             }}>
-              Identifiant
+              Email
             </label>
             <input
-              type="text"
-              name="username"
-              value={formData.username}
+              type="email"
+              name="email"
+              value={formData.email}
               onChange={handleChange}
               required
               autoFocus
+              placeholder="admin@aventures-alpines.fr"
               style={{
                 width: '100%',
                 padding: '0.75rem',
@@ -188,7 +203,7 @@ export default function AdminLogin() {
           fontSize: '0.85rem',
           color: '#666'
         }}>
-          <strong>📝 Identifiants par défaut :</strong><br />
+          Email : <code style={{ background: '#e9ecef', padding: '2px 6px', borderRadius: '3px' }}>admin@aventures-alpines.fr
           Identifiant : <code style={{ background: '#e9ecef', padding: '2px 6px', borderRadius: '3px' }}>admin</code><br />
           Mot de passe : <code style={{ background: '#e9ecef', padding: '2px 6px', borderRadius: '3px' }}>AdminAlpine2025!</code>
         </div>

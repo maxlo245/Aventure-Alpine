@@ -30,9 +30,20 @@ export const generateToken = (user) => {
   const payload = {
     id: user.id,
     nom_utilisateur: user.nom_utilisateur,
-    email: user.email
+    email: user.email,
+    role: user.role || 'user'
   };
   
   // Token valide 24h
   return jwt.sign(payload, JWT_SECRET, { expiresIn: '24h' });
+};
+
+/**
+ * Middleware pour vérifier que l'utilisateur est admin
+ */
+export const requireAdmin = (req, res, next) => {
+  if (!req.user || req.user.role !== 'admin') {
+    return res.status(403).json({ error: 'Accès refusé - Droits administrateur requis' });
+  }
+  next();
 };

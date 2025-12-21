@@ -9,7 +9,8 @@
     "build": "vite build",
     "lint": "eslint . --ext js,jsx --report-unused-disable-directives --max-warnings 0",
     "preview": "vite preview",
-    "init-db": "node server/db/init-supabase.js"
+    "init-db": "node server/db/init-supabase.js",
+    "setup-admin": "node server/db/setup-admin.js"
   },
   "dependencies": {
     "axios": "^1.7.7",
