@@ -11,6 +11,8 @@ import Blog from './pages/Blog';
 import Login from './pages/Login';
 import Register from './pages/Register';
 import Dashboard from './pages/Dashboard';
+import AdminLogin from './pages/AdminLogin';
+import AdminDashboard from './pages/AdminDashboard';
 import Randonnee from './pages/Randonnee';
 import Escalade from './pages/Escalade';
 import Ski from './pages/Ski';
@@ -86,6 +88,8 @@ function App() {
           <Route path="/login" element={<Login />} />
           <Route path="/register" element={<Register />} />
           <Route path="/dashboard" element={<Dashboard />} />
+          <Route path="/admin/login" element={<AdminLogin />} />
+          <Route path="/admin/dashboard" element={<AdminDashboard />} />
         </Routes>
       </main>
       
