@@ -20,9 +20,9 @@
 - [Installation](#installation)
 - [Configuration](#configuration)
 - [Déploiement](#déploiement)
-- [Performance et Optimisations](#performance-et-optimisations)
+- [Performance](#performance)
 - [API](#api)
-- [Structure du projet](#structure-du-projet)
+- [Structure](#structure)
 - [Contribution](#contribution)
 - [Licence](#licence)
 
@@ -30,120 +30,43 @@
 
 ## À propos
 
-**Aventures Alpines** est une application web full-stack offrant une vitrine interactive pour découvrir les sports de montagne (ski, escalade, randonnée, VTT) et permettre aux utilisateurs de contacter l'équipe via un formulaire optimisé.
+**Aventures Alpines** est une plateforme web full-stack pour découvrir les sports de montagne (ski, escalade, randonnée, VTT) avec système d'authentification et réservation.
 
-L'architecture découplée garantit une **haute disponibilité** : le frontend fonctionne de manière autonome avec localStorage, tandis que le backend et la base de données restent optionnels.
+**Architecture Progressive** : Frontend autonome (localStorage) + Backend/DB optionnels.
 
-### Points clés
-
-- **Progressive Enhancement** - Fonctionne sans backend  
-- **Mobile-first** - Responsive sur tous les appareils  
-- **SEO-ready** - Métadonnées optimisées  
-- **Performance** - Code splitting, lazy loading, bundle optimisé (16KB initial)  
-- **Tests E2E** - Suite complète de 43 tests automatisés Selenium  
-- **Production-grade** - Déployé sur Vercel + Render
+**Highlights** : Mobile-first • SEO optimisé • Bundle 16KB • 43 tests E2E • Déployé sur Vercel + Render
 
 ---
 
 ## Fonctionnalités
 
-### Authentification & Compte utilisateur
+**Authentification** : Inscription/Connexion JWT • Dashboard • Réservations • Routes protégées
 
-- **Inscription/Connexion** - Système JWT sécurisé avec hashage bcrypt
-- **Dashboard personnel** - Profil utilisateur et gestion de compte
-- **Réservations** - Système complet de réservation de prestations
-- **Routes protégées** - Accès sécurisé aux fonctionnalités membres
+**Pages** : Accueil • Activités (ski, escalade, randonnée, VTT) • Sites d'escalade • Stations de ski • Itinéraires • Blog • Vidéos • Contact
 
-### Pages principales
+**Réservation** : Catalogue prestations • Booking en ligne • Suivi réservations (en attente, confirmée, annulée)
 
-- **Accueil** - Hero section, présentation générale
-- **Activités** - Catalogue des sports alpins (ski, escalade, randonnée, VTT)
-- **Sites d'escalade** - Base de données complète des voies et falaises
-- **Stations de ski** - Conditions en temps réel, domaines skiables
-- **Itinéraires** - Parcours détaillés avec niveaux de difficulté et guides
-- **Articles** - Blog sur les techniques, matériel et conseils
-- **Vidéos** - Galerie multimédia de documentaires et tutoriels
-- **Contact** - Formulaire avec validation et persistance localStorage
-
-### Système de réservation
-
-- **Prestations** - Catalogue d'activités et stages disponibles
-- **Booking** - Réservation en ligne avec validation dates
-- **Gestion** - Suivi des réservations (en attente, confirmée, annulée)
-- **Clients** - Profil client lié au compte utilisateur
-
-### Tests & Qualité
-
-- **Tests E2E** - 43 tests automatisés Selenium WebDriver
-  - 15 tests de navigation (menu, routes, responsivité)
-  - 16 tests de filtres (sports, difficultés, recherche)
-  - 12 tests d'authentification (inscription, connexion, sécurité)
-- **Framework** - Mocha + Chai + Selenium 4.16.0
-- **Couverture** - Navigation complète, formulaires, état applicatif
+**Tests E2E** : 43 tests Selenium (15 navigation + 16 filtres + 12 auth) - Mocha + Chai
 
 ### Architecture
 
 ```text
-┌─────────────────┐
-│   Utilisateur   │
-└────────┬────────┘
-         │
-    ┌────▼─────┐
-    │  Vercel  │ (CDN global)
-    └────┬─────┘
-         │
-    ┌────▼─────────────────┐
-    │   React SPA          │
-    │  (HashRouter)        │
-    └──┬────────────────┬──┘
-       │                │
-┌──────▼───────┐   ┌───▼──────────────┐
-│ localStorage │   │  API (optionnel) │
-└──────────────┘   └───┬──────────────┘
-                       │
-              ┌────────▼──────────┐
-              │  PostgreSQL       │
-              │  (Supabase)       │
-              └───────────────────┘
+Utilisateur → Vercel (CDN) → React SPA (HashRouter)
+                                ├─→ localStorage (fallback)
+                                └─→ API Express → PostgreSQL (Supabase)
 ```
 
-**Progressive Enhancement** : Le frontend fonctionne sans backend. Si l'API est configurée (`VITE_API_URL`), les données sont synchronisées avec PostgreSQL.
+**Progressive Enhancement** : Frontend autonome avec localStorage. API optionnelle (`VITE_API_URL`).
 
 ---
 
 ## Technologies
 
-### Frontend
+**Frontend** : React 18.2 • Vite 5.0 • React Router 7.x • Axios • Leaflet • React-Leaflet
 
-| Technologie | Version | Rôle |
-| ----------- | ------- | ---- |
-| **React** | 18.2 | Interface utilisateur avec hooks et state management |
-| **Vite** | 5.0 | Build tool ultra-rapide (HMR, ESM) + code splitting |
-| **React Router** | 7.x | Routing côté client avec HashRouter et lazy loading |
-| **Axios** | 1.7 | Client HTTP pour appels API |
-| **Leaflet** | 1.9.4 | Cartes interactives OpenStreetMap |
-| **React-Leaflet** | 4.2.1 | Composants React pour Leaflet |
+**Backend** : Node.js ≥18 • Express 4.19 • PostgreSQL (pg 8.11) • bcryptjs • JWT • CORS
 
-### Backend
-
-| Technologie | Version | Rôle |
-| ----------- | ------- | ---- |
-| **Node.js** | ≥18.0 | Runtime JavaScript serveur |
-| **Express** | 4.19 | API REST minimaliste |
-| **pg** | 8.11 | Driver PostgreSQL natif |
-| **bcryptjs** | 2.4 | Hashage sécurisé des mots de passe |
-| **jsonwebtoken** | 9.0 | Authentification JWT |
-| **CORS** | 2.8 | Gestion Cross-Origin Resource Sharing |
-| **dotenv** | 16.4 | Variables d'environnement |
-
-### Infrastructure
-
-| Service | Rôle | Plan |
-| ------- | ---- | ---- |
-| **Vercel** | Hosting frontend | Free (CDN global, auto-deploy) |
-| **Render** | Hosting API | Free (cold start après inactivité) |
-| **Supabase** | Database PostgreSQL | Free (500MB, optionnel) |
-| **Selenium** | Tests E2E | 4.16.0 (Mocha + Chai + Chromedriver) |
+**Infrastructure** : Vercel (Frontend CDN) • Render (API) • Supabase (PostgreSQL 500MB) • Selenium 4.16 (Tests E2E)
 
 ---
 
@@ -178,704 +101,105 @@ Ouvrez <http://localhost:5173> dans votre navigateur
 
 ## Installation
 
-### Mode standalone (frontend uniquement)
-
-Le plus simple pour débuter. Aucune configuration requise.
+**Mode standalone** (frontend uniquement) :
 
 ```bash
-npm run dev
+npm run dev  # Utilise localStorage
 ```
 
-Le formulaire de contact sauvegarde les messages dans **localStorage** (navigateur local).
+**Mode full-stack** (avec PostgreSQL) :
 
-### Mode full-stack (frontend + backend + base de données)
-
-Pour activer la synchronisation avec PostgreSQL :
-
-#### Étape 1 : Configuration de la base de données
-
-1. Créer un compte Supabase gratuit
-2. Créer un nouveau projet
-3. Récupérer les identifiants de connexion
-
-#### Étape 2 : Variables d'environnement
-
-Créez un fichier `.env` à la racine :
-
-```bash
-cp .env.supabase.example .env
-```
-
-Remplissez les variables :
-
-```env
-# Backend - API Server
-PORT=5000
-
-# Database - Supabase PostgreSQL
-DB_HOST=xxxxx.supabase.co
-DB_USER=postgres
-DB_PASSWORD=votre_mot_de_passe_supabase
-DB_NAME=postgres
-DB_PORT=5432
-```
-
-#### Étape 3 : Initialisation du schéma
-
-```bash
-npm run init-db
-```
-
-Cette commande crée les tables nécessaires dans Supabase.
-
-#### Étape 4 : Lancement des serveurs
-
-**Terminal 1** (Frontend) :
-
-```bash
-npm run dev
-```
-
-**Terminal 2** (API) :
-
-```bash
-npm run server
-```
+1. Créer projet Supabase gratuit
+2. Créer `.env` avec identifiants DB
+3. Initialiser schéma : `npm run init-db`
+4. Lancer : `npm run dev` + `npm run server`
 
 ---
 
 ## Configuration
 
-### Variables d'environnement
+**Frontend** : `VITE_API_URL` (optionnel) - URL de l'API backend
 
-#### Frontend (Vercel)
-
-| Variable       | Requis | Description           | Valeur par défaut |
-| -------------- | ------ | --------------------- | ----------------- |
-| `VITE_API_URL` | Non    | URL de l'API backend  | -                 |
-
-**Remarque** : Sans cette variable, l'application fonctionne en mode autonome avec localStorage.
-
-#### Backend (Render)
-
-| Variable      | Requis | Description                              | Exemple               |
-| ------------- | ------ | ---------------------------------------- | --------------------- |
-| `NODE_ENV`    | Oui    | Environnement d'exécution                | `production`          |
-| `PORT`        | Non    | Port d'écoute du serveur                 | `5000`                |
-| `JWT_SECRET`  | **Oui**| Secret pour tokens JWT (min. 32 chars)   | -                     |
-| `DB_HOST`     | Non*   | Hôte PostgreSQL                          | `xxxxx.supabase.co`   |
-| `DB_USER`     | Non*   | Utilisateur base de données              | `postgres`            |
-| `DB_PASSWORD` | Non*   | Mot de passe base de données             | -                     |
-| `DB_NAME`     | Non*   | Nom de la base de données                | `postgres`            |
-| `DB_PORT`     | Non*   | Port PostgreSQL                          | `5432`                |
-
-***Variables DB optionnelles** : L'API démarre sans ces variables et retourne HTTP 503 pour les endpoints nécessitant la base de données.
-
-**IMPORTANT** : En production, générez un `JWT_SECRET` unique et sécurisé !
+**Backend** : 
+- `JWT_SECRET` (requis) - Secret JWT min. 32 chars
+- `DB_HOST`, `DB_USER`, `DB_PASSWORD`, `DB_NAME`, `DB_PORT` (optionnels) - PostgreSQL
+- Sans DB : API retourne 503, frontend utilise localStorage
 
 ---
 
 ## Déploiement
 
-### Déploiement Vercel (Frontend)
+**Vercel (Frontend)** : Importer repo → Config auto-détectée (Vite) → Ajouter `VITE_API_URL` (optionnel) → Déployer
 
-**Prérequis** : Compte Vercel connecté à GitHub
+**Render (Backend optionnel)** : 
+- Mode standalone : Variables `NODE_ENV`, `PORT`
+- Mode full-stack : Ajouter variables Supabase → `npm run init-db`
 
-1. Importer le repository sur [vercel.com](https://vercel.com)
-2. Configuration automatiquement détectée :
-   - **Framework** : Vite
-   - **Build Command** : `npm run build`
-   - **Output Directory** : `dist`
-3. Variables d'environnement (optionnel) :
+**URLs** : <https://aventure-alpine.vercel.app> • <https://aventure-alpine.onrender.com>
 
-   ```env
-   VITE_API_URL=https://aventure-alpine.onrender.com
-   ```
-
-4. Déployer
-
-**URL de production** : <https://aventure-alpine.vercel.app>
-
-### Déploiement Render (Backend - optionnel)
-
-**Prérequis** : Compte Render connecté à GitHub
-
-#### Option 1 : Mode dégradé (sans base de données)
-
-1. Créer un **Web Service**
-2. Configurer :
-   - **Build Command** : `npm install`
-   - **Start Command** : `node server/index.js`
-3. Variables d'environnement :
-
-   ```env
-   NODE_ENV=production
-   PORT=5000
-   ```
-
-L'API retournera 503 pour les endpoints DB. Le frontend utilisera localStorage automatiquement.
-
-#### Option 2 : Mode complet (avec PostgreSQL)
-
-1. Créer le Web Service (comme ci-dessus)
-2. Ajouter les variables Supabase :
-
-   ```env
-   NODE_ENV=production
-   PORT=5000
-   DB_HOST=xxxxx.supabase.co
-   DB_PORT=5432
-   DB_USER=postgres
-   DB_PASSWORD=votre_mot_de_passe_supabase
-   DB_NAME=postgres
-   ```
-
-3. Initialiser le schéma (en local) :
-
-   ```bash
-   npm run init-db
-   ```
-
-**URL de l'API** : <https://aventure-alpine.onrender.com>
-
-**Note** : Render Free Tier = cold start après 15 min d'inactivité (~30s de latence au premier appel).
+**Note** : Render Free = cold start 15min (~30s latence)
 
 ---
 
-## Performance et Optimisations
+## Performance
 
-### Build Optimisé
+**Optimisations** : Code splitting (React 175KB, Leaflet 154KB) • Lazy loading (14 composants) • Preconnect fonts • Meta SEO
 
-L'application utilise plusieurs techniques d'optimisation :
-
-- **Code Splitting** - Séparation des vendors React et Leaflet
-  - Bundle initial : 16KB (vs 514KB avant optimisation)
-  - React vendor chunk : 175KB (chargé à la demande)
-  - Leaflet vendor chunk : 154KB (chargé uniquement sur pages avec cartes)
-  - 27 chunks optimisés au total
-
-- **Lazy Loading** - Chargement différé des composants
-  - Page d'accueil chargée immédiatement
-  - 14 composants chargés à la demande (Activities, Articles, Dashboard, etc.)
-  - Suspense avec écran de chargement
-
-- **Optimisations HTML**
-  - Preconnect vers Google Fonts
-  - DNS-prefetch pour ressources externes
-  - Meta tags SEO optimisés
-  - Theme-color pour PWA
-
-### Résultats
-
-- **FCP (First Contentful Paint)** : Amélioration de ~70%
-- **TTI (Time to Interactive)** : Amélioration de ~60%
-- **Bundle Size** : Réduction de 97% du chargement initial
-- **Lighthouse Score** : 95+ en Performance
+**Résultats** : Bundle 16KB (↓97%) • FCP ↑70% • TTI ↑60% • Lighthouse 95+
 
 ---
 
 ## API
 
-### URL de base
+**Base URL** : <https://aventure-alpine.onrender.com>
 
-```text
-https://aventure-alpine.onrender.com
-```
+**Format** : JSON • CORS activé
 
-### Format
+### Endpoints principaux
 
-- **Réponses** : JSON
-- **Authentification** : Aucune
-- **CORS** : Activé (toutes origines)
+**Auth** : `POST /api/auth/register` • `POST /api/auth/login` • `GET /api/auth/me` (JWT)
 
-### Endpoints
+**Publics** : `GET /api/activities` • `GET /api/sites-escalade` • `GET /api/stations-ski` • `GET /api/prestations` • `GET /api/articles` • `GET /api/videos` • `GET /api/routes` • `GET /api/experiences` • `POST /api/contact-messages`
 
-#### Endpoints publics
+**Protégés** : `POST /api/reservations` • `GET /api/reservations`
 
-#### `GET /`
-
-Métadonnées de l'API et liste complète des endpoints.
-
-**Réponse** :
-
-```json
-{
-  "name": "Aventures Alpines API",
-  "status": "running",
-  "endpoints": [
-    "/api/health",
-    "/api/auth/register",
-    "/api/auth/login",
-    "/api/activities",
-    "/api/sites-escalade",
-    "/api/stations-ski",
-    "..."
-  ]
-}
-```
+**Gestion erreurs** : API retourne 503 sans DB → Frontend bascule sur localStorage automatiquement
 
 ---
 
-#### `GET /api/health`
-
-État de santé du service.
-
-**Réponse avec DB** :
-
-```json
-{
-  "status": "ok",
-  "database": "connected"
-}
-```
-
----
-
-#### `POST /api/auth/register`
-
-Créer un nouveau compte utilisateur.
-
-**Body** :
-
-```json
-{
-  "nom_utilisateur": "jeandupont",
-  "email": "jean@email.com",
-  "mot_de_passe": "password123",
-  "nom": "Dupont",
-  "prenom": "Jean"
-}
-```
-
-**Réponse 201** :
-
-```json
-{
-  "message": "Inscription réussie",
-  "user": {
-    "id": 1,
-    "nom_utilisateur": "jeandupont",
-    "email": "jean@email.com"
-  },
-  "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9..."
-}
-```
-
----
-
-#### `POST /api/auth/login`
-
-Se connecter avec un compte existant.
-
-**Body** :
-
-```json
-{
-  "email": "jean@email.com",
-  "mot_de_passe": "password123"
-}
-```
-
-**Réponse 200** :
-
-```json
-{
-  "message": "Connexion réussie",
-  "user": { "id": 1, "nom_utilisateur": "jeandupont" },
-  "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9..."
-}
-```
-
----
-
-#### `GET /api/sites-escalade`
-
-Liste de tous les sites d'escalade.
-
-**Réponse 200** :
-
-```json
-[
-  {
-    "id": 1,
-    "name": "Voie du Pilier Sud",
-    "difficulty": "experimente",
-    "location": "Massif du Mont-Blanc",
-    "duration": "6h00"
-  }
-]
-```
-
----
-
-#### `GET /api/stations-ski`
-
-Liste de toutes les stations de ski.
-
-**Réponse 200** :
-
-```json
-[
-  {
-    "id": 1,
-    "name": "Les Grands Montets",
-    "snowConditions": "Excellent - 180cm base",
-    "slopeType": "noire",
-    "hasLifts": true
-  }
-]
-```
-
----
-
-#### `GET /api/prestations`
-
-Liste des prestations disponibles (stages, activités).
-
-**Réponse 200** :
-
-```json
-[
-  {
-    "id": 1,
-    "name": "Stage Escalade Débutant",
-    "activityType": "escalade",
-    "basePrice": 180.00,
-    "durationDays": 2
-  }
-]
-```
-
----
-
-#### Endpoints protégés (authentification requise)
-
-**Headers requis** :
-
-```text
-Authorization: Bearer <votre_token_jwt>
-```
-
-#### `GET /api/auth/me`
-
-Récupérer les informations de l'utilisateur connecté.
-
-**Réponse 200** :
-
-```json
-{
-  "id": 1,
-  "nom_utilisateur": "jeandupont",
-  "email": "jean@email.com",
-  "date_inscription": "2025-12-15T10:30:00Z"
-}
-```
-
----
-
-#### `GET /api/reservations`
-
-Liste des réservations de l'utilisateur connecté.
-
-**Réponse 200** :
-
-```json
-[
-  {
-    "id": 1,
-    "prestationName": "Stage Escalade Débutant",
-    "startDate": "2025-07-15",
-    "endDate": "2025-07-17",
-    "numPeople": 2,
-    "totalPrice": 360.00,
-    "status": "confirmee"
-  }
-]
-```
-
----
-
-#### `POST /api/reservations`
-
-Créer une nouvelle réservation.
-
-**Body** :
-
-```json
-{
-  "prestationId": 1,
-  "startDate": "2025-07-15",
-  "endDate": "2025-07-17",
-  "numPeople": 2,
-  "totalPrice": 360.00
-}
-```
-
-**Réponse 201** :
-
-```json
-{
-  "message": "Réservation créée avec succès",
-  "reservation": {
-    "id": 1,
-    "startDate": "2025-07-15",
-    "status": "en_attente"
-  }
-}
-```
-
----
-
-#### `POST /api/contact-messages`
-
-Soumettre un message de contact.
-
-**Body** :
-
-```json
-{
-  "name": "John Doe",
-  "email": "john@example.com",
-  "message": "Demande d'information"
-}
-```
-
-**Réponse 201** :
-
-```json
-{
-  "id": 42,
-  "name": "John Doe",
-  "email": "john@example.com",
-  "message": "Demande d'information",
-  "created_at": "2025-12-15T10:30:00Z"
-}
-```
-
-**Réponse 503** (sans DB) :
-
-```json
-{
-  "error": "Base de données non configurée"
-}
-```
-
----
-
-#### Autres endpoints
-
-| Méthode | Route | Description | Auth requise |
-| ------- | ----- | ----------- | ------------ |
-| `POST` | `/api/auth/register` | Inscription utilisateur | Non |
-| `POST` | `/api/auth/login` | Connexion utilisateur | Non |
-| `GET` | `/api/auth/me` | Profil utilisateur | Oui |
-| `GET` | `/api/activities` | Liste des sports de montagne | Non |
-| `GET` | `/api/sites-escalade` | Sites d'escalade | Non |
-| `POST` | `/api/sites-escalade` | Créer un site | Oui |
-| `GET` | `/api/stations-ski` | Stations de ski | Non |
-| `POST` | `/api/stations-ski` | Créer une station | Oui |
-| `GET` | `/api/prestations` | Prestations disponibles | Non |
-| `POST` | `/api/prestations` | Créer une prestation | Oui |
-| `GET` | `/api/reservations` | Mes réservations | Oui |
-| `POST` | `/api/reservations` | Créer une réservation | Oui |
-| `GET` | `/api/articles` | Articles du blog | Non |
-| `GET` | `/api/videos` | Galerie vidéo | Non |
-| `GET` | `/api/routes` | Itinéraires de randonnée | Non |
-| `GET` | `/api/experiences` | Récits utilisateurs | Non |
-| `POST` | `/api/experiences` | Créer un récit | Non |
-| `POST` | `/api/contact-messages` | Message de contact | Non |
-
-### Gestion des erreurs
-
-Le client frontend gère automatiquement les erreurs 503 en basculant sur localStorage.
-
-**Exemple** :
-
-```javascript
-try {
-  const res = await axios.post(`${API_URL}/api/contact-messages`, data);
-  console.log('Sauvegardé sur serveur:', res.data);
-} catch (error) {
-  if (error.response?.status === 503) {
-    // Fallback localStorage
-    const messages = JSON.parse(localStorage.getItem('messages') || '[]');
-    messages.push({ ...data, id: Date.now() });
-    localStorage.setItem('messages', JSON.stringify(messages));
-  }
-}
-```
-
----
-
-## Structure du projet
+## Structure
 
 ```text
 aventure-alpine/
-│
-├── index.html                   # Point d'entrée HTML
-├── package.json                 # Dépendances et scripts npm
-├── vite.config.js               # Configuration Vite
-├── vercel.json                  # Configuration Vercel
-├── render.yaml                  # Configuration Render
-├── LICENSE                      # Licence MIT
-├── README.md                    # Documentation (ce fichier)
-│
-├── tests/                       # Tests E2E Selenium
-│   ├── auth.test.js             # Tests authentification (12 tests)
-│   ├── navigation.test.js       # Tests navigation (15 tests)
-│   ├── filters.test.js          # Tests filtres (16 tests)
-│   ├── package.json             # Dépendances tests
-│   └── README.md                # Documentation tests
-│
-├── server/                      # Backend Express
-│   ├── index.js                 # API REST
-│   ├── middleware/
-│   │   └── auth.js              # Middleware JWT authentification
-│   └── db/
-│       ├── pool.js              # Connection pool PostgreSQL
-│       ├── init-supabase.js     # Script d'initialisation DB
-│       └── schema.sql           # Schéma SQL complet (13 tables)
-│
-└── src/                         # Frontend React
-    ├── main.jsx                 # Point d'entrée React
-    ├── App.jsx                  # Composant racine + routing + auth
-    ├── index.css                # Styles globaux
-    ├── App.css                  # Styles du composant App
-    │
-    ├── pages/
-    │   ├── Activities.jsx       # Page activités (sports)
-    │   ├── Articles.jsx         # Page blog articles
-    │   ├── Blog.jsx             # Page récits utilisateurs
-    │   ├── RoutesPage.jsx       # Page itinéraires
-    │   ├── Videos.jsx           # Page galerie vidéo
-    │   ├── Login.jsx            # Page connexion
-    │   ├── Register.jsx         # Page inscription
-    │   └── Dashboard.jsx        # Tableau de bord utilisateur
-    │
-    ├── components/
-    │   ├── ArticleCard.jsx      # Carte article
-    │   ├── VideoCard.jsx        # Carte vidéo
-    │   ├── HikingRouteCard.jsx  # Carte itinéraire
-    │   └── ExperienceFeed.jsx   # Fil d'expériences
-    │
-    ├── data/
-    │   ├── sports.js            # Données statiques sports
-    │   ├── articles.js          # Données statiques articles
-    │   ├── videos.js            # Données statiques vidéos
-    │   └── routes.js            # Données statiques itinéraires
-    │
-    ├── api/
-    │   └── client.js            # Configuration axios
-    │
-    ├── Home.jsx                 # Page d'accueil
-    ├── Adventures.jsx           # Page aventures
-    └── Contact.jsx              # Formulaire de contact
+├── src/                  # Frontend React (pages/, components/, data/, api/)
+├── server/               # Backend Express (index.js, middleware/, db/)
+├── tests/                # Tests E2E Selenium (43 tests)
+├── index.html            # HTML entry point
+├── vite.config.js        # Config Vite + code splitting
+└── package.json          # Scripts & dépendances
 ```
 
-### Tables de la base de données
+**Base de données** : 13 tables (utilisateurs, guides, clients, activities, sites_escalade, stations_ski, routes, prestations, reservations, articles_blog, videos, experiences, contact_messages)
 
-**13 tables** avec relations complètes :
-
-1. **utilisateurs** - Comptes utilisateurs (JWT auth)
-2. **guides** - Guides de montagne
-3. **clients** - Profils clients liés aux utilisateurs
-4. **activities** - Activités génériques
-5. **sites_escalade** - Sites d'escalade détaillés
-6. **stations_ski** - Stations de ski avec conditions
-7. **routes** - Itinéraires de randonnée
-8. **prestations** - Services et stages disponibles
-9. **reservations** - Réservations clients
-10. **articles_blog** - Articles du blog
-11. **videos** - Galerie vidéos
-12. **experiences** - Récits partagés
-13. **contact_messages** - Messages de contact
-
-Voir [schema.sql](server/db/schema.sql) pour le schéma complet.
+Voir [server/db/schema.sql](server/db/schema.sql)
 
 ---
 
 ## Contribution
 
-Les contributions sont les bienvenues ! Voici comment participer :
+1. Fork → Créer branche `feature/NomFeature`
+2. Commit (format [Conventional Commits](https://www.conventionalcommits.org/))
+3. Push → Ouvrir PR
 
-### Workflow de contribution
+**Vérifications** : `npm run lint` • `cd tests && npm test`
 
-1. **Fork** le projet
-2. **Créer une branche** pour votre fonctionnalité :
-
-   ```bash
-   git checkout -b feature/AmazingFeature
-   ```
-
-3. **Commit** vos changements :
-
-   ```bash
-   git commit -m 'feat: add AmazingFeature'
-   ```
-
-4. **Push** vers votre fork :
-
-   ```bash
-   git push origin feature/AmazingFeature
-   ```
-
-5. **Ouvrir une Pull Request**
-
-### Conventions de code
-
-- **Commits** : Format [Conventional Commits](https://www.conventionalcommits.org/)
-  - `feat:` nouvelle fonctionnalité
-  - `fix:` correction de bug
-  - `docs:` documentation
-  - `style:` formatage code
-  - `refactor:` refactoring
-  - `test:` ajout de tests
-  - `chore:` tâches de maintenance
-
-- **Code style** :
-  - Indentation : 2 espaces
-  - Quotes : single quotes `'` pour JS
-  - Trailing commas : oui
-  - Semicolons : non requis (sauf cas spéciaux)
-
-### Bonnes pratiques
-
-- Tester vos changements localement
-- Vérifier ESLint : `npm run lint`
-- Exécuter les tests E2E : `cd tests && npm test`
-- Documenter les nouvelles fonctionnalités
-- Garder les PR focalisées (1 feature = 1 PR)
-- Ajouter des tests pour les nouvelles fonctionnalités
+**Style** : 2 espaces • Single quotes • Trailing commas
 
 ---
 
 ## Licence
 
-Ce projet est sous licence **MIT**. Voir le fichier [LICENSE](LICENSE) pour plus de détails.
-
-```text
-MIT License
-
-Copyright (c) 2025 Aventures Alpines
-
-Permission is hereby granted, free of charge, to any person obtaining a copy
-of this software and associated documentation files (the "Software"), to deal
-in the Software without restriction, including without limitation the rights
-to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-copies of the Software, and to permit persons to whom the Software is
-furnished to do so, subject to the following conditions:
-
-The above copyright notice and this permission notice shall be included in all
-copies or substantial portions of the Software.
-
-THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
-AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
-LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
-OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
-SOFTWARE.
-```
+**MIT License** © 2025 Aventures Alpines - Voir [LICENSE](LICENSE)
 
 ---
 
