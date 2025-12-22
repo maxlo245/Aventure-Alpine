@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
 import axios from 'axios';
 import HikingRouteCard from '../components/HikingRouteCard';
-import { MapContainer, TileLayer, Marker, Popup, useMapEvents } from 'react-leaflet';
+import { MapContainer, TileLayer, Marker, Popup, useMap } from 'react-leaflet';
 import 'leaflet/dist/leaflet.css';
 import L from 'leaflet';
 
@@ -15,47 +15,38 @@ L.Icon.Default.mergeOptions({
 
 const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:5000';
 
-// Composant pour gérer le scroll avec Ctrl et afficher un message
-function ScrollWheelHandler() {
-  const [showMessage, setShowMessage] = useState(false);
-  
-  useMapEvents({
-    wheel: (e) => {
-      if (!e.originalEvent.ctrlKey) {
-        setShowMessage(true);
-        setTimeout(() => setShowMessage(false), 2000);
-      }
-    }
-  });
+// Composant pour gérer le scroll avec Ctrl
+function ScrollWheelZoomControl({ onScrollWithoutCtrl }) {
+  const map = useMap();
 
-  return showMessage ? (
-    <div style={{
-      position: 'absolute',
-      top: '50%',
-      left: '50%',
-      transform: 'translate(-50%, -50%)',
-      backgroundColor: 'rgba(0, 0, 0, 0.85)',
-      color: 'white',
-      padding: '1rem 1.5rem',
-      borderRadius: '8px',
-      zIndex: 1000,
-      fontSize: '0.95rem',
-      fontWeight: '500',
-      boxShadow: '0 4px 12px rgba(0, 0, 0, 0.3)',
-      pointerEvents: 'none',
-      textAlign: 'center'
-    }}>
-      Maintenez <kbd style={{
-        background: '#fff',
-        color: '#000',
-        padding: '2px 8px',
-        borderRadius: '4px',
-        fontFamily: 'monospace',
-        fontWeight: 'bold',
-        margin: '0 4px'
-      }}>Ctrl</kbd> pour zoomer
-    </div>
-  ) : null;
+  useEffect(() => {
+    if (!map) return;
+
+    // Désactiver le zoom par molette par défaut
+    map.scrollWheelZoom.disable();
+
+    // Gérer manuellement le zoom avec Ctrl
+    const handleWheel = (e) => {
+      if (e.ctrlKey || e.metaKey) {
+        // Permettre le zoom si Ctrl/Cmd est pressé
+        e.preventDefault();
+        const delta = e.deltaY > 0 ? -1 : 1;
+        map.setZoom(map.getZoom() + delta * 0.5);
+      } else {
+        // Afficher le message si Ctrl n'est pas pressé
+        onScrollWithoutCtrl();
+      }
+    };
+
+    const container = map.getContainer();
+    container.addEventListener('wheel', handleWheel, { passive: false });
+
+    return () => {
+      container.removeEventListener('wheel', handleWheel);
+    };
+  }, [map, onScrollWithoutCtrl]);
+
+  return null;
 }
 
 export default function Randonnee() {
@@ -64,6 +55,7 @@ export default function Randonnee() {
   const [loading, setLoading] = useState(true);
   const [filter, setFilter] = useState('all'); // all, facile, intermediaire, difficile
   const [searchTerm, setSearchTerm] = useState('');
+  const [showScrollMessage, setShowScrollMessage] = useState(false);
 
   useEffect(() => {
     loadData();
@@ -91,6 +83,11 @@ export default function Randonnee() {
                          route.region?.toLowerCase().includes(searchTerm.toLowerCase());
     return matchesFilter && matchesSearch;
   });
+
+  const handleScrollWithoutCtrl = () => {
+    setShowScrollMessage(true);
+    setTimeout(() => setShowScrollMessage(false), 2000);
+  };
 
   return (
     <div className="randonnee-page">
@@ -272,14 +269,44 @@ export default function Randonnee() {
               fontWeight: 'bold'
             }}>Ctrl</kbd> appuyé pour zoomer ou dézoomer avec la molette de la souris
           </p>
-          <div className="map-container">
+          <div className="map-container" style={{ position: 'relative' }}>
+            {showScrollMessage && (
+              <div style={{
+                position: 'absolute',
+                top: '50%',
+                left: '50%',
+                transform: 'translate(-50%, -50%)',
+                backgroundColor: 'rgba(0, 0, 0, 0.9)',
+                color: 'white',
+                padding: '1rem 1.5rem',
+                borderRadius: '8px',
+                zIndex: 1000,
+                fontSize: '1rem',
+                fontWeight: '600',
+                boxShadow: '0 4px 20px rgba(0, 0, 0, 0.4)',
+                pointerEvents: 'none',
+                textAlign: 'center',
+                border: '2px solid rgba(255, 255, 255, 0.2)'
+              }}>
+                Maintenez <kbd style={{
+                  background: '#fff',
+                  color: '#000',
+                  padding: '3px 10px',
+                  borderRadius: '4px',
+                  fontFamily: 'monospace',
+                  fontWeight: 'bold',
+                  margin: '0 6px',
+                  fontSize: '1.1em'
+                }}>Ctrl</kbd> pour zoomer
+              </div>
+            )}
             <MapContainer 
               center={[45.9237, 6.8694]} 
               zoom={10} 
               scrollWheelZoom={false}
               style={{ height: '500px', width: '100%', borderRadius: '12px' }}
             >
-              <ScrollWheelHandler />
+              <ScrollWheelZoomControl onScrollWithoutCtrl={handleScrollWithoutCtrl} />
               <TileLayer
                 attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
                 url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
