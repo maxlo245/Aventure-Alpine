@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
 import axios from 'axios';
 import HikingRouteCard from '../components/HikingRouteCard';
-import { MapContainer, TileLayer, Marker, Popup } from 'react-leaflet';
+import { MapContainer, TileLayer, Marker, Popup, useMapEvents } from 'react-leaflet';
 import 'leaflet/dist/leaflet.css';
 import L from 'leaflet';
 
@@ -14,6 +14,49 @@ L.Icon.Default.mergeOptions({
 });
 
 const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:5000';
+
+// Composant pour gérer le scroll avec Ctrl et afficher un message
+function ScrollWheelHandler() {
+  const [showMessage, setShowMessage] = useState(false);
+  
+  useMapEvents({
+    wheel: (e) => {
+      if (!e.originalEvent.ctrlKey) {
+        setShowMessage(true);
+        setTimeout(() => setShowMessage(false), 2000);
+      }
+    }
+  });
+
+  return showMessage ? (
+    <div style={{
+      position: 'absolute',
+      top: '50%',
+      left: '50%',
+      transform: 'translate(-50%, -50%)',
+      backgroundColor: 'rgba(0, 0, 0, 0.85)',
+      color: 'white',
+      padding: '1rem 1.5rem',
+      borderRadius: '8px',
+      zIndex: 1000,
+      fontSize: '0.95rem',
+      fontWeight: '500',
+      boxShadow: '0 4px 12px rgba(0, 0, 0, 0.3)',
+      pointerEvents: 'none',
+      textAlign: 'center'
+    }}>
+      Maintenez <kbd style={{
+        background: '#fff',
+        color: '#000',
+        padding: '2px 8px',
+        borderRadius: '4px',
+        fontFamily: 'monospace',
+        fontWeight: 'bold',
+        margin: '0 4px'
+      }}>Ctrl</kbd> pour zoomer
+    </div>
+  ) : null;
+}
 
 export default function Randonnee() {
   const [routes, setRoutes] = useState([]);
@@ -211,12 +254,32 @@ export default function Randonnee() {
           <p className="section-intro">
             Explorez les itinéraires de randonnée directement sur la carte. Cliquez sur un marqueur pour voir les détails.
           </p>
+          <p className="map-instructions" style={{
+            backgroundColor: 'rgba(99, 102, 241, 0.1)',
+            padding: '0.75rem 1rem',
+            borderRadius: '8px',
+            marginBottom: '1rem',
+            fontSize: '0.95rem',
+            color: '#4f46e5',
+            border: '1px solid rgba(99, 102, 241, 0.2)'
+          }}>
+            💡 Maintenez <kbd style={{
+              background: '#fff',
+              padding: '2px 6px',
+              borderRadius: '4px',
+              border: '1px solid #cbd5e1',
+              fontFamily: 'monospace',
+              fontWeight: 'bold'
+            }}>Ctrl</kbd> appuyé pour zoomer ou dézoomer avec la molette de la souris
+          </p>
           <div className="map-container">
             <MapContainer 
               center={[45.9237, 6.8694]} 
               zoom={10} 
+              scrollWheelZoom={false}
               style={{ height: '500px', width: '100%', borderRadius: '12px' }}
             >
+              <ScrollWheelHandler />
               <TileLayer
                 attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
                 url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
