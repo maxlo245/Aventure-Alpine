@@ -41,6 +41,11 @@ export default function Dashboard() {
       if (err.response?.status === 401 || err.response?.status === 403) {
         // Token invalide ou expiré
         handleLogout();
+      } else if (err.response?.status === 503) {
+        // Base de données non configurée - mode dégradé
+        setError('Mode sans base de données - Les réservations ne sont pas disponibles');
+        setReservations([]);
+        setPrestations([]);
       } else {
         setError('Erreur lors du chargement des données');
       }
@@ -73,9 +78,27 @@ export default function Dashboard() {
               Bienvenue, <strong>{user?.prenom || user?.nom_utilisateur}</strong> !
             </p>
           </div>
-          <button onClick={handleLogout} className="btn btn-secondary">
-            Se déconnecter
-          </button>
+          <div style={{ display: 'flex', gap: '1rem', alignItems: 'center' }}>
+            {user?.role === 'admin' && (
+              <Link 
+                to="/admin/dashboard" 
+                className="btn btn-primary"
+                style={{ 
+                  background: 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)',
+                  color: 'white',
+                  textDecoration: 'none',
+                  padding: '0.75rem 1.5rem',
+                  borderRadius: '6px',
+                  fontWeight: '600'
+                }}
+              >
+                🔐 Dashboard Admin
+              </Link>
+            )}
+            <button onClick={handleLogout} className="btn btn-secondary">
+              Se déconnecter
+            </button>
+          </div>
         </div>
       </div>
 

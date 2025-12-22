@@ -141,14 +141,36 @@ app.post('/api/auth/register', async (req, res) => {
 
 // Connexion
 app.post('/api/auth/login', async (req, res) => {
-  if (!pool) {
-    return res.status(503).json({ error: 'Base de données non configurée' });
-  }
-  
   const { email, mot_de_passe } = req.body;
   
   if (!email || !mot_de_passe) {
     return res.status(400).json({ error: 'Email et mot de passe requis' });
+  }
+
+  // Mode fallback sans base de données pour l'admin
+  if (!pool) {
+    // Identifiants admin en dur pour le mode sans BDD
+    if (email === 'admin@aventures-alpines.fr' && mot_de_passe === 'AdminAlpine2025!') {
+      const adminUser = {
+        id: 1,
+        nom_utilisateur: 'admin',
+        email: 'admin@aventures-alpines.fr',
+        nom: 'Admin',
+        prenom: 'Système',
+        role: 'admin',
+        date_inscription: new Date()
+      };
+      
+      const token = generateToken(adminUser);
+      
+      return res.json({
+        message: 'Connexion réussie (mode sans BDD)',
+        user: adminUser,
+        token
+      });
+    }
+    
+    return res.status(503).json({ error: 'Base de données non configurée - Utilisez les identifiants admin par défaut' });
   }
   
   try {
