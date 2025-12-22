@@ -1,16 +1,12 @@
-<div align="center">
-
 # Aventures Alpines
 
-**Plateforme web moderne pour les passionnés de sports de montagne**
+## Plateforme web moderne pour les passionnés de sports de montagne
 
 [![Vercel](https://img.shields.io/badge/vercel-deployed-success?style=flat&logo=vercel)](https://aventure-alpine.vercel.app)
 [![Node.js](https://img.shields.io/badge/node-%3E%3D18.0.0-brightgreen?style=flat&logo=node.js)](https://nodejs.org)
 [![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg?style=flat)](LICENSE)
 
-[Demo](https://aventure-alpine.vercel.app) • [Guide de déploiement](SUPABASE_SETUP.md) • [Signaler un bug](../../issues)
-
-</div>
+[Demo](https://aventure-alpine.vercel.app) • [Signaler un bug](../../issues)
 
 ---
 
@@ -74,7 +70,7 @@ L'architecture découplée garantit une **haute disponibilité** : le frontend f
 
 ### Architecture
 
-```
+```text
 ┌─────────────────┐
 │   Utilisateur   │
 └────────┬────────┘
@@ -107,7 +103,7 @@ L'architecture découplée garantit une **haute disponibilité** : le frontend f
 ### Frontend
 
 | Technologie | Version | Rôle |
-|-------------|---------|------|
+| ----------- | ------- | ---- |
 | **React** | 18.2 | Interface utilisateur avec hooks et state management |
 | **Vite** | 5.0 | Build tool ultra-rapide (HMR, ESM) |
 | **React Router** | 7.x | Routing côté client avec HashRouter |
@@ -116,7 +112,7 @@ L'architecture découplée garantit une **haute disponibilité** : le frontend f
 ### Backend
 
 | Technologie | Version | Rôle |
-|-------------|---------|------|
+| ----------- | ------- | ---- |
 | **Node.js** | ≥18.0 | Runtime JavaScript serveur |
 | **Express** | 4.19 | API REST minimaliste |
 | **pg** | 8.11 | Driver PostgreSQL natif |
@@ -128,7 +124,7 @@ L'architecture découplée garantit une **haute disponibilité** : le frontend f
 ### Infrastructure
 
 | Service | Rôle | Plan |
-|---------|------|------|
+| ------- | ---- | ---- |
 | **Vercel** | Hosting frontend | Free (CDN global, auto-deploy) |
 | **Render** | Hosting API | Free (cold start après inactivité) |
 | **Supabase** | Database PostgreSQL | Free (500MB, optionnel) |
@@ -157,7 +153,7 @@ npm install
 npm run dev
 ```
 
-Ouvrez http://localhost:5173 dans votre navigateur
+Ouvrez <http://localhost:5173> dans votre navigateur
 
 ---
 
@@ -179,9 +175,6 @@ Pour activer la synchronisation avec PostgreSQL :
 
 #### Étape 1 : Configuration de la base de données
 
-Consultez le guide complet : **[SUPABASE_SETUP.md](SUPABASE_SETUP.md)**
-
-Résumé :
 1. Créer un compte Supabase gratuit
 2. Créer un nouveau projet
 3. Récupérer les identifiants de connexion
@@ -219,11 +212,13 @@ Cette commande crée les tables nécessaires dans Supabase.
 #### Étape 4 : Lancement des serveurs
 
 **Terminal 1** (Frontend) :
+
 ```bash
 npm run dev
 ```
 
 **Terminal 2** (API) :
+
 ```bash
 npm run server
 ```
@@ -236,24 +231,24 @@ npm run server
 
 #### Frontend (Vercel)
 
-| Variable | Requis | Description | Valeur par défaut |
-|----------|--------|-------------|-------------------|
-| `VITE_API_URL` | Non | URL de l'API backend | - |
+| Variable       | Requis | Description           | Valeur par défaut |
+| -------------- | ------ | --------------------- | ----------------- |
+| `VITE_API_URL` | Non    | URL de l'API backend  | -                 |
 
 **Remarque** : Sans cette variable, l'application fonctionne en mode autonome avec localStorage.
 
 #### Backend (Render)
 
-| Variable | Requis | Description | Exemple |
-|----------|--------|-------------|---------|
-| `NODE_ENV` | Oui | Environnement d'exécution | `production` |
-| `PORT` | Non | Port d'écoute du serveur | `5000` |
-| `JWT_SECRET` | **Oui** | Secret pour tokens JWT (min. 32 chars) | - |
-| `DB_HOST` | Non* | Hôte PostgreSQL | `xxxxx.supabase.co` |
-| `DB_USER` | Non* | Utilisateur base de données | `postgres` |
-| `DB_PASSWORD` | Non* | Mot de passe base de données | - |
-| `DB_NAME` | Non* | Nom de la base de données | `postgres` |
-| `DB_PORT` | Non* | Port PostgreSQL | `5432` |
+| Variable      | Requis | Description                              | Exemple               |
+| ------------- | ------ | ---------------------------------------- | --------------------- |
+| `NODE_ENV`    | Oui    | Environnement d'exécution                | `production`          |
+| `PORT`        | Non    | Port d'écoute du serveur                 | `5000`                |
+| `JWT_SECRET`  | **Oui**| Secret pour tokens JWT (min. 32 chars)   | -                     |
+| `DB_HOST`     | Non*   | Hôte PostgreSQL                          | `xxxxx.supabase.co`   |
+| `DB_USER`     | Non*   | Utilisateur base de données              | `postgres`            |
+| `DB_PASSWORD` | Non*   | Mot de passe base de données             | -                     |
+| `DB_NAME`     | Non*   | Nom de la base de données                | `postgres`            |
+| `DB_PORT`     | Non*   | Port PostgreSQL                          | `5432`                |
 
 ***Variables DB optionnelles** : L'API démarre sans ces variables et retourne HTTP 503 pour les endpoints nécessitant la base de données.
 
@@ -273,12 +268,14 @@ npm run server
    - **Build Command** : `npm run build`
    - **Output Directory** : `dist`
 3. Variables d'environnement (optionnel) :
-   ```
+
+   ```env
    VITE_API_URL=https://aventure-alpine.onrender.com
    ```
+
 4. Déployer
 
-**URL de production** : https://aventure-alpine.vercel.app
+**URL de production** : <https://aventure-alpine.vercel.app>
 
 ### Déploiement Render (Backend - optionnel)
 
@@ -291,7 +288,8 @@ npm run server
    - **Build Command** : `npm install`
    - **Start Command** : `node server/index.js`
 3. Variables d'environnement :
-   ```
+
+   ```env
    NODE_ENV=production
    PORT=5000
    ```
@@ -300,11 +298,10 @@ L'API retournera 503 pour les endpoints DB. Le frontend utilisera localStorage a
 
 #### Option 2 : Mode complet (avec PostgreSQL)
 
-Suivez **[SUPABASE_SETUP.md](SUPABASE_SETUP.md)** puis :
-
 1. Créer le Web Service (comme ci-dessus)
 2. Ajouter les variables Supabase :
-   ```
+
+   ```env
    NODE_ENV=production
    PORT=5000
    DB_HOST=xxxxx.supabase.co
@@ -313,12 +310,14 @@ Suivez **[SUPABASE_SETUP.md](SUPABASE_SETUP.md)** puis :
    DB_PASSWORD=votre_mot_de_passe_supabase
    DB_NAME=postgres
    ```
+
 3. Initialiser le schéma (en local) :
+
    ```bash
    npm run init-db
    ```
 
-**URL de l'API** : https://aventure-alpine.onrender.com
+**URL de l'API** : <https://aventure-alpine.onrender.com>
 
 **Note** : Render Free Tier = cold start après 15 min d'inactivité (~30s de latence au premier appel).
 
@@ -328,7 +327,7 @@ Suivez **[SUPABASE_SETUP.md](SUPABASE_SETUP.md)** puis :
 
 ### URL de base
 
-```
+```text
 https://aventure-alpine.onrender.com
 ```
 
