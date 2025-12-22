@@ -294,10 +294,12 @@ export default function Ski() {
         .offers-section {
           padding: 3rem 2rem;
           background: white;
+          color: #1a202c;
         }
 
         .disciplines-section {
           background: #f0f9ff;
+          color: #1a202c;
         }
 
         .conditions-section {
@@ -358,7 +360,7 @@ export default function Ski() {
         .discipline-card {
           background: white;
           padding: 2rem;
-          border-radius: 12px;
+          border-radius: 0;
           text-align: center;
           box-shadow: 0 2px 8px rgba(0,0,0,0.1);
           transition: transform 0.2s;
@@ -387,7 +389,7 @@ export default function Ski() {
 
         .station-card {
           background: white;
-          border-radius: 12px;
+          border-radius: 0;
           padding: 1.5rem;
           box-shadow: 0 2px 8px rgba(0,0,0,0.1);
           transition: transform 0.2s;
@@ -414,7 +416,7 @@ export default function Ski() {
           background: #e0f2fe;
           color: #0c4a6e;
           padding: 0.25rem 0.75rem;
-          border-radius: 12px;
+          border-radius: 0;
           font-size: 0.85rem;
           font-weight: 600;
         }
@@ -422,7 +424,7 @@ export default function Ski() {
         .snow-status {
           background: #f0f9ff;
           padding: 1rem;
-          border-radius: 8px;
+          border-radius: 0;
           margin-bottom: 1rem;
         }
 
@@ -435,7 +437,7 @@ export default function Ski() {
         .status-dot {
           width: 12px;
           height: 12px;
-          border-radius: 50%;
+          border-radius: 0;
         }
 
         .status-dot.excellent {
@@ -464,7 +466,7 @@ export default function Ski() {
           background: #0284c7;
           color: white !important;
           border: none;
-          border-radius: 8px;
+          border-radius: 0;
           font-weight: 600;
           cursor: pointer;
           transition: background 0.2s;
@@ -483,7 +485,7 @@ export default function Ski() {
         .slope-card {
           background: white;
           padding: 1.5rem;
-          border-radius: 12px;
+          border-radius: 0;
           text-align: center;
           box-shadow: 0 2px 8px rgba(0,0,0,0.1);
         }
@@ -491,7 +493,7 @@ export default function Ski() {
         .slope-color {
           width: 60px;
           height: 60px;
-          border-radius: 50%;
+          border-radius: 0;
           margin: 0 auto 1rem;
         }
 
@@ -508,7 +510,7 @@ export default function Ski() {
         .testimonial-card {
           background: white;
           padding: 1.5rem;
-          border-radius: 12px;
+          border-radius: 0;
           box-shadow: 0 2px 8px rgba(0,0,0,0.1);
         }
 
@@ -549,7 +551,7 @@ export default function Ski() {
         .offer-card {
           background: white;
           padding: 2rem;
-          border-radius: 12px;
+          border-radius: 0;
           box-shadow: 0 2px 8px rgba(0,0,0,0.1);
           position: relative;
         }
@@ -561,7 +563,7 @@ export default function Ski() {
           background: #f59e0b;
           color: white;
           padding: 0.5rem 1rem;
-          border-radius: 20px;
+          border-radius: 0;
           font-weight: 700;
           font-size: 0.9rem;
         }
@@ -593,7 +595,7 @@ export default function Ski() {
           background: linear-gradient(135deg, #0c4a6e 0%, #0284c7 100%);
           color: white;
           border: none;
-          border-radius: 8px;
+          border-radius: 0;
           font-weight: 600;
           cursor: pointer;
           transition: transform 0.2s;

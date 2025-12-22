@@ -201,9 +201,9 @@ export default function AdminLogin() {
           background: '#f8f9fa',
           borderRadius: '6px',
           fontSize: '0.85rem',
-          color: '#666'
+          color: '#2d3748'
         }}>
-          Email : <code style={{ background: '#e9ecef', padding: '2px 6px', borderRadius: '3px' }}>admin@aventures-alpines.fr
+          Email : <code style={{ background: '#e9ecef', padding: '2px 6px', borderRadius: '3px' }}>admin@aventures-alpines.fr</code><br />
           Identifiant : <code style={{ background: '#e9ecef', padding: '2px 6px', borderRadius: '3px' }}>admin</code><br />
           Mot de passe : <code style={{ background: '#e9ecef', padding: '2px 6px', borderRadius: '3px' }}>AdminAlpine2025!</code>
         </div>

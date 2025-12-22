@@ -195,7 +195,8 @@ export default function Register() {
 
         .auth-card {
           background: white;
-          border-radius: 12px;
+          color: #1a202c;
+          border-radius: 0;
           padding: 3rem;
           width: 100%;
           box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
@@ -216,7 +217,7 @@ export default function Register() {
 
         .alert {
           padding: 1rem;
-          border-radius: 8px;
+          border-radius: 0;
           margin-bottom: 1.5rem;
           font-size: 0.95rem;
         }
@@ -254,7 +255,7 @@ export default function Register() {
         .form-group input {
           padding: 0.75rem;
           border: 2px solid #e2e8f0;
-          border-radius: 8px;
+          border-radius: 0;
           font-size: 1rem;
           transition: all 0.2s;
         }
@@ -273,7 +274,7 @@ export default function Register() {
         .btn {
           padding: 0.875rem;
           border: none;
-          border-radius: 8px;
+          border-radius: 0;
           font-size: 1rem;
           font-weight: 600;
           cursor: pointer;

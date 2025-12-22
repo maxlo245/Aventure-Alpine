@@ -81,7 +81,7 @@ export default function Escalade() {
           <h2>Débuter l'escalade : nos conseils</h2>
           <div className="tips-grid">
             <div className="tip-card">
-              <span className="tip-icon"></span>
+              <span className="tip-icon">●</span>
               <h3>1. Commencez en salle</h3>
               <p>Apprenez les bases en salle d'escalade avant de partir en falaise. Travaillez la technique, les nœuds et l'assurage.</p>
             </div>
@@ -259,14 +259,17 @@ export default function Escalade() {
         .videos-section {
           padding: 3rem 2rem;
           background: white;
+          color: #1a202c;
         }
 
         .beginners-section {
           background: #f0f9ff;
+          color: #1a202c;
         }
 
         .safety-section {
           background: #fef2f2;
+          color: #1a202c;
         }
 
         .container {
@@ -308,20 +311,24 @@ export default function Escalade() {
         .tip-card {
           background: white;
           padding: 2rem;
-          border-radius: 12px;
+          border-radius: 0;
           text-align: center;
           box-shadow: 0 2px 8px rgba(0,0,0,0.1);
         }
 
         .tip-icon {
           font-size: 3rem;
-          display: block;
           margin-bottom: 1rem;
         }
 
         .tip-card h3 {
           margin: 0 0 0.75rem 0;
           color: #1e3a8a;
+        }
+
+        .tip-card p {
+          margin: 0;
+          line-height: 1.6;
         }
 
         .safety-checklist {
@@ -333,7 +340,7 @@ export default function Escalade() {
         .safety-column {
           background: white;
           padding: 2rem;
-          border-radius: 8px;
+          border-radius: 0;
           border-top: 4px solid #ef4444;
         }
 
@@ -365,7 +372,7 @@ export default function Escalade() {
           border: 2px solid #e2e8f0;
           background: white;
           color: #1a202c;
-          border-radius: 8px;
+          border-radius: 0;
           cursor: pointer;
           font-weight: 600;
           transition: all 0.2s;
@@ -389,7 +396,7 @@ export default function Escalade() {
 
         .site-card {
           background: white;
-          border-radius: 12px;
+          border-radius: 0;
           padding: 1.5rem;
           box-shadow: 0 2px 8px rgba(0,0,0,0.1);
           transition: transform 0.2s;
@@ -415,7 +422,7 @@ export default function Escalade() {
 
         .difficulty-badge {
           padding: 0.25rem 0.75rem;
-          border-radius: 12px;
+          border-radius: 0;
           color: white;
           font-size: 0.85rem;
           font-weight: 600;
@@ -453,7 +460,7 @@ export default function Escalade() {
         }
 
         .video-card {
-          border-radius: 12px;
+          border-radius: 0;
           overflow: hidden;
           box-shadow: 0 2px 8px rgba(0,0,0,0.1);
           transition: transform 0.2s;
@@ -484,7 +491,7 @@ export default function Escalade() {
           width: 60px;
           height: 60px;
           background: rgba(255,255,255,0.9);
-          border-radius: 50%;
+          border-radius: 0;
           display: flex;
           align-items: center;
           justify-content: center;

@@ -180,6 +180,7 @@ const Videos = () => {
           textAlign: 'center',
           padding: '3rem',
           background: '#f7fafc',
+          color: '#1a202c',
           borderRadius: '12px'
         }}>
           <p style={{ fontSize: '3rem', margin: '0 0 1rem 0' }}>∅</p>

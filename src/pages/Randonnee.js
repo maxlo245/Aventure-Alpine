@@ -316,10 +316,12 @@ export default function Randonnee() {
         .gallery-section {
           padding: 3rem 2rem;
           background: white;
+          color: #1a202c;
         }
 
         .map-section {
           background: white;
+          color: #1a202c;
         }
 
         .container {
@@ -360,7 +362,7 @@ export default function Randonnee() {
         .info-card {
           background: white;
           padding: 2rem;
-          border-radius: 12px;
+          border-radius: 0;
           box-shadow: 0 2px 8px rgba(0,0,0,0.1);
           text-align: center;
         }
@@ -397,7 +399,7 @@ export default function Randonnee() {
         .safety-item {
           background: white;
           padding: 1.5rem;
-          border-radius: 8px;
+          border-radius: 0;
           border-left: 4px solid #f59e0b;
         }
 
@@ -434,7 +436,7 @@ export default function Randonnee() {
           width: 100%;
           padding: 0.75rem 1rem;
           border: 2px solid #e2e8f0;
-          border-radius: 8px;
+          border-radius: 0;
           font-size: 1rem;
           color: #1a202c;
         }
@@ -455,7 +457,7 @@ export default function Randonnee() {
           border: 2px solid #e2e8f0;
           background: white;
           color: #1a202c;
-          border-radius: 8px;
+          border-radius: 0;
           cursor: pointer;
           font-weight: 600;
           transition: all 0.2s;
@@ -496,7 +498,7 @@ export default function Randonnee() {
           background: #2d5016;
           color: white !important;
           border: none;
-          border-radius: 8px;
+          border-radius: 0;
           cursor: pointer;
           font-weight: 600;
         }
@@ -508,7 +510,7 @@ export default function Randonnee() {
         }
 
         .gallery-item {
-          border-radius: 8px;
+          border-radius: 0;
           overflow: hidden;
           box-shadow: 0 4px 12px rgba(0,0,0,0.1);
           transition: transform 0.2s;
@@ -541,12 +543,12 @@ export default function Randonnee() {
         .map-container {
           margin-top: 2rem;
           box-shadow: 0 4px 12px rgba(0,0,0,0.1);
-          border-radius: 12px;
+          border-radius: 0;
           overflow: hidden;
         }
 
         .leaflet-popup-content-wrapper {
-          border-radius: 8px;
+          border-radius: 0;
         }
 
         .leaflet-popup-content {

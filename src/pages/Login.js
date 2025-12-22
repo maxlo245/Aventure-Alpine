@@ -117,7 +117,8 @@ export default function Login() {
 
         .auth-card {
           background: white;
-          border-radius: 12px;
+          color: #1a202c;
+          border-radius: 0;
           padding: 3rem;
           max-width: 450px;
           width: 100%;
@@ -139,7 +140,7 @@ export default function Login() {
 
         .alert {
           padding: 1rem;
-          border-radius: 8px;
+          border-radius: 0;
           margin-bottom: 1.5rem;
           font-size: 0.95rem;
         }
@@ -171,7 +172,7 @@ export default function Login() {
         .form-group input {
           padding: 0.75rem;
           border: 2px solid #e2e8f0;
-          border-radius: 8px;
+          border-radius: 0;
           font-size: 1rem;
           transition: all 0.2s;
         }
@@ -190,7 +191,7 @@ export default function Login() {
         .btn {
           padding: 0.875rem;
           border: none;
-          border-radius: 8px;
+          border-radius: 0;
           font-size: 1rem;
           font-weight: 600;
           cursor: pointer;

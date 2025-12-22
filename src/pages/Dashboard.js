@@ -230,6 +230,7 @@ export default function Dashboard() {
         .dashboard-container {
           min-height: 100vh;
           background: #f7fafc;
+          color: #1a202c;
         }
 
         .dashboard-header {
@@ -264,7 +265,8 @@ export default function Dashboard() {
 
         .dashboard-section {
           background: white;
-          border-radius: 12px;
+          color: #1a202c;
+          border-radius: 0;
           padding: 2rem;
           margin-bottom: 2rem;
           box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
@@ -286,7 +288,7 @@ export default function Dashboard() {
           justify-content: space-between;
           padding: 1rem;
           background: #f7fafc;
-          border-radius: 8px;
+          border-radius: 0;
         }
 
         .label {
@@ -318,7 +320,7 @@ export default function Dashboard() {
         .reservation-card,
         .prestation-card {
           border: 2px solid #e2e8f0;
-          border-radius: 8px;
+          border-radius: 0;
           padding: 1.5rem;
           transition: all 0.2s;
         }
@@ -344,7 +346,7 @@ export default function Dashboard() {
 
         .status-badge {
           padding: 0.25rem 0.75rem;
-          border-radius: 12px;
+          border-radius: 0;
           font-size: 0.85rem;
           font-weight: 600;
         }
@@ -410,7 +412,7 @@ export default function Dashboard() {
         .type {
           background: #edf2f7;
           padding: 0.25rem 0.75rem;
-          border-radius: 12px;
+          border-radius: 0;
           font-size: 0.85rem;
           color: #4a5568;
         }
@@ -428,7 +430,7 @@ export default function Dashboard() {
           gap: 0.75rem;
           padding: 1.5rem;
           background: #f7fafc;
-          border-radius: 8px;
+          border-radius: 0;
           text-decoration: none;
           color: #1a202c;
           transition: all 0.2s;
@@ -451,7 +453,7 @@ export default function Dashboard() {
         .btn {
           padding: 0.75rem 1.5rem;
           border: none;
-          border-radius: 8px;
+          border-radius: 0;
           font-size: 1rem;
           font-weight: 600;
           cursor: pointer;
@@ -489,7 +491,7 @@ export default function Dashboard() {
 
         .alert {
           padding: 1rem;
-          border-radius: 8px;
+          border-radius: 0;
           margin-bottom: 1.5rem;
         }
 
