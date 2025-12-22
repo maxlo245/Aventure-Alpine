@@ -1,5 +1,5 @@
-import React, { useState } from 'react';
-import { MapContainer, TileLayer, Marker, Popup } from 'react-leaflet';
+import React, { useState, useEffect } from 'react';
+import { MapContainer, TileLayer, Marker, Popup, useMap } from 'react-leaflet';
 import 'leaflet/dist/leaflet.css';
 import L from 'leaflet';
 
@@ -11,12 +11,52 @@ L.Icon.Default.mergeOptions({
   shadowUrl: 'https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.7.1/images/marker-shadow.png',
 });
 
+// Composant pour gérer le scroll avec Ctrl
+function ScrollWheelZoomControl({ onScrollWithoutCtrl }) {
+  const map = useMap();
+
+  useEffect(() => {
+    if (!map) return;
+
+    // Désactiver le zoom par molette par défaut
+    map.scrollWheelZoom.disable();
+
+    // Gérer manuellement le zoom avec Ctrl
+    const handleWheel = (e) => {
+      if (e.ctrlKey || e.metaKey) {
+        // Permettre le zoom si Ctrl/Cmd est pressé
+        e.preventDefault();
+        const delta = e.deltaY > 0 ? -1 : 1;
+        map.setZoom(map.getZoom() + delta * 0.5);
+      } else {
+        // Afficher le message si Ctrl n'est pas pressé
+        onScrollWithoutCtrl();
+      }
+    };
+
+    const container = map.getContainer();
+    container.addEventListener('wheel', handleWheel, { passive: false });
+
+    return () => {
+      container.removeEventListener('wheel', handleWheel);
+    };
+  }, [map, onScrollWithoutCtrl]);
+
+  return null;
+}
+
 function Contact() {
   const [formData, setFormData] = useState({ name: '', email: '', message: '' });
   const [loading, setLoading] = useState(false);
+  const [showScrollMessage, setShowScrollMessage] = useState(false);
 
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
+  };
+
+  const handleScrollWithoutCtrl = () => {
+    setShowScrollMessage(true);
+    setTimeout(() => setShowScrollMessage(false), 2000);
   };
 
   const handleSubmit = async (e) => {
@@ -223,12 +263,80 @@ function Contact() {
         <p style={{ color: '#4a5568', marginBottom: '1.5rem' }}>
           Notre bureau est situé au cœur de Chamonix, au pied du Mont-Blanc
         </p>
-        <div style={{ borderRadius: '0', overflow: 'hidden', boxShadow: '0 4px 12px rgba(0,0,0,0.1)' }}>
+        <div style={{ borderRadius: '0', overflow: 'hidden', boxShadow: '0 4px 12px rgba(0,0,0,0.1)', position: 'relative' }}>
+          {/* Message permanent en haut de la carte */}
+          <div style={{
+            position: 'absolute',
+            top: '10px',
+            left: '50%',
+            transform: 'translateX(-50%)',
+            backgroundColor: 'rgba(100, 100, 100, 0.85)',
+            color: 'white',
+            padding: '8px 16px',
+            borderRadius: '6px',
+            zIndex: 1000,
+            fontSize: '0.9rem',
+            boxShadow: '0 2px 8px rgba(0, 0, 0, 0.3)',
+            pointerEvents: 'none',
+            display: 'flex',
+            alignItems: 'center',
+            gap: '8px',
+            backdropFilter: 'blur(4px)'
+          }}>
+            <span style={{ fontSize: '1.1rem' }}>ℹ️</span>
+            <span>
+              Maintenez <kbd style={{
+                background: 'rgba(255, 255, 255, 0.9)',
+                color: '#333',
+                padding: '2px 6px',
+                borderRadius: '3px',
+                fontFamily: 'monospace',
+                fontWeight: 'bold',
+                fontSize: '0.85em',
+                margin: '0 3px'
+              }}>Ctrl</kbd> + molette pour zoomer
+            </span>
+          </div>
+          
+          {/* Message temporaire au centre quand on essaie de scroller sans Ctrl */}
+          {showScrollMessage && (
+            <div style={{
+              position: 'absolute',
+              top: '50%',
+              left: '50%',
+              transform: 'translate(-50%, -50%)',
+              backgroundColor: 'rgba(0, 0, 0, 0.9)',
+              color: 'white',
+              padding: '1rem 1.5rem',
+              borderRadius: '8px',
+              zIndex: 1001,
+              fontSize: '1rem',
+              fontWeight: '600',
+              boxShadow: '0 4px 20px rgba(0, 0, 0, 0.4)',
+              pointerEvents: 'none',
+              textAlign: 'center',
+              border: '2px solid rgba(255, 255, 255, 0.2)'
+            }}>
+              Maintenez <kbd style={{
+                background: '#fff',
+                color: '#000',
+                padding: '3px 10px',
+                borderRadius: '4px',
+                fontFamily: 'monospace',
+                fontWeight: 'bold',
+                margin: '0 6px',
+                fontSize: '1.1em'
+              }}>Ctrl</kbd> pour zoomer
+            </div>
+          )}
+          
           <MapContainer 
             center={[45.9237, 6.8694]} 
-            zoom={14} 
+            zoom={14}
+            scrollWheelZoom={false}
             style={{ height: '450px', width: '100%' }}
           >
+            <ScrollWheelZoomControl onScrollWithoutCtrl={handleScrollWithoutCtrl} />
             <TileLayer
               attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
               url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
