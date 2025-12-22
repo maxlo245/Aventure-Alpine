@@ -9,6 +9,17 @@ export default defineConfig({
     })
   ],
   base: '/',
+  build: {
+    rollupOptions: {
+      output: {
+        manualChunks: {
+          'react-vendor': ['react', 'react-dom', 'react-router-dom'],
+          'leaflet-vendor': ['leaflet', 'react-leaflet'],
+        }
+      }
+    },
+    chunkSizeWarningLimit: 600
+  },
   esbuild: {
     loader: 'jsx',
     include: /src\/.*\.jsx?$/,

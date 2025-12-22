@@ -4,10 +4,14 @@ import { HashRouter as Router } from 'react-router-dom'
 import App from './App.js'
 import './index.css'
 
-ReactDOM.createRoot(document.getElementById('root')).render(
+// Optimisation du rendu
+const rootElement = document.getElementById('root');
+const root = ReactDOM.createRoot(rootElement);
+
+root.render(
   <React.StrictMode>
     <Router>
       <App />
     </Router>
-  </React.StrictMode>,
-)
+  </React.StrictMode>
+);

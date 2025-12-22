@@ -1,24 +1,42 @@
-import React, { useState } from 'react';
+import React, { useState, lazy, Suspense } from 'react';
 import { Routes, Route, Link } from 'react-router-dom';
-import Home from './Home';
-import Adventures from './Adventures';
-import Contact from './Contact';
-import Activities from './pages/Activities';
-import Articles from './pages/Articles';
-import Videos from './pages/Videos';
-import RoutesPage from './pages/RoutesPage';
-import Blog from './pages/Blog';
-import Login from './pages/Login';
-import Register from './pages/Register';
-import Dashboard from './pages/Dashboard';
-import AdminLogin from './pages/AdminLogin';
-import AdminDashboard from './pages/AdminDashboard';
-import Randonnee from './pages/Randonnee';
-import Escalade from './pages/Escalade';
-import Ski from './pages/Ski';
-import Reservation from './pages/Reservation';
-import ReservationConfirmation from './pages/ReservationConfirmation';
 import './App.css';
+
+// Chargement immédiat des pages critiques
+import Home from './Home';
+
+// Lazy loading des autres pages
+const Adventures = lazy(() => import('./Adventures'));
+const Contact = lazy(() => import('./Contact'));
+const Activities = lazy(() => import('./pages/Activities'));
+const Articles = lazy(() => import('./pages/Articles'));
+const Videos = lazy(() => import('./pages/Videos'));
+const RoutesPage = lazy(() => import('./pages/RoutesPage'));
+const Blog = lazy(() => import('./pages/Blog'));
+const Login = lazy(() => import('./pages/Login'));
+const Register = lazy(() => import('./pages/Register'));
+const Dashboard = lazy(() => import('./pages/Dashboard'));
+const AdminLogin = lazy(() => import('./pages/AdminLogin'));
+const AdminDashboard = lazy(() => import('./pages/AdminDashboard'));
+const Randonnee = lazy(() => import('./pages/Randonnee'));
+const Escalade = lazy(() => import('./pages/Escalade'));
+const Ski = lazy(() => import('./pages/Ski'));
+const Reservation = lazy(() => import('./pages/Reservation'));
+const ReservationConfirmation = lazy(() => import('./pages/ReservationConfirmation'));
+
+// Composant de chargement
+const LoadingFallback = () => (
+  <div style={{ 
+    display: 'flex', 
+    justifyContent: 'center', 
+    alignItems: 'center', 
+    minHeight: '400px',
+    fontSize: '1.2rem',
+    color: '#2c5530'
+  }}>
+    Chargement...
+  </div>
+);
 
 function App() {
   const isLoggedIn = !!localStorage.getItem('token');
@@ -75,26 +93,28 @@ function App() {
         </nav>
       </header>
       <main>
-        <Routes>
-          <Route path="/" element={<Home />} />
-          <Route path="/activities" element={<Activities />} />
-          <Route path="/randonnee" element={<Randonnee />} />
-          <Route path="/escalade" element={<Escalade />} />
-          <Route path="/ski" element={<Ski />} />
-          <Route path="/articles" element={<Articles />} />
-          <Route path="/videos" element={<Videos />} />
-          <Route path="/routes" element={<RoutesPage />} />
-          <Route path="/blog" element={<Blog />} />
-          <Route path="/adventures" element={<Adventures />} />
-          <Route path="/contact" element={<Contact />} />
-          <Route path="/login" element={<Login />} />
-          <Route path="/register" element={<Register />} />
-          <Route path="/dashboard" element={<Dashboard />} />
-          <Route path="/reservation" element={<Reservation />} />
-          <Route path="/reservation/confirmation" element={<ReservationConfirmation />} />
-          <Route path="/admin/login" element={<AdminLogin />} />
-          <Route path="/admin/dashboard" element={<AdminDashboard />} />
-        </Routes>
+        <Suspense fallback={<LoadingFallback />}>
+          <Routes>
+            <Route path="/" element={<Home />} />
+            <Route path="/activities" element={<Activities />} />
+            <Route path="/randonnee" element={<Randonnee />} />
+            <Route path="/escalade" element={<Escalade />} />
+            <Route path="/ski" element={<Ski />} />
+            <Route path="/articles" element={<Articles />} />
+            <Route path="/videos" element={<Videos />} />
+            <Route path="/routes" element={<RoutesPage />} />
+            <Route path="/blog" element={<Blog />} />
+            <Route path="/adventures" element={<Adventures />} />
+            <Route path="/contact" element={<Contact />} />
+            <Route path="/login" element={<Login />} />
+            <Route path="/register" element={<Register />} />
+            <Route path="/dashboard" element={<Dashboard />} />
+            <Route path="/reservation" element={<Reservation />} />
+            <Route path="/reservation/confirmation" element={<ReservationConfirmation />} />
+            <Route path="/admin/login" element={<AdminLogin />} />
+            <Route path="/admin/dashboard" element={<AdminDashboard />} />
+          </Routes>
+        </Suspense>
       </main>
       
       <footer style={{
