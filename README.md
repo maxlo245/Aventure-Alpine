@@ -1,6 +1,6 @@
 <div align="center">
 
-# ⛰️ Aventures Alpines
+# Aventures Alpines
 
 **Plateforme web moderne pour les passionnés de sports de montagne**
 
@@ -14,23 +14,23 @@
 
 ---
 
-## 📖 Table des matières
+## Table des matières
 
-- [À propos](#-à-propos)
-- [Fonctionnalités](#-fonctionnalités)
-- [Technologies](#-technologies)
-- [Démarrage rapide](#-démarrage-rapide)
-- [Installation](#-installation)
-- [Configuration](#️-configuration)
-- [Déploiement](#-déploiement)
-- [API](#-api)
-- [Structure du projet](#-structure-du-projet)
-- [Contribution](#-contribution)
-- [Licence](#-licence)
+- [À propos](#à-propos)
+- [Fonctionnalités](#fonctionnalités)
+- [Technologies](#technologies)
+- [Démarrage rapide](#démarrage-rapide)
+- [Installation](#installation)
+- [Configuration](#configuration)
+- [Déploiement](#déploiement)
+- [API](#api)
+- [Structure du projet](#structure-du-projet)
+- [Contribution](#contribution)
+- [Licence](#licence)
 
 ---
 
-## 🎯 À propos
+## À propos
 
 **Aventures Alpines** est une application web full-stack offrant une vitrine interactive pour découvrir les sports de montagne (ski, escalade, randonnée, VTT) et permettre aux utilisateurs de contacter l'équipe via un formulaire optimisé.
 
@@ -38,23 +38,23 @@ L'architecture découplée garantit une **haute disponibilité** : le frontend f
 
 ### Points clés
 
-✅ **Progressive Enhancement** - Fonctionne sans backend  
-✅ **Mobile-first** - Responsive sur tous les appareils  
-✅ **SEO-ready** - Métadonnées optimisées  
-✅ **Production-grade** - Déployé sur Vercel + Render
+- **Progressive Enhancement** - Fonctionne sans backend  
+- **Mobile-first** - Responsive sur tous les appareils  
+- **SEO-ready** - Métadonnées optimisées  
+- **Production-grade** - Déployé sur Vercel + Render
 
 ---
 
-## ✨ Fonctionnalités
+## Fonctionnalités
 
-### 🔐 Authentification & Compte utilisateur
+### Authentification & Compte utilisateur
 
 - **Inscription/Connexion** - Système JWT sécurisé avec hashage bcrypt
 - **Dashboard personnel** - Profil utilisateur et gestion de compte
 - **Réservations** - Système complet de réservation de prestations
 - **Routes protégées** - Accès sécurisé aux fonctionnalités membres
 
-### 🏠 Pages principales
+### Pages principales
 
 - **Accueil** - Hero section, présentation générale
 - **Activités** - Catalogue des sports alpins (ski, escalade, randonnée, VTT)
@@ -65,14 +65,14 @@ L'architecture découplée garantit une **haute disponibilité** : le frontend f
 - **Vidéos** - Galerie multimédia de documentaires et tutoriels
 - **Contact** - Formulaire avec validation et persistance localStorage
 
-### 🎫 Système de réservation
+### Système de réservation
 
 - **Prestations** - Catalogue d'activités et stages disponibles
 - **Booking** - Réservation en ligne avec validation dates
 - **Gestion** - Suivi des réservations (en attente, confirmée, annulée)
 - **Clients** - Profil client lié au compte utilisateur
 
-### 🛡️ Architecture
+### Architecture
 
 ```
 ┌─────────────────┐
@@ -102,7 +102,7 @@ L'architecture découplée garantit une **haute disponibilité** : le frontend f
 
 ---
 
-## 🚀 Technologies
+## Technologies
 
 ### Frontend
 
@@ -135,7 +135,7 @@ L'architecture découplée garantit une **haute disponibilité** : le frontend f
 
 ---
 
-## 🏁 Démarrage rapide
+## Démarrage rapide
 
 ### Prérequis
 
@@ -157,11 +157,11 @@ npm install
 npm run dev
 ```
 
-✅ Ouvrez http://localhost:5173 dans votre navigateur
+Ouvrez http://localhost:5173 dans votre navigateur
 
 ---
 
-## 📦 Installation
+## Installation
 
 ### Mode standalone (frontend uniquement)
 
@@ -230,7 +230,7 @@ npm run server
 
 ---
 
-## ⚙️ Configuration
+## Configuration
 
 ### Variables d'environnement
 
@@ -257,11 +257,11 @@ npm run server
 
 ***Variables DB optionnelles** : L'API démarre sans ces variables et retourne HTTP 503 pour les endpoints nécessitant la base de données.
 
-**⚠️ IMPORTANT** : En production, générez un `JWT_SECRET` unique et sécurisé !
+**IMPORTANT** : En production, générez un `JWT_SECRET` unique et sécurisé !
 
 ---
 
-## 🚢 Déploiement
+## Déploiement
 
 ### Déploiement Vercel (Frontend)
 
@@ -278,7 +278,7 @@ npm run server
    ```
 4. Déployer
 
-✅ **URL de production** : https://aventure-alpine.vercel.app
+**URL de production** : https://aventure-alpine.vercel.app
 
 ### Déploiement Render (Backend - optionnel)
 
@@ -318,13 +318,13 @@ Suivez **[SUPABASE_SETUP.md](SUPABASE_SETUP.md)** puis :
    npm run init-db
    ```
 
-✅ **URL de l'API** : https://aventure-alpine.onrender.com
+**URL de l'API** : https://aventure-alpine.onrender.com
 
 **Note** : Render Free Tier = cold start après 15 min d'inactivité (~30s de latence au premier appel).
 
 ---
 
-## 📡 API
+## API
 
 ### URL de base
 
@@ -639,7 +639,7 @@ try {
 
 ---
 
-## 📂 Structure du projet
+## Structure du projet
 
 ```
 aventure-alpine/
@@ -720,7 +720,7 @@ Voir [schema.sql](server/db/schema.sql) pour le schéma complet.
 
 ---
 
-## 🤝 Contribution
+## Contribution
 
 Les contributions sont les bienvenues ! Voici comment participer :
 
@@ -760,14 +760,14 @@ Les contributions sont les bienvenues ! Voici comment participer :
 
 ### Bonnes pratiques
 
-- ✅ Tester vos changements localement
-- ✅ Vérifier ESLint : `npm run lint`
-- ✅ Documenter les nouvelles fonctionnalités
-- ✅ Garder les PR focalisées (1 feature = 1 PR)
+- Tester vos changements localement
+- Vérifier ESLint : `npm run lint`
+- Documenter les nouvelles fonctionnalités
+- Garder les PR focalisées (1 feature = 1 PR)
 
 ---
 
-## 📄 Licence
+## Licence
 
 Ce projet est sous licence **MIT**. Voir le fichier [LICENSE](LICENSE) pour plus de détails.
 
@@ -799,8 +799,8 @@ SOFTWARE.
 
 <div align="center">
 
-**Développé avec ❤️ par l'équipe Aventures Alpines**
+**Développé par l'équipe Aventures Alpines**
 
-[⬆️ Retour en haut](#️-aventures-alpines)
+[Retour en haut](#aventures-alpines)
 
 </div>

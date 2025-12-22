@@ -28,18 +28,18 @@ function App() {
     e.preventDefault();
     
     if (!newsletterEmail || !newsletterEmail.includes('@')) {
-      setNewsletterMessage('⚠️ Email invalide');
+      setNewsletterMessage('Email invalide');
       return;
     }
 
     try {
       console.log('Newsletter subscription:', newsletterEmail);
-      setNewsletterMessage('✅ Inscription réussie !');
+      setNewsletterMessage('Inscription réussie !');
       setNewsletterEmail('');
       
       setTimeout(() => setNewsletterMessage(''), 3000);
     } catch (error) {
-      setNewsletterMessage('❌ Erreur lors de l\'inscription');
+      setNewsletterMessage('Erreur lors de l\'inscription');
     }
   };
 
@@ -61,7 +61,7 @@ function App() {
             <li><Link to="/contact">Contact</Link></li>
             {isLoggedIn ? (
               <li className="auth-link">
-                <Link to="/dashboard">👤 {user.nom_utilisateur}</Link>
+                <Link to="/dashboard">{user.nom_utilisateur}</Link>
               </li>
             ) : (
               <>
@@ -108,21 +108,21 @@ function App() {
           marginBottom: '2rem'
         }}>
           <div>
-            <h3 style={{ marginBottom: '1rem', fontSize: '1.25rem' }}>🏔️ Aventures Alpines</h3>
+            <h3 style={{ marginBottom: '1rem', fontSize: '1.25rem' }}>Aventures Alpines</h3>
             <p style={{ color: '#cbd5e0', lineHeight: '1.6' }}>
               Votre guide pour explorer les plus beaux sommets et itinéraires des Alpes françaises.
             </p>
             <div style={{ marginTop: '1rem' }}>
               <p style={{ color: '#cbd5e0', fontSize: '0.9rem' }}>
-                📍 Chamonix, Haute-Savoie<br />
-                📧 contact@aventures-alpines.fr<br />
-                📞 +33 4 50 XX XX XX
+                Chamonix, Haute-Savoie<br />
+                contact@aventures-alpines.fr<br />
+                +33 4 50 XX XX XX
               </p>
             </div>
           </div>
 
           <div>
-            <h3 style={{ marginBottom: '1rem', fontSize: '1.25rem' }}>📬 Newsletter</h3>
+            <h3 style={{ marginBottom: '1rem', fontSize: '1.25rem' }}>Newsletter</h3>
             <p style={{ color: '#cbd5e0', marginBottom: '1rem', fontSize: '0.95rem' }}>
               Recevez nos derniers articles et bons plans montagne
             </p>
@@ -162,7 +162,7 @@ function App() {
                 S'inscrire
               </button>
               {newsletterMessage && (
-                <p style={{ margin: 0, fontSize: '0.9rem', color: newsletterMessage.includes('✅') ? '#10b981' : '#f59e0b' }}>
+                <p style={{ margin: 0, fontSize: '0.9rem', color: newsletterMessage.includes('réussie') ? '#10b981' : '#f59e0b' }}>
                   {newsletterMessage}
                 </p>
               )}
@@ -170,7 +170,7 @@ function App() {
           </div>
 
           <div>
-            <h3 style={{ marginBottom: '1rem', fontSize: '1.25rem' }}>🌐 Suivez-nous</h3>
+            <h3 style={{ marginBottom: '1rem', fontSize: '1.25rem' }}>Suivez-nous</h3>
             <p style={{ color: '#cbd5e0', marginBottom: '1rem', fontSize: '0.95rem' }}>
               Rejoignez notre communauté de passionnés
             </p>
@@ -196,7 +196,7 @@ function App() {
                 onMouseOut={(e) => e.target.style.transform = 'scale(1)'}
                 title="Facebook"
               >
-                📘
+                f
               </a>
               
               <a
@@ -220,7 +220,7 @@ function App() {
                 onMouseOut={(e) => e.target.style.transform = 'scale(1)'}
                 title="Instagram"
               >
-                📷
+                ■
               </a>
               
               <a
@@ -244,7 +244,7 @@ function App() {
                 onMouseOut={(e) => e.target.style.transform = 'scale(1)'}
                 title="Twitter"
               >
-                🐦
+                @
               </a>
               
               <a

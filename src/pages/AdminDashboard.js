@@ -60,7 +60,7 @@ export default function AdminDashboard() {
         }}>
           <div>
             <h1 style={{ margin: 0, fontSize: '1.5rem', fontWeight: '700' }}>
-              🏔️ Aventures Alpines - Admin
+              Aventures Alpines - Administration
             </h1>
             <p style={{ margin: '0.25rem 0 0 0', opacity: 0.9, fontSize: '0.9rem' }}>
               Connecté en tant que <strong>{adminSession.username}</strong>
@@ -120,11 +120,11 @@ export default function AdminDashboard() {
                 textTransform: 'capitalize'
               }}
             >
-              {tab === 'overview' ? '📊 Vue d\'ensemble' :
-               tab === 'users' ? '👥 Utilisateurs' :
-               tab === 'content' ? '📝 Contenu' :
-               tab === 'reservations' ? '📅 Réservations' :
-               '⚙️ Paramètres'}
+              {tab === 'overview' ? 'Vue d\'ensemble' :
+               tab === 'users' ? 'Utilisateurs' :
+               tab === 'content' ? 'Contenu' :
+               tab === 'reservations' ? 'Réservations' :
+               'Paramètres'}
             </button>
           ))}
         </div>
@@ -146,10 +146,10 @@ export default function AdminDashboard() {
               marginBottom: '2rem'
             }}>
               {[
-                { title: 'Utilisateurs', value: stats.users, icon: '👥', color: '#667eea' },
-                { title: 'Réservations', value: stats.reservations, icon: '📅', color: '#f093fb' },
-                { title: 'Articles', value: stats.articles, icon: '📝', color: '#4facfe' },
-                { title: 'Vidéos', value: stats.videos, icon: '🎥', color: '#43e97b' }
+                { title: 'Utilisateurs', value: stats.users, icon: 'U', color: '#667eea' },
+                { title: 'Réservations', value: stats.reservations, icon: 'R', color: '#f093fb' },
+                { title: 'Articles', value: stats.articles, icon: 'A', color: '#4facfe' },
+                { title: 'Vidéos', value: stats.videos, icon: 'V', color: '#43e97b' }
               ].map((stat, idx) => (
                 <div key={idx} style={{
                   background: 'white',
@@ -217,7 +217,7 @@ export default function AdminDashboard() {
                 fontWeight: '700',
                 color: '#333'
               }}>
-                📈 Activité récente
+                Activité récente
               </h2>
               <div style={{ display: 'flex', flexDirection: 'column', gap: '1rem' }}>
                 {[
@@ -258,12 +258,12 @@ export default function AdminDashboard() {
             padding: '2rem',
             boxShadow: '0 2px 8px rgba(0,0,0,0.08)'
           }}>
-            <h2 style={{ margin: '0 0 1.5rem 0' }}>👥 Gestion des utilisateurs</h2>
+            <h2 style={{ margin: '0 0 1.5rem 0' }}>Gestion des utilisateurs</h2>
             <p style={{ color: '#666' }}>
               Liste des utilisateurs inscrits, gestion des rôles et permissions...
             </p>
             <div style={{ marginTop: '1rem', padding: '1rem', background: '#f8f9fa', borderRadius: '6px' }}>
-              💡 Fonctionnalité à développer : intégration avec la base de données
+              Note : Fonctionnalité à développer : intégration avec la base de données
             </div>
           </div>
         )}
@@ -275,7 +275,7 @@ export default function AdminDashboard() {
             padding: '2rem',
             boxShadow: '0 2px 8px rgba(0,0,0,0.08)'
           }}>
-            <h2 style={{ margin: '0 0 1.5rem 0' }}>📝 Gestion du contenu</h2>
+            <h2 style={{ margin: '0 0 1.5rem 0' }}>Gestion du contenu</h2>
             <div style={{ display: 'grid', gap: '1rem' }}>
               <button style={{
                 padding: '1rem',
@@ -287,7 +287,7 @@ export default function AdminDashboard() {
                 fontWeight: '600',
                 textAlign: 'left'
               }}>
-                ➕ Ajouter un article
+                + Ajouter un article
               </button>
               <button style={{
                 padding: '1rem',
@@ -299,7 +299,7 @@ export default function AdminDashboard() {
                 fontWeight: '600',
                 textAlign: 'left'
               }}>
-                🎥 Ajouter une vidéo
+                + Ajouter une vidéo
               </button>
               <button style={{
                 padding: '1rem',
@@ -311,7 +311,7 @@ export default function AdminDashboard() {
                 fontWeight: '600',
                 textAlign: 'left'
               }}>
-                🗺️ Ajouter un itinéraire
+                + Ajouter un itinéraire
               </button>
             </div>
           </div>
@@ -324,7 +324,7 @@ export default function AdminDashboard() {
             padding: '2rem',
             boxShadow: '0 2px 8px rgba(0,0,0,0.08)'
           }}>
-            <h2 style={{ margin: '0 0 1.5rem 0' }}>📅 Gestion des réservations</h2>
+            <h2 style={{ margin: '0 0 1.5rem 0' }}>Gestion des réservations</h2>
             <p style={{ color: '#666' }}>
               Vue d'ensemble des réservations, confirmations, annulations...
             </p>
@@ -338,7 +338,7 @@ export default function AdminDashboard() {
             padding: '2rem',
             boxShadow: '0 2px 8px rgba(0,0,0,0.08)'
           }}>
-            <h2 style={{ margin: '0 0 1.5rem 0' }}>⚙️ Paramètres</h2>
+            <h2 style={{ margin: '0 0 1.5rem 0' }}>Paramètres</h2>
             <div style={{ display: 'flex', flexDirection: 'column', gap: '1.5rem' }}>
               <div>
                 <h3 style={{ margin: '0 0 0.5rem 0', color: '#333' }}>Sécurité</h3>

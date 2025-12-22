@@ -54,7 +54,7 @@ export default function Randonnee() {
       {/* Hero Section */}
       <section className="hero-section">
         <div className="hero-content">
-          <h1>🥾 Randonnée en Montagne</h1>
+          <h1>Randonnée en Montagne</h1>
           <p className="hero-subtitle">
             Explorez les plus beaux sentiers des Alpes françaises
           </p>
@@ -73,17 +73,17 @@ export default function Randonnee() {
           
           <div className="info-cards">
             <div className="info-card">
-              <span className="icon">🗺️</span>
+              <span className="icon">▦</span>
               <h3>Itinéraires variés</h3>
               <p>Du sentier familial à la grande randonnée, trouvez le parcours adapté à votre niveau</p>
             </div>
             <div className="info-card">
-              <span className="icon">👨‍🏫</span>
+              <span className="icon">•</span>
               <h3>Guides professionnels</h3>
               <p>Nos guides certifiés vous accompagnent sur les itinéraires techniques</p>
             </div>
             <div className="info-card">
-              <span className="icon">🌄</span>
+              <span className="icon">○</span>
               <h3>Saisons optimales</h3>
               <p>Recommandations précises pour chaque itinéraire selon la période</p>
             </div>
@@ -94,7 +94,7 @@ export default function Randonnee() {
       {/* Conseils de sécurité */}
       <section className="safety-section">
         <div className="container">
-          <h2>⚠️ Conseils de sécurité</h2>
+          <h2>Conseils de sécurité</h2>
           <div className="safety-grid">
             <div className="safety-item">
               <strong>Avant le départ</strong>
@@ -207,7 +207,7 @@ export default function Randonnee() {
       {/* Carte interactive */}
       <section className="map-section">
         <div className="container">
-          <h2>🗺️ Carte interactive des itinéraires</h2>
+          <h2>Carte interactive des itinéraires</h2>
           <p className="section-intro">
             Explorez les itinéraires de randonnée directement sur la carte. Cliquez sur un marqueur pour voir les détails.
           </p>
@@ -232,13 +232,13 @@ export default function Randonnee() {
                       <div style={{ minWidth: '200px' }}>
                         <h3 style={{ margin: '0 0 0.5rem 0', fontSize: '1.1rem' }}>{route.name}</h3>
                         <p style={{ margin: '0.25rem 0', color: '#666' }}>
-                          📍 {route.region || 'Haute-Savoie'}
+                          {route.region || 'Haute-Savoie'}
                         </p>
                         <p style={{ margin: '0.25rem 0', color: '#666' }}>
-                          ⏱️ {route.duration || 'N/A'}
+                          {route.duration || 'N/A'}
                         </p>
                         <p style={{ margin: '0.25rem 0', color: '#666' }}>
-                          📏 {route.distance || 'N/A'}
+                          {route.distance || 'N/A'}
                         </p>
                         <p style={{ 
                           margin: '0.5rem 0 0 0', 
@@ -265,7 +265,7 @@ export default function Randonnee() {
       {/* Galerie photos */}
       <section className="gallery-section">
         <div className="container">
-          <h2>📸 Galerie de randonnées</h2>
+          <h2>Galerie de randonnées</h2>
           <div className="photo-gallery">
             <div className="gallery-item">
               <img src="https://images.unsplash.com/photo-1551632811-561732d1e306?auto=format&fit=crop&w=800&q=80" alt="Lac de montagne" />

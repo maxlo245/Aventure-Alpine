@@ -63,7 +63,7 @@ const Articles = () => {
     <section id="articles" style={{ padding: '2rem', background: 'white', borderRadius: '12px', minHeight: '100vh' }}>
       <div className="section-head" style={{ marginBottom: '2rem' }}>
         <div>
-          <h2 style={{ fontSize: '2rem', marginBottom: '0.5rem', color: '#1a202c' }}>📚 Articles</h2>
+          <h2 style={{ fontSize: '2rem', marginBottom: '0.5rem', color: '#1a202c' }}>Articles</h2>
           <p style={{ color: '#4a5568' }}>Fiches pratiques, retours d'expérience et méthodes terrain.</p>
         </div>
       </div>
@@ -79,7 +79,7 @@ const Articles = () => {
         <div style={{ display: 'flex', gap: '1rem', flexWrap: 'wrap', alignItems: 'center' }}>
           <input
             type="text"
-            placeholder="🔍 Rechercher un article..."
+            placeholder="Rechercher un article..."
             value={searchTerm}
             onChange={(e) => setSearchTerm(e.target.value)}
             style={{
@@ -110,7 +110,7 @@ const Articles = () => {
             }}
           >
             {categories.map((c) => (
-              <option key={c} value={c}>📂 {c}</option>
+              <option key={c} value={c}>{c}</option>
             ))}
           </select>
 
@@ -126,10 +126,10 @@ const Articles = () => {
               cursor: 'pointer'
             }}
           >
-            <option value="recent">📅 Plus récents</option>
-            <option value="old">📅 Plus anciens</option>
-            <option value="popular">🔥 Popularité</option>
-            <option value="title">🔤 Alphabétique</option>
+            <option value="recent">Plus récents</option>
+            <option value="old">Plus anciens</option>
+            <option value="popular">Popularité</option>
+            <option value="title">Alphabétique</option>
           </select>
 
           {(searchTerm || category !== 'Toutes' || sort !== 'recent') && (
@@ -148,7 +148,7 @@ const Articles = () => {
               onMouseOver={(e) => e.target.style.background = '#dc2626'}
               onMouseOut={(e) => e.target.style.background = '#ef4444'}
             >
-              ✕ Réinitialiser
+              Réinitialiser
             </button>
           )}
         </div>
@@ -160,7 +160,7 @@ const Articles = () => {
         {searchTerm && <span> pour "{searchTerm}"</span>}
       </div>
 
-      {error && <p className="hint" style={{ color: '#f59e0b', marginBottom: '1rem' }}>⚠️ {error}</p>}
+      {error && <p className="hint" style={{ color: '#f59e0b', marginBottom: '1rem' }}>Erreur: {error}</p>}
       
       {filtered.length === 0 ? (
         <div style={{
@@ -169,7 +169,7 @@ const Articles = () => {
           background: '#f7fafc',
           borderRadius: '12px'
         }}>
-          <p style={{ fontSize: '3rem', margin: '0 0 1rem 0' }}>📭</p>
+          <p style={{ fontSize: '3rem', margin: '0 0 1rem 0' }}>∅</p>
           <p style={{ fontSize: '1.25rem', color: '#4a5568', margin: 0 }}>Aucun article ne correspond à vos critères</p>
           <button
             onClick={handleReset}

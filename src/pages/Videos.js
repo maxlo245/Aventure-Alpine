@@ -75,7 +75,7 @@ const Videos = () => {
     <section id="videos" style={{ padding: '2rem', background: 'white', borderRadius: '12px', minHeight: '100vh' }}>
       <div className="section-head" style={{ marginBottom: '2rem' }}>
         <div>
-          <h2 style={{ fontSize: '2rem', marginBottom: '0.5rem', color: '#1a202c' }}>🎥 Vidéos</h2>
+          <h2 style={{ fontSize: '2rem', marginBottom: '0.5rem', color: '#1a202c' }}>Vidéos</h2>
           <p style={{ color: '#4a5568' }}>Des images immersives pour préparer ou rêver la prochaine sortie.</p>
         </div>
       </div>
@@ -91,7 +91,7 @@ const Videos = () => {
         <div style={{ display: 'flex', gap: '1rem', flexWrap: 'wrap', alignItems: 'center' }}>
           <input
             type="text"
-            placeholder="🔍 Rechercher une vidéo..."
+            placeholder="Rechercher une vidéo..."
             value={searchTerm}
             onChange={(e) => setSearchTerm(e.target.value)}
             style={{
@@ -122,7 +122,7 @@ const Videos = () => {
             }}
           >
             {sports.map((s) => (
-              <option key={s} value={s}>🏔️ {s}</option>
+              <option key={s} value={s}>{s}</option>
             ))}
           </select>
 
@@ -138,11 +138,11 @@ const Videos = () => {
               cursor: 'pointer'
             }}
           >
-            <option value="recent">📅 Plus récentes</option>
-            <option value="old">📅 Plus anciennes</option>
-            <option value="popular">🔥 Popularité</option>
-            <option value="duration">⏱️ Durée (courte → longue)</option>
-            <option value="title">🔤 Alphabétique</option>
+            <option value="recent">Plus récentes</option>
+            <option value="old">Plus anciennes</option>
+            <option value="popular">Popularité</option>
+            <option value="duration">Durée (courte → longue)</option>
+            <option value="title">Alphabétique</option>
           </select>
 
           {(searchTerm || sport !== 'Tous' || sort !== 'recent') && (
@@ -161,7 +161,7 @@ const Videos = () => {
               onMouseOver={(e) => e.target.style.background = '#dc2626'}
               onMouseOut={(e) => e.target.style.background = '#ef4444'}
             >
-              ✕ Réinitialiser
+              Réinitialiser
             </button>
           )}
         </div>
@@ -173,7 +173,7 @@ const Videos = () => {
         {searchTerm && <span> pour "{searchTerm}"</span>}
       </div>
 
-      {error && <p className="hint" style={{ color: '#f59e0b', marginBottom: '1rem' }}>⚠️ {error}</p>}
+      {error && <p className="hint" style={{ color: '#f59e0b', marginBottom: '1rem' }}>Erreur: {error}</p>}
       
       {filtered.length === 0 ? (
         <div style={{
@@ -182,7 +182,7 @@ const Videos = () => {
           background: '#f7fafc',
           borderRadius: '12px'
         }}>
-          <p style={{ fontSize: '3rem', margin: '0 0 1rem 0' }}>🎬</p>
+          <p style={{ fontSize: '3rem', margin: '0 0 1rem 0' }}>∅</p>
           <p style={{ fontSize: '1.25rem', color: '#4a5568', margin: 0 }}>Aucune vidéo ne correspond à vos critères</p>
           <button
             onClick={handleReset}

@@ -56,7 +56,7 @@ export default function Escalade() {
       {/* Hero Section */}
       <section className="hero-section">
         <div className="hero-content">
-          <h1>🧗 Escalade en Montagne</h1>
+          <h1>Escalade en Montagne</h1>
           <p className="hero-subtitle">
             Des parois mythiques aux voies d'initiation, explorez l'escalade alpine
           </p>
@@ -78,25 +78,25 @@ export default function Escalade() {
       {/* Conseils pour débutants */}
       <section className="beginners-section">
         <div className="container">
-          <h2>🎯 Débuter l'escalade : nos conseils</h2>
+          <h2>Débuter l'escalade : nos conseils</h2>
           <div className="tips-grid">
             <div className="tip-card">
-              <span className="tip-icon">🏋️</span>
+              <span className="tip-icon"></span>
               <h3>1. Commencez en salle</h3>
               <p>Apprenez les bases en salle d'escalade avant de partir en falaise. Travaillez la technique, les nœuds et l'assurage.</p>
             </div>
             <div className="tip-card">
-              <span className="tip-icon">👥</span>
+              <span className="tip-icon">◉</span>
               <h3>2. Ne grimpez jamais seul</h3>
               <p>L'escalade se pratique toujours à deux minimum : un grimpeur, un assureur. La communication est essentielle.</p>
             </div>
             <div className="tip-card">
-              <span className="tip-icon">🎒</span>
+              <span className="tip-icon">▣</span>
               <h3>3. Équipement adapté</h3>
               <p>Baudrier, chaussons, casque, corde, dégaines : utilisez du matériel certifié et en bon état.</p>
             </div>
             <div className="tip-card">
-              <span className="tip-icon">📚</span>
+              <span className="tip-icon">≡</span>
               <h3>4. Formez-vous</h3>
               <p>Suivez un stage avec un moniteur diplômé pour apprendre les manœuvres de sécurité et progresser rapidement.</p>
             </div>
@@ -107,33 +107,33 @@ export default function Escalade() {
       {/* Règles de sécurité */}
       <section className="safety-section">
         <div className="container">
-          <h2>⚠️ Sécurité en escalade</h2>
+          <h2>Sécurité en escalade</h2>
           <div className="safety-checklist">
             <div className="safety-column">
               <h3>Avant de grimper</h3>
               <ul>
-                <li>✓ Vérifier le matériel (usure, date de péremption)</li>
-                <li>✓ Contrôle croisé : baudrier, nœud de 8, mousqueton</li>
-                <li>✓ Établir les codes de communication</li>
-                <li>✓ Vérifier la météo et l'état de la voie</li>
+                <li>Vérifier le matériel (usure, date de péremption)</li>
+                <li>Contrôle croisé : baudrier, nœud de 8, mousqueton</li>
+                <li>Établir les codes de communication</li>
+                <li>Vérifier la météo et l'état de la voie</li>
               </ul>
             </div>
             <div className="safety-column">
               <h3>Pendant l'escalade</h3>
               <ul>
-                <li>✓ Rester concentré sur l'assurage</li>
-                <li>✓ Annoncer clairement les manœuvres</li>
-                <li>✓ Ne jamais lâcher la corde</li>
-                <li>✓ Porter un casque (chutes de pierres)</li>
+                <li>Rester concentré sur l'assurage</li>
+                <li>Annoncer clairement les manœuvres</li>
+                <li>Ne jamais lâcher la corde</li>
+                <li>Porter un casque (chutes de pierres)</li>
               </ul>
             </div>
             <div className="safety-column">
               <h3>En cas de problème</h3>
               <ul>
-                <li>✓ Garder son calme</li>
-                <li>✓ Communiquer avec son binôme</li>
-                <li>✓ Connaître les manœuvres de secours</li>
-                <li>✓ Avoir un téléphone chargé (112)</li>
+                <li>Garder son calme</li>
+                <li>Communiquer avec son binôme</li>
+                <li>Connaître les manœuvres de secours</li>
+                <li>Avoir un téléphone chargé (112)</li>
               </ul>
             </div>
           </div>
@@ -184,18 +184,18 @@ export default function Escalade() {
                     <p className="site-description">{site.description}</p>
                     <div className="site-details">
                       <div className="detail">
-                        <span className="icon">📍</span>
+                        <span className="icon"></span>
                         <span>{site.location}</span>
                       </div>
                       {site.site && (
-                        <div className="detail">
-                          <span className="icon">🏔️</span>
+                        <div className="site-info">
+                          <span className="icon"></span>
                           <span>{site.site}</span>
                         </div>
                       )}
                       {site.duration && (
                         <div className="detail">
-                          <span className="icon">⏱️</span>
+                          <span className="icon">●</span>
                           <span>{site.duration}</span>
                         </div>
                       )}
@@ -211,7 +211,7 @@ export default function Escalade() {
       {/* Vidéos */}
       <section className="videos-section">
         <div className="container">
-          <h2>🎥 Vidéos : grimpeurs expérimentés en action</h2>
+          <h2>Vidéos : grimpeurs expérimentés en action</h2>
           <p className="section-subtitle">
             Inspirez-vous des meilleurs et apprenez de leurs techniques
           </p>

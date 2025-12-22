@@ -92,7 +92,7 @@ export default function Dashboard() {
                   fontWeight: '600'
                 }}
               >
-                🔐 Dashboard Admin
+                Dashboard Admin
               </Link>
             )}
             <button onClick={handleLogout} className="btn btn-secondary">
@@ -159,7 +159,7 @@ export default function Dashboard() {
                   </div>
                   <div className="reservation-details">
                     <div className="detail-item">
-                      <span className="icon">📅</span>
+                      <span className="icon"></span>
                       <span>
                         Du {new Date(reservation.startdate).toLocaleDateString('fr-FR')} 
                         {' au '}
@@ -167,15 +167,15 @@ export default function Dashboard() {
                       </span>
                     </div>
                     <div className="detail-item">
-                      <span className="icon">👥</span>
+                      <span className="icon"></span>
                       <span>{reservation.numpeople} personne(s)</span>
                     </div>
                     <div className="detail-item">
-                      <span className="icon">💰</span>
-                      <span className="price">{reservation.totalprice}€</span>
+                      <span className="icon"></span>
+                      <span>{reservation.totalprice} €</span>
                     </div>
                     <div className="detail-item">
-                      <span className="icon">🏔️</span>
+                      <span className="icon"></span>
                       <span>{reservation.activitytype}</span>
                     </div>
                   </div>
@@ -207,19 +207,19 @@ export default function Dashboard() {
           <h2>Accès rapide</h2>
           <div className="quick-links">
             <Link to="/activities" className="quick-link-card">
-              <span className="icon">🏔️</span>
+              <span className="icon">▲</span>
               <span className="text">Activités</span>
             </Link>
             <Link to="/routes" className="quick-link-card">
-              <span className="icon">🥾</span>
+              <span className="icon">◆</span>
               <span className="text">Randonnées</span>
             </Link>
             <Link to="/articles" className="quick-link-card">
-              <span className="icon">📰</span>
+              <span className="icon">■</span>
               <span className="text">Articles</span>
             </Link>
             <Link to="/videos" className="quick-link-card">
-              <span className="icon">🎥</span>
+              <span className="icon">▶</span>
               <span className="text">Vidéos</span>
             </Link>
           </div>

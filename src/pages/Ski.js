@@ -39,25 +39,25 @@ export default function Ski() {
     {
       id: 'alpin',
       name: 'Ski Alpin',
-      icon: '⛷️',
+      icon: 'Alpin',
       description: 'Descentes sur pistes aménagées et damées'
     },
     {
       id: 'fond',
       name: 'Ski de Fond',
-      icon: '🎿',
+      icon: 'Fond',
       description: 'Glisse sur terrain plat ou vallonné'
     },
     {
       id: 'rando',
       name: 'Ski de Randonnée',
-      icon: '🏔️',
+      icon: 'Rando',
       description: 'Ascension et descente hors-piste'
     },
     {
       id: 'freeride',
       name: 'Hors-Piste / Freeride',
-      icon: '🏂',
+      icon: 'Freeride',
       description: 'Poudreuse et terrains vierges'
     }
   ];
@@ -98,7 +98,7 @@ export default function Ski() {
       {/* Hero Section */}
       <section className="hero-section">
         <div className="hero-content">
-          <h1>⛷️ Ski en Montagne</h1>
+          <h1>Ski en Montagne</h1>
           <p className="hero-subtitle">
             Glissez sur les plus beaux domaines skiables des Alpes
           </p>
@@ -127,7 +127,7 @@ export default function Ski() {
       {/* Conditions en temps réel */}
       <section className="conditions-section">
         <div className="container">
-          <h2>❄️ Conditions d'enneigement en temps réel</h2>
+          <h2>Conditions d'enneigement en temps réel</h2>
           <p className="section-intro">
             Consultez l'état de la neige dans nos stations partenaires pour planifier votre sortie.
           </p>
@@ -142,7 +142,7 @@ export default function Ski() {
                   <div key={station.id} className="station-card">
                     <div className="station-header">
                       <h3>{station.name}</h3>
-                      {station.haslifts && <span className="lift-badge">🚡 Remontées</span>}
+                      {station.haslifts && <span className="lift-badge">Remontées</span>}
                     </div>
                     
                     <div className="snow-status">
@@ -154,17 +154,17 @@ export default function Ski() {
 
                     <div className="station-info">
                       <div className="info-item">
-                        <span className="icon">📍</span>
+                        <span className="icon">●</span>
                         <span>{station.location}</span>
                       </div>
                       {station.skidomain && (
                         <div className="info-item">
-                          <span className="icon">🏔️</span>
+                          <span className="icon">▲</span>
                           <span>{station.skidomain}</span>
                         </div>
                       )}
                       <div className="info-item">
-                        <span className="icon">🎿</span>
+                        <span className="icon">▬</span>
                         <span>Pistes {slope.label} • {slope.difficulty}</span>
                       </div>
                     </div>
@@ -181,7 +181,7 @@ export default function Ski() {
       {/* Niveaux de pistes */}
       <section className="slopes-section">
         <div className="container">
-          <h2>🎿 Comprendre les niveaux de pistes</h2>
+          <h2>Comprendre les niveaux de pistes</h2>
           <div className="slopes-grid">
             {Object.entries(slopeColors).map(([key, slope]) => (
               <div key={key} className="slope-card">
@@ -200,7 +200,7 @@ export default function Ski() {
       {/* Témoignages */}
       <section className="testimonials-section">
         <div className="container">
-          <h2>💬 Témoignages de skieurs</h2>
+          <h2>Témoignages de skieurs</h2>
           <div className="testimonials-grid">
             {testimonials.map((testimonial, index) => (
               <div key={index} className="testimonial-card">
@@ -210,7 +210,7 @@ export default function Ski() {
                     <p className="station-name">{testimonial.station}</p>
                   </div>
                   <div className="rating">
-                    {'⭐'.repeat(testimonial.rating)}
+                    {Array(testimonial.rating).fill('-').join('')}
                   </div>
                 </div>
                 <p className="testimonial-text">"{testimonial.text}"</p>
@@ -224,16 +224,16 @@ export default function Ski() {
       {/* Offres spéciales */}
       <section className="offers-section">
         <div className="container">
-          <h2>🎁 Offres spéciales</h2>
+          <h2>Offres spéciales</h2>
           <div className="offers-grid">
             <div className="offer-card">
               <div className="offer-badge">-20%</div>
               <h3>Forfait Famille</h3>
               <p>2 adultes + 2 enfants pour le prix de 3 adultes</p>
               <ul>
-                <li>✓ Valable 7 jours</li>
-                <li>✓ Accès illimité remontées</li>
-                <li>✓ Cours ESF inclus pour enfants</li>
+                <li>Valable 7 jours</li>
+                <li>Accès illimité remontées</li>
+                <li>Cours ESF inclus pour enfants</li>
               </ul>
               <button className="btn-offer">Réserver maintenant</button>
             </div>
@@ -243,9 +243,9 @@ export default function Ski() {
               <h3>Stage Hors-Piste</h3>
               <p>Weekend intensif avec guide UIAGM</p>
               <ul>
-                <li>✓ 2 jours / 1 nuit en refuge</li>
-                <li>✓ Matériel sécurité fourni</li>
-                <li>✓ Max 6 participants</li>
+                <li>2 jours / 1 nuit en refuge</li>
+                <li>Matériel sécurité fourni</li>
+                <li>Max 6 participants</li>
               </ul>
               <button className="btn-offer">En savoir plus</button>
             </div>
@@ -255,9 +255,9 @@ export default function Ski() {
               <h3>Early Bird</h3>
               <p>Réservez avant le 20 décembre</p>
               <ul>
-                <li>✓ Forfait saison</li>
-                <li>✓ Accès 3 domaines</li>
-                <li>✓ Parking gratuit</li>
+                <li>Forfait saison</li>
+                <li>Accès 3 domaines</li>
+                <li>Parking gratuit</li>
               </ul>
               <button className="btn-offer">Profiter de l'offre</button>
             </div>

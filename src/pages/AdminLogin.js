@@ -89,7 +89,7 @@ export default function AdminLogin() {
             WebkitTextFillColor: 'transparent',
             marginBottom: '0.5rem'
           }}>
-            🔐 Admin
+            Administration
           </h1>
           <p style={{ color: '#666', fontSize: '0.9rem' }}>
             Aventures Alpines - Panneau d'administration

@@ -61,7 +61,7 @@ function Contact() {
 
   return (
     <section id="contact" style={{ padding: '2rem', maxWidth: '1200px', margin: '0 auto', background: 'white', borderRadius: '12px', position: 'relative', zIndex: 1 }}>
-      <h2 style={{ fontSize: '2.5rem', marginBottom: '1rem', textAlign: 'center', color: '#1a202c' }}>📞 Contactez-nous</h2>
+      <h2 style={{ fontSize: '2.5rem', marginBottom: '1rem', textAlign: 'center', color: '#1a202c' }}>Contactez-nous</h2>
       <p style={{ textAlign: 'center', color: '#4a5568', marginBottom: '3rem' }}>
         Une question, une demande de réservation ou simplement envie de discuter de votre prochaine aventure ?
       </p>
@@ -69,7 +69,7 @@ function Contact() {
       <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))', gap: '3rem', marginBottom: '3rem' }}>
         {/* Formulaire de contact */}
         <div style={{ background: 'white', padding: '2rem', borderRadius: '12px', boxShadow: '0 2px 8px rgba(0,0,0,0.1)' }}>
-          <h3 style={{ marginBottom: '1.5rem', fontSize: '1.5rem', color: '#1a202c' }}>✉️ Envoyez-nous un message</h3>
+          <h3 style={{ marginBottom: '1.5rem', fontSize: '1.5rem', color: '#1a202c' }}>Envoyez-nous un message</h3>
           <form onSubmit={handleSubmit} style={{ display: 'flex', flexDirection: 'column', gap: '1rem' }}>
             <div>
               <label style={{ display: 'block', marginBottom: '0.5rem', fontWeight: '600', color: '#2d3748' }}>Nom complet</label>
@@ -156,7 +156,7 @@ function Contact() {
               onMouseOver={(e) => !loading && (e.target.style.transform = 'translateY(-2px)')}
               onMouseOut={(e) => !loading && (e.target.style.transform = 'translateY(0)')}
             >
-              {loading ? '⏳ Envoi en cours...' : '📤 Envoyer le message'}
+              {loading ? 'Envoi en cours...' : 'Envoyer le message'}
             </button>
           </form>
         </div>
@@ -164,10 +164,10 @@ function Contact() {
         {/* Informations de contact */}
         <div style={{ display: 'flex', flexDirection: 'column', gap: '2rem' }}>
           <div style={{ background: 'white', padding: '2rem', borderRadius: '12px', boxShadow: '0 2px 8px rgba(0,0,0,0.1)' }}>
-            <h3 style={{ marginBottom: '1.5rem', fontSize: '1.5rem', color: '#1a202c' }}>📍 Nos coordonnées</h3>
+            <h3 style={{ marginBottom: '1.5rem', fontSize: '1.5rem', color: '#1a202c' }}>Nos coordonnées</h3>
             <div style={{ display: 'flex', flexDirection: 'column', gap: '1rem' }}>
               <div style={{ display: 'flex', alignItems: 'start', gap: '1rem' }}>
-                <span style={{ fontSize: '1.5rem' }}>🏢</span>
+                <span style={{ fontSize: '1.5rem' }}>■</span>
                 <div>
                   <strong style={{ display: 'block', color: '#2d3748' }}>Adresse</strong>
                   <p style={{ margin: '0.25rem 0 0 0', color: '#718096' }}>123 Rue de la Montagne<br />74400 Chamonix-Mont-Blanc<br />Haute-Savoie, France</p>
@@ -175,7 +175,7 @@ function Contact() {
               </div>
               
               <div style={{ display: 'flex', alignItems: 'start', gap: '1rem' }}>
-                <span style={{ fontSize: '1.5rem' }}>📧</span>
+                <span style={{ fontSize: '1.5rem' }}>■</span>
                 <div>
                   <strong style={{ display: 'block', color: '#2d3748' }}>Email</strong>
                   <a href="mailto:contact@aventures-alpines.fr" style={{ margin: '0.25rem 0 0 0', color: '#3b82f6', textDecoration: 'none' }}>
@@ -185,7 +185,7 @@ function Contact() {
               </div>
               
               <div style={{ display: 'flex', alignItems: 'start', gap: '1rem' }}>
-                <span style={{ fontSize: '1.5rem' }}>📞</span>
+                <span style={{ fontSize: '1.5rem' }}>■</span>
                 <div>
                   <strong style={{ display: 'block', color: '#2d3748' }}>Téléphone</strong>
                   <a href="tel:+33450123456" style={{ margin: '0.25rem 0 0 0', color: '#3b82f6', textDecoration: 'none' }}>
@@ -195,7 +195,7 @@ function Contact() {
               </div>
               
               <div style={{ display: 'flex', alignItems: 'start', gap: '1rem' }}>
-                <span style={{ fontSize: '1.5rem' }}>⏰</span>
+                <span style={{ fontSize: '1.5rem' }}>■</span>
                 <div>
                   <strong style={{ display: 'block', color: '#2d3748' }}>Horaires</strong>
                   <p style={{ margin: '0.25rem 0 0 0', color: '#718096' }}>
@@ -209,7 +209,7 @@ function Contact() {
           </div>
 
           <div style={{ background: '#f0f9ff', padding: '1.5rem', borderRadius: '12px', border: '2px solid #bfdbfe' }}>
-            <h4 style={{ margin: '0 0 0.5rem 0', color: '#1e40af' }}>💡 Besoin d'aide ?</h4>
+            <h4 style={{ margin: '0 0 0.5rem 0', color: '#1e40af' }}>Besoin d'aide ?</h4>
             <p style={{ margin: 0, color: '#1e3a8a', fontSize: '0.95rem' }}>
               Consultez notre <a href="/faq" style={{ color: '#2563eb', fontWeight: '600' }}>FAQ</a> ou appelez-nous directement pour une réponse immédiate.
             </p>
@@ -219,7 +219,7 @@ function Contact() {
 
       {/* Carte de localisation */}
       <div style={{ marginTop: '3rem' }}>
-        <h3 style={{ fontSize: '1.75rem', marginBottom: '1rem', color: '#1a202c' }}>🗺️ Nous trouver</h3>
+        <h3 style={{ fontSize: '1.75rem', marginBottom: '1rem', color: '#1a202c' }}>Nous trouver</h3>
         <p style={{ color: '#4a5568', marginBottom: '1.5rem' }}>
           Notre bureau est situé au cœur de Chamonix, au pied du Mont-Blanc
         </p>
@@ -237,7 +237,7 @@ function Contact() {
               <Popup>
                 <div style={{ minWidth: '200px', textAlign: 'center' }}>
                   <h4 style={{ margin: '0 0 0.5rem 0', fontSize: '1.1rem', color: '#1a202c' }}>
-                    🏔️ Aventures Alpines
+                    Aventures Alpines
                   </h4>
                   <p style={{ margin: '0.25rem 0', color: '#4a5568', fontSize: '0.9rem' }}>
                     123 Rue de la Montagne<br />
@@ -259,7 +259,7 @@ function Contact() {
                       fontWeight: '600'
                     }}
                   >
-                    📍 Itinéraire Google Maps
+                    Itinéraire Google Maps
                   </a>
                 </div>
               </Popup>
