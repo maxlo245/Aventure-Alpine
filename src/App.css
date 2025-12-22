@@ -164,6 +164,13 @@ section[class*="-section"] p {
   color: #4a5568 !important;
 }
 
+/* Hero section avec fond foncé - texte clair */
+.hero-section h1,
+.hero-section h2,
+.hero-section p {
+  color: white !important;
+}
+
 /* Footer avec fond sombre - texte clair */
 footer h3 {
   color: white !important;

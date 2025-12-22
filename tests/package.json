@@ -7,7 +7,11 @@
     "test": "mocha tests/**/*.test.js --timeout 30000",
     "test:auth": "mocha tests/auth.test.js --timeout 30000",
     "test:navigation": "mocha tests/navigation.test.js --timeout 30000",
-    "test:filters": "mocha tests/filters.test.js --timeout 30000"
+    "test:filters": "mocha tests/filters.test.js --timeout 30000",
+    "test:reservation": "mocha tests/reservation.test.js --timeout 30000",
+    "test:user-experience": "mocha tests/user-experience.test.js --timeout 30000",
+    "test:contact": "mocha tests/contact.test.js --timeout 30000",
+    "test:all": "mocha tests/*.test.js --timeout 30000 --exit"
   },
   "keywords": ["selenium", "testing", "e2e"],
   "author": "Aventures Alpines Team",

@@ -1,9 +1,11 @@
 import { useState, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 
 const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:5000';
 
 export default function Ski() {
+  const navigate = useNavigate();
   const [stations, setStations] = useState([]);
   const [loading, setLoading] = useState(true);
   const [selectedDiscipline, setSelectedDiscipline] = useState('all');
@@ -235,7 +237,21 @@ export default function Ski() {
                 <li>Accès illimité remontées</li>
                 <li>Cours ESF inclus pour enfants</li>
               </ul>
-              <button className="btn-offer">Réserver maintenant</button>
+              <button 
+                className="btn-offer"
+                onClick={() => navigate('/reservation', {
+                  state: {
+                    offer: {
+                      title: 'Forfait Famille',
+                      description: '2 adultes + 2 enfants pour le prix de 3 adultes',
+                      discount: 20,
+                      type: 'semaine'
+                    }
+                  }
+                })}
+              >
+                Réserver maintenant
+              </button>
             </div>
 
             <div className="offer-card">
@@ -247,7 +263,21 @@ export default function Ski() {
                 <li>Matériel sécurité fourni</li>
                 <li>Max 6 participants</li>
               </ul>
-              <button className="btn-offer">En savoir plus</button>
+              <button 
+                className="btn-offer"
+                onClick={() => navigate('/reservation', {
+                  state: {
+                    offer: {
+                      title: 'Stage Hors-Piste',
+                      description: 'Weekend intensif avec guide UIAGM',
+                      discount: 0,
+                      type: 'semaine'
+                    }
+                  }
+                })}
+              >
+                En savoir plus
+              </button>
             </div>
 
             <div className="offer-card">
@@ -259,7 +289,21 @@ export default function Ski() {
                 <li>Accès 3 domaines</li>
                 <li>Parking gratuit</li>
               </ul>
-              <button className="btn-offer">Profiter de l'offre</button>
+              <button 
+                className="btn-offer"
+                onClick={() => navigate('/reservation', {
+                  state: {
+                    offer: {
+                      title: 'Early Bird',
+                      description: 'Réservez avant le 20 décembre',
+                      discount: 15,
+                      type: 'saison'
+                    }
+                  }
+                })}
+              >
+                Profiter de l'offre
+              </button>
             </div>
           </div>
         </div>
