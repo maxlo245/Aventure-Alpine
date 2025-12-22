@@ -8,7 +8,7 @@ export default defineConfig({
       include: '**/*.{jsx,js}',
     })
   ],
-  base: '/',
+  base: '/Aventure-Alpine/',
   esbuild: {
     loader: 'jsx',
     include: /src\/.*\.jsx?$/,
