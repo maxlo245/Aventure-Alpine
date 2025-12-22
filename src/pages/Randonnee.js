@@ -270,6 +270,41 @@ export default function Randonnee() {
             }}>Ctrl</kbd> appuyé pour zoomer ou dézoomer avec la molette de la souris
           </p>
           <div className="map-container" style={{ position: 'relative' }}>
+            {/* Message permanent en haut de la carte */}
+            <div style={{
+              position: 'absolute',
+              top: '10px',
+              left: '50%',
+              transform: 'translateX(-50%)',
+              backgroundColor: 'rgba(100, 100, 100, 0.85)',
+              color: 'white',
+              padding: '8px 16px',
+              borderRadius: '6px',
+              zIndex: 1000,
+              fontSize: '0.9rem',
+              boxShadow: '0 2px 8px rgba(0, 0, 0, 0.3)',
+              pointerEvents: 'none',
+              display: 'flex',
+              alignItems: 'center',
+              gap: '8px',
+              backdropFilter: 'blur(4px)'
+            }}>
+              <span style={{ fontSize: '1.1rem' }}>ℹ️</span>
+              <span>
+                Maintenez <kbd style={{
+                  background: 'rgba(255, 255, 255, 0.9)',
+                  color: '#333',
+                  padding: '2px 6px',
+                  borderRadius: '3px',
+                  fontFamily: 'monospace',
+                  fontWeight: 'bold',
+                  fontSize: '0.85em',
+                  margin: '0 3px'
+                }}>Ctrl</kbd> + molette pour zoomer
+              </span>
+            </div>
+            
+            {/* Message temporaire au centre quand on essaie de scroller sans Ctrl */}
             {showScrollMessage && (
               <div style={{
                 position: 'absolute',
@@ -280,7 +315,7 @@ export default function Randonnee() {
                 color: 'white',
                 padding: '1rem 1.5rem',
                 borderRadius: '8px',
-                zIndex: 1000,
+                zIndex: 1001,
                 fontSize: '1rem',
                 fontWeight: '600',
                 boxShadow: '0 4px 20px rgba(0, 0, 0, 0.4)',
