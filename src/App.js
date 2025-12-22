@@ -1,5 +1,5 @@
-import React, { useState, lazy, Suspense } from 'react';
-import { Routes, Route, Link } from 'react-router-dom';
+import React, { useState, lazy, Suspense, useEffect } from 'react';
+import { Routes, Route, Link, useLocation } from 'react-router-dom';
 import './App.css';
 
 // Chargement immédiat des pages critiques
@@ -24,7 +24,7 @@ const Ski = lazy(() => import('./pages/Ski'));
 const Reservation = lazy(() => import('./pages/Reservation'));
 const ReservationConfirmation = lazy(() => import('./pages/ReservationConfirmation'));
 
-// Composant de chargement
+// Composant de chargement optimisé
 const LoadingFallback = () => (
   <div style={{ 
     display: 'flex', 
@@ -32,9 +32,24 @@ const LoadingFallback = () => (
     alignItems: 'center', 
     minHeight: '400px',
     fontSize: '1.2rem',
-    color: '#2c5530'
+    color: '#6366f1',
+    animation: 'fadeIn 0.3s ease-in'
   }}>
-    Chargement...
+    <div style={{
+      display: 'flex',
+      alignItems: 'center',
+      gap: '10px'
+    }}>
+      <div className="spinner" style={{
+        width: '20px',
+        height: '20px',
+        border: '3px solid rgba(99, 102, 241, 0.2)',
+        borderTop: '3px solid #6366f1',
+        borderRadius: '50%',
+        animation: 'spin 0.8s linear infinite'
+      }} />
+      Chargement...
+    </div>
   </div>
 );
 
@@ -43,6 +58,24 @@ function App() {
   const user = JSON.parse(localStorage.getItem('user') || '{}');
   const [newsletterEmail, setNewsletterEmail] = useState('');
   const [newsletterMessage, setNewsletterMessage] = useState('');
+  const location = useLocation();
+
+  // Scroll to top on route change pour une navigation fluide
+  useEffect(() => {
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  }, [location.pathname]);
+
+  // Prefetch des pages populaires pour une navigation instantanée
+  useEffect(() => {
+    const prefetchPages = [Activities, Randonnee, Escalade, Ski, Contact];
+    prefetchPages.forEach(page => {
+      // Précharger les composants après le chargement initial
+      const timer = setTimeout(() => {
+        page.preload && page.preload();
+      }, 2000);
+      return () => clearTimeout(timer);
+    });
+  }, []);
 
   const handleNewsletterSubmit = async (e) => {
     e.preventDefault();

@@ -23,6 +23,9 @@
     inset 0 1px 0 rgba(255, 255, 255, 0.05);
   border: 1px solid rgba(99, 102, 241, 0.15);
   transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  /* Optimisation GPU */
+  will-change: transform;
+  transform: translateZ(0);
 }
 
 .App-header:hover {
@@ -66,9 +69,12 @@ nav ul li a {
   font-weight: 500;
   font-size: 14px;
   border: 1px solid transparent;
-  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
   position: relative;
   overflow: hidden;
+  /* Optimisation GPU pour les animations */
+  will-change: transform, background-color;
+  transform: translateZ(0);
 }
 
 nav ul li a::before {
@@ -212,10 +218,14 @@ footer p {
   font-weight: 600;
   text-decoration: none;
   box-shadow: 0 8px 24px rgba(99, 102, 241, 0.4);
-  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
   border: none;
   position: relative;
   overflow: hidden;
+  cursor: pointer;
+  /* Optimisation GPU */
+  will-change: transform;
+  transform: translateZ(0);
 }
 
 .btn::before {
@@ -226,7 +236,7 @@ footer p {
   width: 100%;
   height: 100%;
   background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
-  transition: left 0.5s ease;
+  transition: left 0.5s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 .btn:hover::before {
@@ -234,8 +244,13 @@ footer p {
 }
 
 .btn:hover {
-  transform: translateY(-2px);
+  transform: translateY(-2px) translateZ(0);
   box-shadow: 0 12px 32px rgba(99, 102, 241, 0.5);
+}
+
+.btn:active {
+  transform: translateY(0) translateZ(0);
+  transition: transform 0.1s;
 }
 
 .btn.ghost {
@@ -346,10 +361,13 @@ footer p {
   backdrop-filter: blur(10px);
   border: 1px solid rgba(99, 102, 241, 0.2);
   box-shadow: 0 4px 16px rgba(0, 0, 0, 0.1);
-  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
   position: relative;
   overflow: hidden;
   color: #1a202c;
+  /* Optimisation GPU */
+  will-change: transform;
+  transform: translateZ(0);
 }
 
 .card::before {
@@ -362,7 +380,7 @@ footer p {
   background: linear-gradient(90deg, var(--accent), var(--accent-light));
   transform: scaleX(0);
   transform-origin: left;
-  transition: transform 0.3s ease;
+  transition: transform 0.25s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 .card:hover::before {
@@ -370,7 +388,7 @@ footer p {
 }
 
 .card:hover {
-  transform: translateY(-4px);
+  transform: translateY(-4px) translateZ(0);
   border-color: rgba(99, 102, 241, 0.4);
   box-shadow: 0 8px 24px rgba(99, 102, 241, 0.25);
 }
@@ -416,11 +434,14 @@ footer p {
   border-radius: 0;
   margin: 16px 0;
   box-shadow: 0 8px 24px rgba(0, 0, 0, 0.3);
-  transition: transform 0.3s ease;
+  transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  /* Optimisation GPU pour les images */
+  will-change: transform;
+  transform: translateZ(0);
 }
 
 .sport-image:hover {
-  transform: scale(1.02);
+  transform: scale(1.02) translateZ(0);
 }
 
 .link {
