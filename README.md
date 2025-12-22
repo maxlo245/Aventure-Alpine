@@ -346,6 +346,7 @@ https://aventure-alpine.onrender.com
 Métadonnées de l'API et liste complète des endpoints.
 
 **Réponse** :
+
 ```json
 {
   "name": "Aventures Alpines API",
@@ -369,6 +370,7 @@ Métadonnées de l'API et liste complète des endpoints.
 État de santé du service.
 
 **Réponse avec DB** :
+
 ```json
 {
   "status": "ok",
@@ -383,6 +385,7 @@ Métadonnées de l'API et liste complète des endpoints.
 Créer un nouveau compte utilisateur.
 
 **Body** :
+
 ```json
 {
   "nom_utilisateur": "jeandupont",
@@ -394,6 +397,7 @@ Créer un nouveau compte utilisateur.
 ```
 
 **Réponse 201** :
+
 ```json
 {
   "message": "Inscription réussie",
@@ -413,6 +417,7 @@ Créer un nouveau compte utilisateur.
 Se connecter avec un compte existant.
 
 **Body** :
+
 ```json
 {
   "email": "jean@email.com",
@@ -421,6 +426,7 @@ Se connecter avec un compte existant.
 ```
 
 **Réponse 200** :
+
 ```json
 {
   "message": "Connexion réussie",
@@ -436,6 +442,7 @@ Se connecter avec un compte existant.
 Liste de tous les sites d'escalade.
 
 **Réponse 200** :
+
 ```json
 [
   {
@@ -455,6 +462,7 @@ Liste de tous les sites d'escalade.
 Liste de toutes les stations de ski.
 
 **Réponse 200** :
+
 ```json
 [
   {
@@ -474,6 +482,7 @@ Liste de toutes les stations de ski.
 Liste des prestations disponibles (stages, activités).
 
 **Réponse 200** :
+
 ```json
 [
   {
@@ -491,7 +500,8 @@ Liste des prestations disponibles (stages, activités).
 #### Endpoints protégés (authentification requise)
 
 **Headers requis** :
-```
+
+```text
 Authorization: Bearer <votre_token_jwt>
 ```
 
@@ -500,6 +510,7 @@ Authorization: Bearer <votre_token_jwt>
 Récupérer les informations de l'utilisateur connecté.
 
 **Réponse 200** :
+
 ```json
 {
   "id": 1,
@@ -516,6 +527,7 @@ Récupérer les informations de l'utilisateur connecté.
 Liste des réservations de l'utilisateur connecté.
 
 **Réponse 200** :
+
 ```json
 [
   {
@@ -537,6 +549,7 @@ Liste des réservations de l'utilisateur connecté.
 Créer une nouvelle réservation.
 
 **Body** :
+
 ```json
 {
   "prestationId": 1,
@@ -548,6 +561,7 @@ Créer une nouvelle réservation.
 ```
 
 **Réponse 201** :
+
 ```json
 {
   "message": "Réservation créée avec succès",
@@ -566,6 +580,7 @@ Créer une nouvelle réservation.
 Soumettre un message de contact.
 
 **Body** :
+
 ```json
 {
   "name": "John Doe",
@@ -575,6 +590,7 @@ Soumettre un message de contact.
 ```
 
 **Réponse 201** :
+
 ```json
 {
   "id": 42,
@@ -586,6 +602,7 @@ Soumettre un message de contact.
 ```
 
 **Réponse 503** (sans DB) :
+
 ```json
 {
   "error": "Base de données non configurée"
@@ -597,7 +614,7 @@ Soumettre un message de contact.
 #### Autres endpoints
 
 | Méthode | Route | Description | Auth requise |
-|---------|-------|-------------|--------------|
+| ------- | ----- | ----------- | ------------ |
 | `POST` | `/api/auth/register` | Inscription utilisateur | Non |
 | `POST` | `/api/auth/login` | Connexion utilisateur | Non |
 | `GET` | `/api/auth/me` | Profil utilisateur | Oui |
@@ -622,6 +639,7 @@ Soumettre un message de contact.
 Le client frontend gère automatiquement les erreurs 503 en basculant sur localStorage.
 
 **Exemple** :
+
 ```javascript
 try {
   const res = await axios.post(`${API_URL}/api/contact-messages`, data);
@@ -640,7 +658,7 @@ try {
 
 ## Structure du projet
 
-```
+```text
 aventure-alpine/
 │
 ├── index.html                   # Point d'entrée HTML
@@ -727,14 +745,19 @@ Les contributions sont les bienvenues ! Voici comment participer :
 
 1. **Fork** le projet
 2. **Créer une branche** pour votre fonctionnalité :
+
    ```bash
    git checkout -b feature/AmazingFeature
    ```
+
 3. **Commit** vos changements :
+
    ```bash
    git commit -m 'feat: add AmazingFeature'
    ```
+
 4. **Push** vers votre fork :
+
    ```bash
    git push origin feature/AmazingFeature
    ```
@@ -770,7 +793,7 @@ Les contributions sont les bienvenues ! Voici comment participer :
 
 Ce projet est sous licence **MIT**. Voir le fichier [LICENSE](LICENSE) pour plus de détails.
 
-```
+```text
 MIT License
 
 Copyright (c) 2025 Aventures Alpines
@@ -796,10 +819,8 @@ SOFTWARE.
 
 ---
 
-<div align="center">
+## Crédits
 
-**Développé par l'équipe Aventures Alpines**
+Développé par l'équipe Aventures Alpines
 
 [Retour en haut](#aventures-alpines)
-
-</div>
