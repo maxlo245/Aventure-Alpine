@@ -31,7 +31,9 @@ function ScrollWheelZoomControl({ onScrollWithoutCtrl }) {
         // Permettre le zoom si Ctrl/Cmd est pressé
         e.preventDefault();
         const delta = e.deltaY > 0 ? -1 : 1;
-        map.setZoom(map.getZoom() + delta * 0.5);
+        const currentZoom = map.getZoom();
+        const newZoom = currentZoom + delta;
+        map.setZoom(newZoom);
       } else {
         // Afficher le message si Ctrl n'est pas pressé
         onScrollWithoutCtrl();
