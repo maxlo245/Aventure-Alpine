@@ -1,3 +1,14 @@
+# API publique Vercel
+
+Les endpoints suivants sont disponibles sur Vercel :
+
+- `/api/public-articles` : articles (JSON)
+- `/api/public-videos` : vidéos (JSON)
+- `/api/public-sports` : sports (JSON)
+- `/api/public-routes` : itinéraires (JSON)
+
+Exemple :
+https://aventure-alpine.vercel.app/api/public-articles
 # Aventures Alpines
 
 ## Plateforme web moderne pour les passionnés de sports de montagne

@@ -13,13 +13,18 @@
     "test:contact": "mocha tests/contact.test.js --timeout 30000",
     "test:all": "mocha tests/*.test.js --timeout 30000 --exit"
   },
-  "keywords": ["selenium", "testing", "e2e"],
+  "keywords": [
+    "selenium",
+    "testing",
+    "e2e"
+  ],
   "author": "Aventures Alpines Team",
   "license": "MIT",
   "devDependencies": {
-    "selenium-webdriver": "^4.16.0",
-    "mocha": "^10.2.0",
+    "axios": "^1.13.2",
     "chai": "^4.3.10",
-    "chromedriver": "^120.0.0"
+    "chromedriver": "^120.0.0",
+    "mocha": "^10.2.0",
+    "selenium-webdriver": "^4.16.0"
   }
 }
