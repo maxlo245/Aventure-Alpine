@@ -36,8 +36,8 @@ const RoutesPage = () => {
     <section id="routes">
       <div className="section-head">
         <div>
-          <h2>Itinéraires</h2>
-          <p>Recherchez un parcours par région ou niveau.</p>
+          <h2 className="text-title">Itinéraires</h2>
+          <p className="text-secondary">Recherchez un parcours par région ou niveau.</p>
         </div>
         <div className="filters">
           <input
@@ -50,32 +50,17 @@ const RoutesPage = () => {
             {difficulties.map((d) => (
               <option key={d} value={d}>{d}</option>
             ))}
-          return (
-            <section id="routes">
-              <div className="section-head">
-                <div>
-                  <h2 className="text-title">Itinéraires</h2>
-                  <p className="text-secondary">Recherchez un parcours par région ou niveau.</p>
-                </div>
-                <div className="filters">
-                  <input
-                    type="search"
-                    placeholder="Rechercher (nom ou région)"
-                    value={query}
-                    onChange={(e) => setQuery(e.target.value)}
-                  />
-                  <select value={difficulty} onChange={(e) => setDifficulty(e.target.value)}>
-                    {difficulties.map((d) => (
-                      <option key={d} value={d}>{d}</option>
-                    ))}
-                  </select>
-                </div>
-              </div>
-              {error && <p className="hint">{error}</p>}
-              <div className="adventure-grid">
-                {filtered.map((route) => (
-                  <HikingRouteCard key={route.id} route={route} />
-                ))}
-              </div>
-            </section>
-          );
+          </select>
+        </div>
+      </div>
+      {error && <p className="hint">{error}</p>}
+      <div className="adventure-grid">
+        {filtered.map((route) => (
+          <HikingRouteCard key={route.id} route={route} />
+        ))}
+      </div>
+	</section>
+	);
+}
+
+export default RoutesPage;

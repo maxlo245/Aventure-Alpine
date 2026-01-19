@@ -1,10 +1,4 @@
 /* Utilitaires pour contraste et thèmes */
-body.theme-dark .bg-card[style*="#fff"],
-body.theme-dark .bg-card[style*="white"],
-body.theme-dark .card[style*="#fff"],
-body.theme-dark .card[style*="white"],
-body.theme-dark .adventure[style*="#fff"],
-body.theme-dark .adventure[style*="white"],
 body.theme-dark .bg-card,
 body.theme-dark .card,
 body.theme-dark .adventure {
@@ -15,6 +9,9 @@ body.theme-dark .bg-card *,
 body.theme-dark .card *,
 body.theme-dark .adventure * {
   color: #18181b !important;
+}
+body.theme-dark :not(.bg-card):not(.card):not(.adventure) {
+  color: #f3f4f6 !important;
 }
 .bg-card {
   background: var(--bg-card, #fff);
