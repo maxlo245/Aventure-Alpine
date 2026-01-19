@@ -1,4 +1,19 @@
 import React, { useState, lazy, Suspense, useEffect } from 'react';
+// Utilitaire pour gérer le mode sombre/clair
+function useDarkMode() {
+  const [mode, setMode] = useState(() => {
+    if (typeof window !== 'undefined') {
+      return localStorage.getItem('theme') || 'dark';
+    }
+    return 'dark';
+  });
+  useEffect(() => {
+    document.body.classList.remove('theme-dark', 'theme-light');
+    document.body.classList.add(`theme-${mode}`);
+    localStorage.setItem('theme', mode);
+  }, [mode]);
+  return [mode, setMode];
+}
 import { Routes, Route, Link, useLocation } from 'react-router-dom';
 import './App.css';
 
@@ -54,6 +69,7 @@ const LoadingFallback = () => (
 );
 
 function App() {
+  const [theme, setTheme] = useDarkMode();
   const isLoggedIn = !!localStorage.getItem('token');
   const user = JSON.parse(localStorage.getItem('user') || '{}');
   const [newsletterEmail, setNewsletterEmail] = useState('');
@@ -99,7 +115,28 @@ function App() {
   return (
     <div className="App">
       <header className="App-header">
-        <h1>Aventures Alpines</h1>
+        <div style={{display:'flex',alignItems:'center',justifyContent:'space-between',gap:'1rem'}}>
+          <h1>Aventures Alpines</h1>
+          <button
+            aria-label={theme === 'dark' ? 'Passer en mode clair' : 'Passer en mode sombre'}
+            onClick={() => setTheme(theme === 'dark' ? 'light' : 'dark')}
+            style={{
+              background: theme === 'dark' ? 'linear-gradient(135deg,#f3f4f6,#cbd5e1)' : 'linear-gradient(135deg,#232946,#16161a)',
+              color: theme === 'dark' ? '#232946' : '#f3f4f6',
+              border: 'none',
+              borderRadius: '8px',
+              padding: '8px 18px',
+              fontWeight: 600,
+              fontSize: '1rem',
+              cursor: 'pointer',
+              boxShadow: '0 2px 8px rgba(0,0,0,0.08)',
+              transition: 'all 0.2s',
+              outline: 'none',
+            }}
+          >
+            {theme === 'dark' ? 'Mode clair' : 'Mode sombre'}
+          </button>
+        </div>
         <nav>
           <ul>
             <li><Link to="/">Accueil</Link></li>
