@@ -1,10 +1,23 @@
 // ==============================
 // API CONTENU PUBLIC (JSON statique)
 // ==============================
+import express from 'express';
+import cors from 'cors';
+import dotenv from 'dotenv';
+import bcrypt from 'bcryptjs';
+import { pool, query, dbType } from './db/pool.js';
+import { authenticateToken, generateToken, requireAdmin } from './middleware/auth.js';
 import { articles } from '../src/data/articles.js';
 import { videos } from '../src/data/videos.js';
 import { sports } from '../src/data/sports.js';
 import { routes } from '../src/data/routes.js';
+
+dotenv.config();
+
+const app = express();
+const PORT = process.env.PORT || 5000;
+
+app.use(cors());
 
 // Articles
 app.get('/api/public/articles', (req, res) => {
@@ -25,19 +38,6 @@ app.get('/api/public/sports', (req, res) => {
 app.get('/api/public/routes', (req, res) => {
   res.json(routes);
 });
-import express from 'express';
-import cors from 'cors';
-import dotenv from 'dotenv';
-import bcrypt from 'bcryptjs';
-import { pool, query, dbType } from './db/pool.js';
-import { authenticateToken, generateToken, requireAdmin } from './middleware/auth.js';
-
-dotenv.config();
-
-const app = express();
-const PORT = process.env.PORT || 5000;
-
-app.use(cors());
 app.use(express.json());
 
 const safeQuery = async (res, sql, params = []) => {
