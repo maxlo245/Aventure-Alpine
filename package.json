@@ -12,6 +12,7 @@
     "predeploy": "npm run build",
     "deploy": "gh-pages -d dist",
     "init-db": "node server/db/init-supabase.js",
+    "init-mysql": "node server/db/init-mysql.js",
     "setup-admin": "node server/db/setup-admin.js"
   },
   "dependencies": {
@@ -22,6 +23,7 @@
     "express": "^4.19.2",
     "jsonwebtoken": "^9.0.3",
     "leaflet": "^1.9.4",
+    "mysql2": "^3.9.0",
     "pg": "^8.11.3",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",

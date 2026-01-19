@@ -2,7 +2,7 @@ import express from 'express';
 import cors from 'cors';
 import dotenv from 'dotenv';
 import bcrypt from 'bcryptjs';
-import { pool } from './db/pool.js';
+import { pool, query, dbType } from './db/pool.js';
 import { authenticateToken, generateToken, requireAdmin } from './middleware/auth.js';
 
 dotenv.config();
@@ -18,7 +18,7 @@ const safeQuery = async (res, sql, params = []) => {
     return res.status(503).json({ error: 'Base de données non configurée' });
   }
   try {
-    const result = await pool.query(sql, params);
+    const result = await query(sql, params);
     return res.json(result.rows);
   } catch (error) {
     console.error('DB error:', error.message);
@@ -31,8 +31,8 @@ app.get('/api/health', async (req, res) => {
     return res.json({ status: 'degraded', message: 'Base de données non configurée - Mode localStorage' });
   }
   try {
-    await pool.query('SELECT 1');
-    res.json({ status: 'ok', database: 'connected' });
+    await query('SELECT 1');
+    res.json({ status: 'ok', database: dbType, connected: true });
   } catch (error) {
     res.status(500).json({ status: 'down', message: error.message });
   }
@@ -43,6 +43,7 @@ app.get('/', (req, res) => {
   res.json({
     name: 'Aventures Alpines API',
     status: pool ? 'running' : 'running (database disabled)',
+    database: dbType,
     mode: pool ? 'full' : 'localStorage-only',
     endpoints: [
       '/api/health',
