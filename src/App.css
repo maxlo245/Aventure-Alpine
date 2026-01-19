@@ -4,10 +4,10 @@
   color: var(--text-primary, #232946);
 }
 .text-title {
-  color: var(--text-primary, #232946) !important;
+  color: var(--text-primary, #18181b) !important;
 }
 .text-secondary {
-  color: var(--text-secondary, #4a5568) !important;
+  color: var(--text-secondary, #334155) !important;
 }
 .input-search {
   background: var(--bg-card, #fff);
