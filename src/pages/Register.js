@@ -195,7 +195,7 @@ export default function Register() {
 
         .auth-card {
           background: rgba(30,34,54,0.98);
-          color: #f3f4f6;
+          color: #f9fafb;
           border-radius: 12px;
           padding: 3rem;
           width: 100%;
@@ -205,13 +205,13 @@ export default function Register() {
         .auth-card h1 {
           margin: 0 0 0.5rem 0;
           font-size: 2rem;
-          color: #1a202c;
+          color: #f9fafb;
           text-align: center;
         }
 
         .auth-subtitle {
           text-align: center;
-          color: #718096;
+          color: #cbd5e1;
           margin-bottom: 2rem;
         }
 
@@ -223,9 +223,9 @@ export default function Register() {
         }
 
         .alert-error {
-          background-color: #fee;
-          color: #c53030;
-          border: 1px solid #fc8181;
+          background-color: #2d3748;
+          color: #f87171;
+          border: 1px solid #f87171;
         }
 
         .auth-form {
@@ -248,26 +248,29 @@ export default function Register() {
         .form-group label {
           font-weight: 600;
           margin-bottom: 0.5rem;
-          color: #2d3748;
+          color: #e0e7ef;
           font-size: 0.95rem;
         }
 
         .form-group input {
           padding: 0.75rem;
-          border: 2px solid #e2e8f0;
+          border: 2px solid #334155;
           border-radius: 0;
           font-size: 1rem;
+          background: #232946;
+          color: #f9fafb;
           transition: all 0.2s;
         }
 
         .form-group input:focus {
           outline: none;
-          border-color: #667eea;
-          box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+          border-color: #a5b4fc;
+          box-shadow: 0 0 0 3px rgba(165, 180, 252, 0.15);
         }
 
         .form-group input:disabled {
-          background-color: #f7fafc;
+          background-color: #232946;
+          color: #94a3b8;
           cursor: not-allowed;
         }
 
@@ -282,8 +285,8 @@ export default function Register() {
         }
 
         .btn-primary {
-          background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-          color: white;
+          background: linear-gradient(135deg, #6366f1 0%, #0ea5e9 100%);
+          color: #f9fafb;
         }
 
         .btn-primary:hover:not(:disabled) {
@@ -303,7 +306,7 @@ export default function Register() {
         .auth-footer {
           margin-top: 2rem;
           text-align: center;
-          color: #718096;
+          color: #cbd5e1;
           font-size: 0.95rem;
         }
 
@@ -312,7 +315,7 @@ export default function Register() {
         }
 
         .auth-footer a {
-          color: #667eea;
+          color: #38bdf8;
           text-decoration: none;
           font-weight: 600;
         }
