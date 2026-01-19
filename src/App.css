@@ -4,7 +4,18 @@
   color: var(--text-primary, #232946);
 }
 .text-title {
-  color: var(--text-primary, #18181b) !important;
+  background: linear-gradient(135deg, #fff 0%, #c0c0c0 60%, #a3a3a3 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  color: #18181b;
+}
+body.theme-dark .text-title, .theme-dark .text-title {
+  background: linear-gradient(135deg, #6366f1 0%, #818cf8 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  color: #f3f4f6;
 }
 .text-secondary {
   color: var(--text-secondary, #334155) !important;
