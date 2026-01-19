@@ -3,6 +3,11 @@
   background: var(--bg-card, #fff);
   color: var(--text-primary, #232946);
 }
+body.theme-dark .bg-card, .theme-dark .bg-card, body.theme-dark .card, .theme-dark .card {
+  background: #232946 !important;
+  color: #f3f4f6 !important;
+}
+}
 .text-title {
   background: linear-gradient(135deg, #fff 0%, #c0c0c0 60%, #a3a3a3 100%);
   -webkit-background-clip: text;
@@ -21,6 +26,10 @@ body.theme-dark .text-title, .theme-dark .text-title {
 }
 .text-secondary {
   color: var(--text-secondary, #334155) !important;
+}
+body.theme-dark .text-secondary, .theme-dark .text-secondary {
+  color: #cbd5e1 !important;
+}
 }
 .input-search {
   background: var(--bg-card, #fff);
