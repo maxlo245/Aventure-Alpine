@@ -1,7 +1,16 @@
 /* Utilitaires pour contraste et thèmes */
+body.theme-dark, .theme-dark, body.theme-dark *:not(svg):not(path), .theme-dark *:not(svg):not(path) {
+  color: #fff !important;
+  border-color: #444 !important;
+  background-color: transparent;
+}
 .bg-card {
   background: var(--bg-card, #fff);
   color: var(--text-primary, #232946);
+}
+body.theme-dark .bg-card *, .theme-dark .bg-card *, body.theme-dark .card *, .theme-dark .card * {
+  color: #fff !important;
+}
 }
 body.theme-dark .bg-card, .theme-dark .bg-card, body.theme-dark .card, .theme-dark .card {
   background: #232946 !important;
