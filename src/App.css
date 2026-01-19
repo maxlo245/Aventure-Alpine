@@ -9,6 +9,8 @@
   -webkit-text-fill-color: transparent;
   background-clip: text;
   color: #18181b;
+  -webkit-text-stroke: 1px #18181b;
+  text-stroke: 1px #18181b;
 }
 body.theme-dark .text-title, .theme-dark .text-title {
   background: linear-gradient(135deg, #6366f1 0%, #818cf8 100%);
