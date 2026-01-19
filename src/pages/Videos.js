@@ -72,17 +72,16 @@ const Videos = () => {
   };
 
   return (
-    <section id="videos" style={{ padding: '2rem', background: 'white', borderRadius: '12px', minHeight: '100vh' }}>
+    <section id="videos" className="bg-card" style={{ padding: '2rem', borderRadius: '12px', minHeight: '100vh' }}>
       <div className="section-head" style={{ marginBottom: '2rem' }}>
         <div>
-          <h2 style={{ fontSize: '2rem', marginBottom: '0.5rem', color: '#1a202c' }}>Vidéos</h2>
-          <p style={{ color: '#4a5568' }}>Des images immersives pour préparer ou rêver la prochaine sortie.</p>
+          <h2 className="text-title" style={{ fontSize: '2rem', marginBottom: '0.5rem' }}>Vidéos</h2>
+          <p className="text-secondary">Des images immersives pour préparer ou rêver la prochaine sortie.</p>
         </div>
       </div>
 
       {/* Barre de filtres avancés */}
-      <div style={{
-        background: 'white',
+      <div className="bg-card" style={{
         padding: '1.5rem',
         borderRadius: '12px',
         boxShadow: '0 2px 8px rgba(0,0,0,0.1)',
@@ -94,6 +93,7 @@ const Videos = () => {
             placeholder="Rechercher une vidéo..."
             value={searchTerm}
             onChange={(e) => setSearchTerm(e.target.value)}
+            className="input-search"
             style={{
               flex: '1',
               minWidth: '250px',

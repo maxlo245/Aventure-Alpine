@@ -39,53 +39,26 @@ export default function AdminDashboard() {
   };
 
   if (!adminSession) {
-    return <div style={{ padding: '2rem', textAlign: 'center' }}>Chargement...</div>;
+    return <div className="text-center" style={{ padding: '2rem' }}>Chargement...</div>;
   }
 
   return (
-    <div style={{ minHeight: '100vh', background: '#f5f7fa', color: '#1a202c' }}>
+    <div className="bg-card" style={{ minHeight: '100vh' }}>
       {/* Header */}
-      <header style={{
-        background: 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)',
-        color: 'white',
-        padding: '1rem 2rem',
-        boxShadow: '0 2px 8px rgba(0,0,0,0.1)'
-      }}>
-        <div style={{
-          maxWidth: '1400px',
-          margin: '0 auto',
-          display: 'flex',
-          justifyContent: 'space-between',
-          alignItems: 'center'
-        }}>
+      <header className="admin-header">
+        <div className="admin-header-inner">
           <div>
-            <h1 style={{ margin: 0, fontSize: '1.5rem', fontWeight: '700' }}>
+            <h1 className="text-title" style={{ margin: 0, fontSize: '1.5rem', fontWeight: '700' }}>
               Aventures Alpines - Administration
             </h1>
-            <p style={{ margin: '0.25rem 0 0 0', opacity: 0.9, fontSize: '0.9rem' }}>
+            <p className="text-secondary" style={{ margin: '0.25rem 0 0 0', opacity: 0.9, fontSize: '0.9rem' }}>
               Connecté en tant que <strong>{adminSession.username}</strong>
             </p>
           </div>
           <button
             onClick={handleLogout}
-            style={{
-              padding: '0.75rem 1.5rem',
-              background: 'rgba(255,255,255,0.2)',
-              color: 'white',
-              border: '2px solid white',
-              borderRadius: '6px',
-              cursor: 'pointer',
-              fontWeight: '600',
-              transition: 'all 0.3s'
-            }}
-            onMouseOver={(e) => {
-              e.target.style.background = 'white';
-              e.target.style.color = '#667eea';
-            }}
-            onMouseOut={(e) => {
-              e.target.style.background = 'rgba(255,255,255,0.2)';
-              e.target.style.color = 'white';
-            }}
+            className="btn ghost"
+            style={{ padding: '0.75rem 1.5rem', borderRadius: '6px', fontWeight: '600' }}
           >
             Se déconnecter
           </button>
@@ -93,11 +66,7 @@ export default function AdminDashboard() {
       </header>
 
       {/* Navigation Tabs */}
-      <div style={{
-        background: 'white',
-        borderBottom: '1px solid #e0e0e0',
-        padding: '0 2rem'
-      }}>
+      <div className="bg-card" style={{ borderBottom: '1px solid var(--border-light)', padding: '0 2rem' }}>
         <div style={{
           maxWidth: '1400px',
           margin: '0 auto',

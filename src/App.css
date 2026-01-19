@@ -1,3 +1,38 @@
+/* Utilitaires pour contraste et thèmes */
+.bg-card {
+  background: var(--bg-card, #fff);
+  color: var(--text-primary, #232946);
+}
+.text-title {
+  color: var(--text-primary, #232946) !important;
+}
+.text-secondary {
+  color: var(--text-secondary, #4a5568) !important;
+}
+.input-search {
+  background: var(--bg-card, #fff);
+  color: var(--text-primary, #232946);
+  border: 2px solid var(--border-light, #cbd5e1);
+}
+.input-search:focus {
+  border-color: var(--accent, #6366f1);
+}
+.text-center {
+  text-align: center;
+}
+.admin-header {
+  background: linear-gradient(135deg, var(--accent, #6366f1) 0%, var(--accent-hover, #4f46e5) 100%);
+  color: #fff;
+  padding: 1rem 2rem;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+}
+.admin-header-inner {
+  max-width: 1400px;
+  margin: 0 auto;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
 body.theme-dark {
   background: #16161a !important;
   color: #f3f4f6 !important;

@@ -60,17 +60,16 @@ const Articles = () => {
   };
 
   return (
-    <section id="articles" style={{ padding: '2rem', background: 'white', borderRadius: '12px', minHeight: '100vh' }}>
+    <section id="articles" className="bg-card" style={{ padding: '2rem', borderRadius: '12px', minHeight: '100vh' }}>
       <div className="section-head" style={{ marginBottom: '2rem' }}>
         <div>
-          <h2 style={{ fontSize: '2rem', marginBottom: '0.5rem', color: '#1a202c' }}>Articles</h2>
-          <p style={{ color: '#4a5568' }}>Fiches pratiques, retours d'expérience et méthodes terrain.</p>
+          <h2 className="text-title" style={{ fontSize: '2rem', marginBottom: '0.5rem' }}>Articles</h2>
+          <p className="text-secondary">Fiches pratiques, retours d'expérience et méthodes terrain.</p>
         </div>
       </div>
 
       {/* Barre de recherche avancée */}
-      <div style={{
-        background: 'white',
+      <div className="bg-card" style={{
         padding: '1.5rem',
         borderRadius: '12px',
         boxShadow: '0 2px 8px rgba(0,0,0,0.1)',
@@ -82,19 +81,16 @@ const Articles = () => {
             placeholder="Rechercher un article..."
             value={searchTerm}
             onChange={(e) => setSearchTerm(e.target.value)}
+            className="input-search"
             style={{
               flex: '1',
               minWidth: '250px',
               padding: '0.75rem 1rem',
-              border: '2px solid #e2e8f0',
               borderRadius: '8px',
               fontSize: '1rem',
-              color: '#1a202c',
               outline: 'none',
               transition: 'border 0.2s'
             }}
-            onFocus={(e) => e.target.style.borderColor = '#3b82f6'}
-            onBlur={(e) => e.target.style.borderColor = '#e2e8f0'}
           />
           
           <select 
