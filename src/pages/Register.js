@@ -186,7 +186,7 @@ export default function Register() {
           align-items: center;
           justify-content: center;
           padding: 2rem;
-          background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+          background: linear-gradient(135deg, #232946 0%, #16161a 100%);
         }
 
         .register-card {
@@ -194,12 +194,12 @@ export default function Register() {
         }
 
         .auth-card {
-          background: white;
-          color: #1a202c;
-          border-radius: 0;
+          background: rgba(30,34,54,0.98);
+          color: #f3f4f6;
+          border-radius: 12px;
           padding: 3rem;
           width: 100%;
-          box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+          box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5);
         }
 
         .auth-card h1 {

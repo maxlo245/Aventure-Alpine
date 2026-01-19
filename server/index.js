@@ -1,3 +1,30 @@
+// ==============================
+// API CONTENU PUBLIC (JSON statique)
+// ==============================
+import { articles } from '../src/data/articles.js';
+import { videos } from '../src/data/videos.js';
+import { sports } from '../src/data/sports.js';
+import { routes } from '../src/data/routes.js';
+
+// Articles
+app.get('/api/public/articles', (req, res) => {
+  res.json(articles);
+});
+
+// Vidéos
+app.get('/api/public/videos', (req, res) => {
+  res.json(videos);
+});
+
+// Sports
+app.get('/api/public/sports', (req, res) => {
+  res.json(sports);
+});
+
+// Itinéraires
+app.get('/api/public/routes', (req, res) => {
+  res.json(routes);
+});
 import express from 'express';
 import cors from 'cors';
 import dotenv from 'dotenv';
