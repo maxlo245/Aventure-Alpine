@@ -106,8 +106,8 @@ export default function Randonnee() {
       {/* Introduction */}
       <section className="intro-section">
         <div className="container">
-          <h2>Découvrez la randonnée alpine</h2>
-          <p>
+          <h2 className="text-title">Découvrez la randonnée alpine</h2>
+          <p className="text-secondary">
             La randonnée en montagne offre des panoramas exceptionnels et une connexion unique avec la nature.
             Que vous soyez débutant ou randonneur confirmé, nos itinéraires soigneusement sélectionnés vous
             garantissent des expériences inoubliables en toute sécurité.
@@ -136,7 +136,7 @@ export default function Randonnee() {
       {/* Conseils de sécurité */}
       <section className="safety-section">
         <div className="container">
-          <h2>Conseils de sécurité</h2>
+          <h2 className="text-title">Conseils de sécurité</h2>
           <div className="safety-grid">
             <div className="safety-item">
               <strong>Avant le départ</strong>
@@ -171,7 +171,7 @@ export default function Randonnee() {
       {/* Filtres et recherche */}
       <section className="routes-section">
         <div className="container">
-          <h2>Nos itinéraires de randonnée</h2>
+          <h2 className="text-title">Nos itinéraires de randonnée</h2>
           
           <div className="filters-bar">
             <div className="search-box">
@@ -224,7 +224,7 @@ export default function Randonnee() {
             <div className="loading">Chargement des itinéraires...</div>
           ) : (
             <>
-              <p className="results-count">
+              <p className="results-count text-secondary">
                 {filteredRoutes.length} itinéraire{filteredRoutes.length > 1 ? 's' : ''} trouvé{filteredRoutes.length > 1 ? 's' : ''}
               </p>
               <div className="routes-grid">
@@ -249,26 +249,27 @@ export default function Randonnee() {
       {/* Carte interactive */}
       <section className="map-section">
         <div className="container">
-          <h2>Carte interactive des itinéraires</h2>
-          <p className="section-intro">
+          <h2 className="text-title">Carte interactive des itinéraires</h2>
+          <p className="section-intro text-secondary">
             Explorez les itinéraires de randonnée directement sur la carte. Cliquez sur un marqueur pour voir les détails.
           </p>
-          <p className="map-instructions" style={{
-            backgroundColor: 'rgba(99, 102, 241, 0.1)',
+          <p className="map-instructions card-dark" style={{
+            background: 'var(--bg-card)',
             padding: '0.75rem 1rem',
             borderRadius: '8px',
             marginBottom: '1rem',
             fontSize: '0.95rem',
-            color: '#4f46e5',
-            border: '1px solid rgba(99, 102, 241, 0.2)'
+            color: 'var(--text-primary)',
+            border: '1px solid var(--border)'
           }}>
             💡 Maintenez <kbd style={{
-              background: '#fff',
+              background: 'var(--bg-card)',
               padding: '2px 6px',
               borderRadius: '4px',
-              border: '1px solid #cbd5e1',
+              border: '1px solid var(--border-light)',
               fontFamily: 'monospace',
-              fontWeight: 'bold'
+              fontWeight: 'bold',
+              color: 'var(--text-primary)'
             }}>Ctrl</kbd> appuyé pour zoomer ou dézoomer avec la molette de la souris
           </p>
           <div className="map-container" style={{ position: 'relative' }}>
@@ -278,8 +279,8 @@ export default function Randonnee() {
               top: '10px',
               left: '50%',
               transform: 'translateX(-50%)',
-              backgroundColor: 'rgba(100, 100, 100, 0.85)',
-              color: 'white',
+              background: 'var(--bg-card)',
+              color: 'var(--text-primary)',
               padding: '8px 16px',
               borderRadius: '6px',
               zIndex: 1000,
@@ -294,15 +295,12 @@ export default function Randonnee() {
               <span style={{ fontSize: '1.1rem' }}>ℹ️</span>
               <span>
                 Maintenez <kbd style={{
-                  background: 'rgba(255, 255, 255, 0.9)',
-                  color: '#333',
+                  background: 'var(--bg-card)',
+                  color: 'var(--text-primary)',
                   padding: '2px 6px',
                   borderRadius: '3px',
-                  fontFamily: 'monospace',
-                  fontWeight: 'bold',
-                  fontSize: '0.85em',
-                  margin: '0 3px'
-                }}>Ctrl</kbd> + molette pour zoomer
+                  border: '1px solid var(--border-light)'
+                }}>Ctrl</kbd> pour zoomer
               </span>
             </div>
             
