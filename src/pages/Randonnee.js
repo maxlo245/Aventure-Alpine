@@ -414,6 +414,37 @@ export default function Randonnee() {
         </div>
       </section>
 
+      {/* Informations de réservation (nouvelle section ajoutée) */}
+      <aside className="reservation-info">
+        <div className="info-card card-dark">
+          <h3>Informations importantes</h3>
+          <ul>
+            <li>✓ Confirmation immédiate par email</li>
+            <li>✓ Annulation gratuite jusqu'à 48h avant</li>
+            <li>✓ Forfait valable dans 3 domaines skiables</li>
+            <li>✓ Assurance incluse</li>
+          </ul>
+        </div>
+
+        <div className="info-card card-dark">
+          <h3>Tarifs</h3>
+          <ul>
+            <li>Adulte: tarif plein</li>
+            <li>Enfant (-12 ans): -40%</li>
+            <li>Senior (+65 ans): -20%</li>
+            <li>Étudiant: -15%</li>
+          </ul>
+        </div>
+
+        <div className="info-card card-dark">
+          <h3>Besoin d'aide ?</h3>
+          <p>Notre équipe est disponible</p>
+          <p><strong>+33 4 50 12 34 56</strong></p>
+          <p>contact@aventures-alpines.fr</p>
+          <p>Lun-Dim: 8h - 20h</p>
+        </div>
+      </aside>
+
       <style>{`
         .randonnee-page {
           min-height: 100vh;
