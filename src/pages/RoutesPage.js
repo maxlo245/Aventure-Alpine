@@ -36,8 +36,8 @@ const RoutesPage = () => {
     <section id="routes">
       <div className="section-head">
         <div>
-          <h2>Itinéraires</h2>
-          <p>Recherchez un parcours par région ou niveau.</p>
+          <h2 className="text-title">Itinéraires</h2>
+          <p className="text-secondary">Recherchez un parcours par région ou niveau.</p>
         </div>
         <div className="filters">
           <input
@@ -59,8 +59,8 @@ const RoutesPage = () => {
           <HikingRouteCard key={route.id} route={route} />
         ))}
       </div>
-    </section>
-  );
-};
+	</section>
+	);
+}
 
 export default RoutesPage;

@@ -1,4 +1,5 @@
 import React, { useState, lazy, Suspense, useEffect } from 'react';
+import { SpeedInsights } from "@vercel/speed-insights/react";
 // Utilitaire pour gérer le mode sombre/clair
 function useDarkMode() {
   const [mode, setMode] = useState(() => {
@@ -381,6 +382,9 @@ function App() {
           </p>
         </div>
       </footer>
+
+      {/* SpeedInsights pour Vercel */}
+      <SpeedInsights />
     </div>
   );
 }

@@ -27,18 +27,18 @@ const Activities = () => {
 
   return (
     <section id="activities">
-      <h2>Sports de montagne</h2>
-      <p>Découverte, progression ou sensations : choisissez votre terrain.</p>
+      <h2 className="text-title">Sports de montagne</h2>
+      <p className="text-secondary">Découverte, progression ou sensations : choisissez votre terrain.</p>
       {error && <p className="hint">{error}</p>}
       <div className="adventure-grid">
         {items.map((sport) => (
-          <article key={sport.id} className="card">
+          <article key={sport.id} className="card bg-card">
             <div className="card-meta">
               <span className="pill">{sport.name}</span>
             </div>
             {sport.image && <img src={sport.image} alt={sport.name} className="sport-image" />}
-            <h3>{sport.name}</h3>
-            <p>{sport.summary}</p>
+            <h3 className="text-title">{sport.name}</h3>
+            <p className="text-secondary">{sport.summary}</p>
             <a className="link" href={`/articles?category=${sport.name}`}>Voir les conseils</a>
           </article>
         ))}
