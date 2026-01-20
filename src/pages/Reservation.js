@@ -409,7 +409,7 @@ export default function Reservation() {
         }
 
         .reservation-form {
-          background: white;
+          background: var(--bg-card);
           padding: 2rem;
           border-radius: 0;
           box-shadow: 0 2px 8px rgba(0,0,0,0.1);
@@ -427,7 +427,7 @@ export default function Reservation() {
 
         .form-section h2 {
           font-size: 1.5rem;
-          color: #1a202c;
+          color: var(--text-primary);
           margin-bottom: 1.5rem;
         }
 
@@ -445,7 +445,7 @@ export default function Reservation() {
         .form-group label {
           display: block;
           font-weight: 600;
-          color: #1a202c;
+          color: var(--text-primary);
           margin-bottom: 0.5rem;
         }
 
@@ -550,16 +550,16 @@ export default function Reservation() {
         }
 
         .info-card {
-          background: white;
-          padding: 1.5rem;
+          background: var(--bg-card);
+          padding: 2rem;
           border-radius: 0;
           box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+          text-align: center;
         }
 
         .info-card h3 {
-          color: #1a202c;
-          margin-bottom: 1rem;
-          font-size: 1.25rem;
+          margin: 0 0 0.5rem 0;
+          color: var(--text-primary);
         }
 
         .info-card ul {

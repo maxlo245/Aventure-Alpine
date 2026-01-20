@@ -337,25 +337,25 @@ export default function Ski() {
         .testimonials-section,
         .offers-section {
           padding: 3rem 2rem;
-          background: white;
-          color: #1a202c;
+          background: var(--bg-card);
+          color: var(--text-primary);
         }
 
         .disciplines-section {
-          background: #f0f9ff;
-          color: #1a202c;
+          background: var(--bg-soft);
+          color: var(--text-primary);
         }
 
         .conditions-section {
-          background: #fef3c7;
+          background: var(--bg-soft);
         }
 
         .slopes-section {
-          background: #f7fafc;
+          background: var(--bg-soft);
         }
 
         .testimonials-section {
-          background: #fef2f2;
+          background: var(--bg-soft);
         }
 
         .container {
@@ -368,17 +368,17 @@ export default function Ski() {
         .discipline-card p,
         .condition-card p,
         .slope-card p {
-          color: #2d3748;
+          color: var(--text-secondary);
         }
 
         h2 {
           font-size: 2rem;
           margin-bottom: 1rem;
-          color: #1a202c !important;
+          color: var(--text-primary) !important;
         }
 
         h3 {
-          color: #1a202c !important;
+          color: var(--text-primary) !important;
         }
 
         .intro-section h2,
@@ -387,11 +387,11 @@ export default function Ski() {
         .slopes-section h2,
         .testimonials-section h2,
         .offers-section h2 {
-          color: #1a202c !important;
+          color: var(--text-primary) !important;
         }
 
         .section-intro {
-          color: #4a5568;
+          color: var(--text-secondary);
           margin-bottom: 2rem;
         }
 
@@ -402,7 +402,7 @@ export default function Ski() {
         }
 
         .discipline-card {
-          background: white;
+          background: var(--bg-card);
           padding: 2rem;
           border-radius: 0;
           text-align: center;
@@ -432,7 +432,7 @@ export default function Ski() {
         }
 
         .station-card {
-          background: white;
+          background: var(--bg-card);
           border-radius: 0;
           padding: 1.5rem;
           box-shadow: 0 2px 8px rgba(0,0,0,0.1);
@@ -527,7 +527,7 @@ export default function Ski() {
         }
 
         .slope-card {
-          background: white;
+          background: var(--bg-card);
           padding: 1.5rem;
           border-radius: 0;
           text-align: center;
@@ -552,7 +552,7 @@ export default function Ski() {
         }
 
         .testimonial-card {
-          background: white;
+          background: var(--bg-card);
           padding: 1.5rem;
           border-radius: 0;
           box-shadow: 0 2px 8px rgba(0,0,0,0.1);
@@ -593,7 +593,7 @@ export default function Ski() {
         }
 
         .offer-card {
-          background: white;
+          background: var(--bg-card);
           padding: 2rem;
           border-radius: 0;
           box-shadow: 0 2px 8px rgba(0,0,0,0.1);
@@ -630,7 +630,7 @@ export default function Ski() {
 
         .offer-card li {
           padding: 0.5rem 0;
-          color: #4a5568;
+          color: var(--text-secondary);
         }
 
         .btn-offer {

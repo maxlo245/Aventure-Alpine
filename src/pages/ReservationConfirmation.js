@@ -206,7 +206,7 @@ export default function ReservationConfirmation() {
         }
 
         .reservation-number {
-          background: white;
+          background: var(--bg-card);
           padding: 1.5rem;
           border-radius: 0;
           text-align: center;
@@ -228,7 +228,7 @@ export default function ReservationConfirmation() {
         }
 
         .confirmation-details {
-          background: white;
+          background: var(--bg-card);
           padding: 2rem;
           border-radius: 0;
           margin-bottom: 2rem;
@@ -237,7 +237,7 @@ export default function ReservationConfirmation() {
 
         .confirmation-details h2 {
           font-size: 1.5rem;
-          color: #1a202c;
+          color: var(--text-primary);
           margin-bottom: 1.5rem;
         }
 
@@ -263,7 +263,7 @@ export default function ReservationConfirmation() {
         }
 
         .detail-label {
-          color: #64748b;
+          color: var(--text-secondary);
           font-size: 0.9rem;
           font-weight: 500;
         }
@@ -274,7 +274,7 @@ export default function ReservationConfirmation() {
         }
 
         .detail-value {
-          color: #1a202c;
+          color: var(--text-primary);
           font-size: 1.1rem;
           font-weight: 600;
         }
@@ -285,25 +285,25 @@ export default function ReservationConfirmation() {
         }
 
         .special-message {
-          background: #f8fafc;
+          background: var(--bg-soft);
           padding: 1rem;
           border-radius: 0;
           border-left: 4px solid #6366f1;
         }
 
         .special-message strong {
-          color: #1a202c;
+          color: var(--text-primary);
           display: block;
           margin-bottom: 0.5rem;
         }
 
         .special-message p {
-          color: #4a5568;
+          color: var(--text-secondary);
           margin: 0;
         }
 
         .next-steps {
-          background: white;
+          background: var(--bg-card);
           padding: 2rem;
           border-radius: 0;
           margin-bottom: 2rem;
@@ -312,7 +312,7 @@ export default function ReservationConfirmation() {
 
         .next-steps h2 {
           font-size: 1.5rem;
-          color: #1a202c;
+          color: var(--text-primary);
           margin-bottom: 1.5rem;
         }
 
@@ -325,7 +325,7 @@ export default function ReservationConfirmation() {
         .step-card {
           text-align: center;
           padding: 1.5rem;
-          background: #f8fafc;
+          background: var(--bg-soft);
           border-radius: 0;
         }
 
@@ -344,13 +344,13 @@ export default function ReservationConfirmation() {
         }
 
         .step-card h3 {
-          color: #1a202c;
+          color: var(--text-primary);
           font-size: 1.1rem;
           margin-bottom: 0.5rem;
         }
 
         .step-card p {
-          color: #64748b;
+          color: var(--text-secondary);
           font-size: 0.9rem;
           line-height: 1.5;
         }
@@ -363,20 +363,20 @@ export default function ReservationConfirmation() {
         }
 
         .info-box {
-          background: white;
+          background: var(--bg-card);
           padding: 1.5rem;
           border-radius: 0;
           box-shadow: 0 2px 8px rgba(0,0,0,0.1);
         }
 
         .info-box h3 {
-          color: #1a202c;
+          color: var(--text-primary);
           font-size: 1.1rem;
           margin-bottom: 0.5rem;
         }
 
         .info-box p {
-          color: #64748b;
+          color: var(--text-secondary);
           font-size: 0.9rem;
           margin: 0;
           line-height: 1.5;
@@ -407,8 +407,8 @@ export default function ReservationConfirmation() {
         }
 
         .btn-secondary {
-          background: white;
-          color: #1a202c;
+          background: var(--bg-card);
+          color: var(--text-primary);
           border: 2px solid #e2e8f0;
         }
 
