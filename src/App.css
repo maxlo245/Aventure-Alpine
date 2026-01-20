@@ -119,7 +119,17 @@ body.theme-dark .text-secondary, .theme-dark .text-secondary {
 
 body.theme-dark {
   background: #16161a !important;
+  color: #fff !important;
+}
+
+body.theme-dark h1,
+body.theme-dark h2,
+body.theme-dark h3,
+body.theme-dark h4,
+body.theme-dark h5,
+body.theme-dark h6 {
   color: #f3f4f6 !important;
+}
 }
 body.theme-light {
   background: #f3f4f6 !important;
@@ -130,6 +140,13 @@ body.theme-dark .App-header {
   background: rgba(26, 31, 58, 0.85);
   color: #f3f4f6;
 }
+
+body.theme-dark .App-header h1,
+body.theme-dark .App-header h2,
+body.theme-dark .App-header h3 {
+  color: #f3f4f6 !important;
+}
+}
 body.theme-light .App-header {
   background: #f3f4f6;
   color: #232946;
@@ -137,7 +154,7 @@ body.theme-light .App-header {
 
 body.theme-dark main {
   background: transparent;
-  color: #f3f4f6;
+  color: #fff;
 }
 body.theme-light main {
   background: transparent;
