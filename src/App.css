@@ -220,16 +220,19 @@ body.theme-light .App-header {
 }
 
 .App-header h1 {
-<<<<<<< HEAD
+=======
   margin: 0 0 16px;
   font-family: 'Poppins', sans-serif;
   letter-spacing: -0.03em;
   font-size: clamp(26px, 3.5vw, 32px);
-  color: #18181b;
-  background: none;
-  -webkit-text-stroke: 1px #fff;
-  text-stroke: 1px #fff;
   font-weight: 700;
+  background: linear-gradient(135deg, #fff 0%, #cbd5e1 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  color: var(--text-primary);
+  -webkit-text-stroke: 1px #18181b;
+  text-stroke: 1px #18181b;
   text-shadow: 0 1px 2px #fff;
 }
 body.theme-dark .App-header h1, .theme-dark .App-header h1 {
@@ -238,41 +241,10 @@ body.theme-dark .App-header h1, .theme-dark .App-header h1 {
   -webkit-text-fill-color: transparent;
   background-clip: text;
   color: #f3f4f6;
-  -webkit-text-stroke: 0px;
-  text-stroke: 0px;
-  text-shadow: none;
+  -webkit-text-stroke: 1px #232946;
+  text-stroke: 1px #232946;
+  text-shadow: 0 1px 2px #232946;
 }
-body.theme-dark .App-header h1, .theme-dark .App-header h1 {
-  background: linear-gradient(135deg, #6366f1 0%, #818cf8 100%);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-clip: text;
-  color: #f3f4f6;
-  -webkit-text-stroke: 0px;
-  text-stroke: 0px;
-  text-shadow: none;
-}
-body.theme-dark .App-header h1, .theme-dark .App-header h1 {
-  background: linear-gradient(135deg, #6366f1 0%, #818cf8 100%);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-clip: text;
-  color: #f3f4f6;
-  -webkit-text-stroke: 0px;
-  text-stroke: 0px;
-}
-
-=======
-    color: var(--text-primary);
-  background: linear-gradient(135deg, #ffffff 0%, #cbd5e1 100%);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-    color: var(--text-primary);
-  font-weight: 700;
-  text-shadow: none;
-}
-    color: var(--text-secondary);
->>>>>>> 4d4ce94 (Amélioration de la lisibilité : texte noir et visible sur tout le site)
 nav ul {
   list-style: none;
   padding: 0;
