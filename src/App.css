@@ -65,32 +65,9 @@
   .header-nav a { font-size: 0.93rem; padding: 5px 7px; }
 }
 /* Utilitaires pour contraste et thèmes */
-body.theme-dark .bg-card,
-body.theme-dark .card,
-body.theme-dark .adventure {
-  background-color: #fff !important;
-  color: #18181b !important;
-}
-body.theme-dark .bg-card *,
-body.theme-dark .card *,
-body.theme-dark .adventure * {
-  color: #18181b !important;
-}
-body.theme-dark :not(.bg-card):not(.card):not(.adventure) {
-  color: #f3f4f6 !important;
-}
 .bg-card {
   background: var(--bg-card, #fff);
   color: var(--text-primary, #232946);
-}
-body.theme-dark .bg-card *, .theme-dark .bg-card *, body.theme-dark .card *, .theme-dark .card * {
-  color: #fff !important;
-}
-}
-body.theme-dark .bg-card, .theme-dark .bg-card, body.theme-dark .card, .theme-dark .card {
-  background: #232946 !important;
-  color: #f3f4f6 !important;
-}
 }
 .text-title {
   background: linear-gradient(135deg, #fff 0%, #c0c0c0 60%, #a3a3a3 100%);
