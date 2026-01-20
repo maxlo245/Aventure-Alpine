@@ -440,43 +440,75 @@ export default function Randonnee() {
         .intro-section,
         .safety-section,
         .routes-section,
-        .gallery-section {
-          padding: 3rem 2rem;
-          background: white;
-          color: #1a202c;
+        .gallery-section,
+        .map-section,
+        .safety-item,
+        .safety-column,
+        .info-card {
+          background: var(--bg-card);
+          color: var(--text-primary);
         }
 
-        .map-section {
-          background: white;
-          color: #1a202c;
+        .section-intro,
+        .info-card p,
+        .safety-item ul,
+        .safety-item li {
+          color: var(--text-secondary);
         }
 
-        .container {
-          max-width: 1200px;
-          margin: 0 auto;
-        }
-
-        .container > p,
-        .intro-section p,
-        .section-intro {
-          color: #2d3748;
-        }
-
-        h2 {
-          font-size: 2rem;
-          margin-bottom: 1.5rem;
-          color: #1a202c !important;
-        }
-
-        h3 {
-          color: #1a202c !important;
-        }
-
-        .intro-section h2,
-        .routes-section h2,
+        h2,
+        h3,
+        .gallery-section h2,
         .map-section h2,
-        .gallery-section h2 {
-          color: #1a202c !important;
+        .safety-section h2,
+        .info-card h3 {
+          color: var(--text-primary) !important;
+        }
+
+        .hero-section {
+          background: linear-gradient(135deg, #2d5016 0%, #4a7c59 100%);
+          color: white;
+          padding: 4rem 2rem;
+          text-align: center;
+        }
+
+        .hero-content h1 {
+          margin: 0;
+          font-size: 3rem;
+          margin-bottom: 1rem;
+        }
+
+        .hero-subtitle {
+          font-size: 1.25rem;
+          opacity: 0.95;
+        }
+
+        .intro-section,
+        .safety-section,
+        .routes-section,
+        .gallery-section,
+        .map-section,
+        .safety-item,
+        .safety-column,
+        .info-card {
+          background: var(--bg-card);
+          color: var(--text-primary);
+        }
+
+        .section-intro,
+        .info-card p,
+        .safety-item ul,
+        .safety-item li {
+          color: var(--text-secondary);
+        }
+
+        h2,
+        h3,
+        .gallery-section h2,
+        .map-section h2,
+        .safety-section h2,
+        .info-card h3 {
+          color: var(--text-primary) !important;
         }
 
         .info-cards {

@@ -233,10 +233,23 @@ export default function Dashboard() {
           color: #1a202c;
         }
 
-        .dashboard-header {
-          background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-          color: white;
-          padding: 2rem;
+        .dashboard-header,
+        .quick-link-card,
+        .info-card {
+          background: var(--bg-card);
+          color: var(--text-primary);
+        }
+
+        .dashboard-header h1,
+        .quick-link-card .text,
+        .info-card h3 {
+          color: var(--text-primary);
+        }
+
+        .dashboard-header p,
+        .quick-link-card p,
+        .info-card p {
+          color: var(--text-secondary);
         }
 
         .header-content {

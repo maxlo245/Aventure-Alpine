@@ -194,25 +194,18 @@ export default function Register() {
         }
 
         .auth-card {
-          background: rgba(30,34,54,0.98);
-          color: #f9fafb;
-          border-radius: 12px;
-          padding: 3rem;
-          width: 100%;
-          box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5);
+          background: var(--bg-card);
+          color: var(--text-primary);
         }
 
         .auth-card h1 {
-          margin: 0 0 0.5rem 0;
-          font-size: 2rem;
-          color: #f9fafb;
-          text-align: center;
+          color: var(--text-primary);
         }
 
-        .auth-subtitle {
-          text-align: center;
-          color: #cbd5e1;
-          margin-bottom: 2rem;
+        .auth-subtitle,
+        .alert,
+        .alert-error {
+          color: var(--text-secondary);
         }
 
         .alert {

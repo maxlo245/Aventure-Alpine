@@ -196,3 +196,18 @@ const Articles = () => {
 };
 
 export default Articles;
+
+<style jsx>{`
+        .article-card {
+          background: var(--bg-card);
+          color: var(--text-primary);
+        }
+
+        .article-card h3 {
+          color: var(--text-primary);
+        }
+
+        .article-card p {
+          color: var(--text-secondary);
+        }
+      `}</style>

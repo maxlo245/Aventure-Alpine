@@ -116,8 +116,8 @@ export default function Login() {
         }
 
         .auth-card {
-          background: rgba(30,34,54,0.98);
-          color: #f9fafb;
+          background: var(--bg-card);
+          color: var(--text-primary);
           border-radius: 12px;
           padding: 3rem;
           max-width: 450px;
@@ -128,13 +128,13 @@ export default function Login() {
         .auth-card h1 {
           margin: 0 0 0.5rem 0;
           font-size: 2rem;
-          color: #f9fafb;
+          color: var(--text-primary);
           text-align: center;
         }
 
         .auth-subtitle {
           text-align: center;
-          color: #cbd5e1;
+          color: var(--text-secondary);
           margin-bottom: 2rem;
         }
 

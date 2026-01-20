@@ -309,7 +309,8 @@ export default function Escalade() {
         }
 
         .tip-card {
-          background: white;
+          background: var(--bg-card);
+          color: var(--text-primary);
           padding: 2rem;
           border-radius: 0;
           text-align: center;
@@ -338,7 +339,8 @@ export default function Escalade() {
         }
 
         .safety-column {
-          background: white;
+          background: var(--bg-card);
+          color: var(--text-primary);
           padding: 2rem;
           border-radius: 0;
           border-top: 4px solid #ef4444;
@@ -395,7 +397,7 @@ export default function Escalade() {
         }
 
         .site-card {
-          background: white;
+          background: var(--bg-card);
           border-radius: 0;
           padding: 1.5rem;
           box-shadow: 0 2px 8px rgba(0,0,0,0.1);
