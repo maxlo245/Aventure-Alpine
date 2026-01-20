@@ -183,11 +183,11 @@ export default function Randonnee() {
                 style={{
                   width: '100%',
                   padding: '0.75rem 1rem',
-                  border: '2px solid #e2e8f0',
-                  borderRadius: '8px',
+                  border: '2px solid var(--border-light)',
+                  borderRadius: '0',
                   fontSize: '1rem',
-                  color: '#1a202c',
-                  outline: 'none'
+                  color: 'var(--text-primary)',
+                  background: 'var(--bg-card)'
                 }}
               />
             </div>
@@ -311,8 +311,8 @@ export default function Randonnee() {
                 top: '50%',
                 left: '50%',
                 transform: 'translate(-50%, -50%)',
-                backgroundColor: 'rgba(0, 0, 0, 0.9)',
-                color: 'white',
+                backgroundColor: 'var(--bg-card)',
+                color: 'var(--text-primary)',
                 padding: '1rem 1.5rem',
                 borderRadius: '8px',
                 zIndex: 1001,
@@ -321,11 +321,11 @@ export default function Randonnee() {
                 boxShadow: '0 4px 20px rgba(0, 0, 0, 0.4)',
                 pointerEvents: 'none',
                 textAlign: 'center',
-                border: '2px solid rgba(255, 255, 255, 0.2)'
+                border: '2px solid var(--border)'
               }}>
                 Maintenez <kbd style={{
-                  background: '#fff',
-                  color: '#000',
+                  background: 'var(--bg-card)',
+                  color: 'var(--text-primary)',
                   padding: '3px 10px',
                   borderRadius: '4px',
                   fontFamily: 'monospace',
@@ -356,21 +356,21 @@ export default function Randonnee() {
                     <Popup>
                       <div style={{ minWidth: '200px' }}>
                         <h3 style={{ margin: '0 0 0.5rem 0', fontSize: '1.1rem' }}>{route.name}</h3>
-                        <p style={{ margin: '0.25rem 0', color: '#666' }}>
+                        <p style={{ margin: '0.25rem 0', color: 'var(--text-secondary)' }}>
                           {route.region || 'Haute-Savoie'}
                         </p>
-                        <p style={{ margin: '0.25rem 0', color: '#666' }}>
+                        <p style={{ margin: '0.25rem 0', color: 'var(--text-secondary)' }}>
                           {route.duration || 'N/A'}
                         </p>
-                        <p style={{ margin: '0.25rem 0', color: '#666' }}>
+                        <p style={{ margin: '0.25rem 0', color: 'var(--text-secondary)' }}>
                           {route.distance || 'N/A'}
                         </p>
                         <p style={{ 
                           margin: '0.5rem 0 0 0', 
                           padding: '0.25rem 0.5rem',
-                          background: route.difficulty === 'facile' ? '#10b981' : 
-                                    route.difficulty === 'intermediaire' ? '#f59e0b' : '#ef4444',
-                          color: 'white',
+                          background: route.difficulty === 'facile' ? 'var(--success)' : 
+                                    route.difficulty === 'intermediaire' ? 'var(--warning)' : 'var(--danger)',
+                          color: 'var(--text-on-accent)',
                           borderRadius: '4px',
                           fontSize: '0.85rem',
                           textAlign: 'center'
@@ -560,19 +560,19 @@ export default function Randonnee() {
 
         .info-card h3 {
           margin: 0 0 0.5rem 0;
-          color: #2d5016;
+          color: var(--text-primary);
         }
 
         .info-card p {
-          color: #4a5568;
+          color: var(--text-secondary);
         }
 
         .safety-section {
-          background: #f7fafc;
+          background: var(--bg-main);
         }
 
         .safety-section h2 {
-          color: #1a202c !important;
+          color: var(--text-primary) !important;
         }
 
         .safety-grid {
@@ -584,20 +584,20 @@ export default function Randonnee() {
         .safety-item {
           background: var(--bg-card);
           color: var(--text-primary);
-          border-left: 4px solid #f59e0b;
+          border-left: 4px solid var(--accent);
         }
 
         .safety-item strong {
           display: block;
           font-size: 1.1rem;
           margin-bottom: 0.75rem;
-          color: #1a202c;
+          color: var(--text-primary);
         }
 
         .safety-item ul {
           margin: 0;
           padding-left: 1.25rem;
-          color: #4a5568;
+          color: var(--text-secondary);
         }
 
         .safety-item li {
@@ -619,15 +619,16 @@ export default function Randonnee() {
         .search-box input {
           width: 100%;
           padding: 0.75rem 1rem;
-          border: 2px solid #e2e8f0;
+          border: 2px solid var(--border-light);
           border-radius: 0;
           font-size: 1rem;
-          color: #1a202c;
+          color: var(--text-primary);
+          background: var(--bg-card);
         }
 
         .search-box input:focus {
           outline: none;
-          border-color: #2d5016;
+          border-color: var(--accent);
         }
 
         .filter-buttons {
@@ -638,7 +639,7 @@ export default function Randonnee() {
 
         .filter-buttons button {
           padding: 0.75rem 1.5rem;
-          border: 2px solid #e2e8f0;
+          border: 2px solid var(--border-light);
           background: var(--bg-card);
           color: var(--text-primary);
           border-radius: 0;
@@ -648,18 +649,18 @@ export default function Randonnee() {
         }
 
         .filter-buttons button:hover {
-          border-color: #2d5016;
-          color: #2d5016;
+          border-color: var(--accent);
+          color: var(--accent);
         }
 
         .filter-buttons button.active {
-          background: #2d5016;
-          color: white;
-          border-color: #2d5016;
+          background: var(--accent);
+          color: var(--text-on-accent);
+          border-color: var(--accent);
         }
 
         .results-count {
-          color: #718096;
+          color: var(--text-secondary);
           margin-bottom: 1.5rem;
         }
 
@@ -673,14 +674,14 @@ export default function Randonnee() {
         .no-results {
           text-align: center;
           padding: 3rem;
-          color: #718096;
+          color: var(--text-secondary);
         }
 
         .no-results button {
           margin-top: 1rem;
           padding: 0.75rem 1.5rem;
-          background: #2d5016;
-          color: white !important;
+          background: var(--accent);
+          color: var(--text-on-accent) !important;
           border: none;
           border-radius: 0;
           cursor: pointer;
@@ -721,7 +722,7 @@ export default function Randonnee() {
 
         .map-section {
           padding: 3rem 2rem;
-          background: #f7fafc;
+          background: var(--bg-main);
         }
 
         .map-container {
