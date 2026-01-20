@@ -550,11 +550,8 @@ export default function Randonnee() {
         }
 
         .info-card {
-          background: white;
-          padding: 2rem;
-          border-radius: 0;
-          box-shadow: 0 2px 8px rgba(0,0,0,0.1);
-          text-align: center;
+          background: var(--bg-card);
+          color: var(--text-primary);
         }
 
         .info-card .icon {
@@ -587,9 +584,8 @@ export default function Randonnee() {
         }
 
         .safety-item {
-          background: white;
-          padding: 1.5rem;
-          border-radius: 0;
+          background: var(--bg-card);
+          color: var(--text-primary);
           border-left: 4px solid #f59e0b;
         }
 
@@ -645,8 +641,8 @@ export default function Randonnee() {
         .filter-buttons button {
           padding: 0.75rem 1.5rem;
           border: 2px solid #e2e8f0;
-          background: white;
-          color: #1a202c;
+          background: var(--bg-card);
+          color: var(--text-primary);
           border-radius: 0;
           cursor: pointer;
           font-weight: 600;
@@ -720,9 +716,9 @@ export default function Randonnee() {
         .gallery-item p {
           padding: 1rem;
           margin: 0;
-          background: white;
+          background: var(--bg-card);
           font-weight: 600;
-          color: #1a202c;
+          color: var(--text-primary);
         }
 
         .map-section {
