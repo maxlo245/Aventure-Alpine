@@ -73,9 +73,13 @@ body.theme-dark .input-search:focus {
   .header-nav a { font-size: 0.93rem; padding: 5px 7px; }
 }
 /* Utilitaires pour contraste et thèmes */
-.bg-card {
+body.theme-light .bg-card {
   background: var(--bg-card, #fff);
   color: var(--text-primary, #232946);
+}
+body.theme-dark .bg-card {
+  background: var(--bg-card, #1a1f3a);
+  color: var(--text-primary, #fff);
 }
 .text-title {
   background: linear-gradient(135deg, #fff 0%, #c0c0c0 60%, #a3a3a3 100%);
@@ -379,16 +383,23 @@ section p {
 }
 
 /* Surcharge pour sections avec fond clair - texte sombre */
-section[style*="background: white"] h2,
-section[style*="background:#fff"] h2,
-section[class*="-section"] h2 {
+body.theme-light section[style*="background: white"] h2,
+body.theme-light section[style*="background:#fff"] h2,
+body.theme-light section[class*="-section"] h2 {
   color: #1a202c !important;
 }
 
-section[style*="background: white"] p,
-section[style*="background:#fff"] p,
-section[class*="-section"] p {
+body.theme-light section[style*="background: white"] p,
+body.theme-light section[style*="background:#fff"] p,
+body.theme-light section[class*="-section"] p {
   color: #4a5568 !important;
+}
+
+body.theme-dark section[style*="background: white"],
+body.theme-dark section[style*="background:#fff"],
+body.theme-dark section[class*="-section"] {
+  background: var(--bg-card, #1a1f3a) !important;
+  color: var(--text-primary, #fff) !important;
 }
 
 /* Hero section avec fond foncé - texte clair */
