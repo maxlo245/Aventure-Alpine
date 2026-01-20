@@ -116,6 +116,7 @@ body.theme-dark .text-secondary, .theme-dark .text-secondary {
   justify-content: space-between;
   align-items: center;
 }
+
 body.theme-dark {
   background: #16161a !important;
   color: #f3f4f6 !important;
@@ -125,61 +126,59 @@ body.theme-light {
   color: #232946 !important;
 }
 
-.theme-dark .App-header,
 body.theme-dark .App-header {
   background: rgba(26, 31, 58, 0.85);
   color: #f3f4f6;
 }
-.theme-light .App-header,
 body.theme-light .App-header {
   background: #f3f4f6;
   color: #232946;
 }
 
-.theme-dark main, body.theme-dark main {
+body.theme-dark main {
   background: transparent;
   color: #f3f4f6;
 }
-.theme-light main, body.theme-light main {
+body.theme-light main {
   background: transparent;
   color: #232946;
 }
 
-.theme-dark .auth-card, body.theme-dark .auth-card {
+body.theme-dark .auth-card {
   background: rgba(30,34,54,0.98);
   color: #f9fafb;
 }
-.theme-light .auth-card, body.theme-light .auth-card {
+body.theme-light .auth-card {
   background: #fff;
   color: #232946;
 }
 
-.theme-dark input, body.theme-dark input,
-.theme-dark textarea, body.theme-dark textarea {
+body.theme-dark input,
+body.theme-dark textarea {
   background: #232946;
   color: #f3f4f6;
   border: 2px solid #334155;
 }
-.theme-light input, body.theme-light input,
-.theme-light textarea, body.theme-light textarea {
+body.theme-light input,
+body.theme-light textarea {
   background: #fff;
   color: #232946;
   border: 2px solid #cbd5e1;
 }
 
-.theme-dark .btn-primary, body.theme-dark .btn-primary {
+body.theme-dark .btn-primary {
   background: linear-gradient(135deg, #6366f1 0%, #0ea5e9 100%);
   color: #f9fafb;
 }
-.theme-light .btn-primary, body.theme-light .btn-primary {
+body.theme-light .btn-primary {
   background: linear-gradient(135deg, #6366f1 0%, #0ea5e9 100%);
   color: #fff;
 }
 
-.theme-dark .auth-footer, body.theme-dark .auth-footer {
+body.theme-dark .auth-footer {
   color: #cbd5e1;
 }
-.theme-light .auth-footer, body.theme-light .auth-footer {
+body.theme-light .auth-footer {
   color: #232946;
 }
 .App {
