@@ -47,13 +47,21 @@ function ScrollWheelZoomControl({ onScrollWithoutCtrl }) {
   return null;
 }
 
-function Contact() {
-  const [formData, setFormData] = useState({ name: '', email: '', message: '' });
+
+
+
+  const [formData, setFormData] = useState({ name: '', email: '', message: '', antispam: false });
   const [loading, setLoading] = useState(false);
   const [showScrollMessage, setShowScrollMessage] = useState(false);
+  const [antispamError, setAntispamError] = useState('');
 
   const handleChange = (e) => {
-    setFormData({ ...formData, [e.target.name]: e.target.value });
+    const { name, value, type, checked } = e.target;
+    setFormData({
+      ...formData,
+      [name]: type === 'checkbox' ? checked : value
+    });
+    if (name === 'antispam') setAntispamError('');
   };
 
   const handleScrollWithoutCtrl = () => {
@@ -64,6 +72,13 @@ function Contact() {
   const handleSubmit = async (e) => {
     e.preventDefault();
     setLoading(true);
+
+    // Vérification case à cocher anti-robot
+    if (!formData.antispam) {
+      setAntispamError('Merci de cocher la case anti-robot.');
+      setLoading(false);
+      return;
+    }
 
     const messageData = { 
       name: formData.name, 
@@ -83,21 +98,19 @@ function Contact() {
     // Essayer d'envoyer à l'API en arrière-plan (sans bloquer)
     const apiUrl = import.meta.env.VITE_API_URL;
     if (apiUrl && apiUrl !== 'http://localhost:5000') {
-      // Seulement envoyer à l'API si on est pas en localhost
       try {
         await fetch(`${apiUrl}/api/contact-messages`, {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify(messageData)
+          body: JSON.stringify({ ...messageData, antispam: formData.antispam })
         });
       } catch (err) {
-        // Erreur silencieuse - le message est déjà sauvegardé localement
+        // Erreur silencieuse
       }
     }
 
-    // Toujours afficher succès
     alert(`Merci ${formData.name}, votre message a été reçu !`);
-    setFormData({ name: '', email: '', message: '' });
+    setFormData({ name: '', email: '', message: '', antispam: false });
     setLoading(false);
   };
 
@@ -112,7 +125,22 @@ function Contact() {
         {/* Formulaire de contact */}
         <div style={{ background: 'white', padding: '2rem', borderRadius: '0', boxShadow: '0 2px 8px rgba(0,0,0,0.1)' }}>
           <h3 style={{ marginBottom: '1.5rem', fontSize: '1.5rem', color: '#1a202c' }}>Envoyez-nous un message</h3>
-          <form onSubmit={handleSubmit} style={{ display: 'flex', flexDirection: 'column', gap: '1rem' }}>
+          <form onSubmit={handleSubmit} style={{ display: 'flex', flexDirection: 'column', gap: '1rem' }} autoComplete="off">
+                        {/* Case à cocher anti-robot */}
+                        <div>
+                          <label style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', fontWeight: 600, color: '#2d3748' }}>
+                            <input
+                              type="checkbox"
+                              name="antispam"
+                              checked={formData.antispam}
+                              onChange={handleChange}
+                              style={{ width: '1.1em', height: '1.1em', accentColor: '#3b82f6' }}
+                              required
+                            />
+                            Je confirme ne pas être un robot
+                          </label>
+                          {antispamError && <span style={{ color: '#ef4444', fontSize: '0.95em' }}>{antispamError}</span>}
+                        </div>
             <div>
               <label style={{ display: 'block', marginBottom: '0.5rem', fontWeight: '600', color: '#2d3748' }}>Nom complet</label>
               <input 

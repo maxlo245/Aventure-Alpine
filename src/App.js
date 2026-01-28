@@ -1,3 +1,88 @@
+
+import React, { useState, useEffect } from 'react';
+import axios from 'axios';
+
+function AntiRobotGate() {
+  const [checked, setChecked] = useState(false);
+  const [validated, setValidated] = useState(false);
+  const [loading, setLoading] = useState(true);
+  const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:5000';
+
+  useEffect(() => {
+    async function checkIp() {
+      try {
+        const res = await axios.get(`${API_URL}/api/antirobot-check`);
+        setValidated(res.data.validated);
+      } catch {
+        setValidated(false);
+      } finally {
+        setLoading(false);
+      }
+    }
+    checkIp();
+  }, [API_URL]);
+
+  const handleValidate = async () => {
+    if (checked) {
+      setLoading(true);
+      try {
+        await axios.post(`${API_URL}/api/antirobot-validate`);
+        setValidated(true);
+      } catch {}
+      setLoading(false);
+    }
+  };
+
+  if (loading || validated) return null;
+  return (
+    <div style={{
+      position: 'fixed',
+      top: 0,
+      left: 0,
+      width: '100vw',
+      height: '100vh',
+      background: '#111',
+      color: '#fff',
+      zIndex: 9999,
+      display: 'flex',
+      alignItems: 'center',
+      justifyContent: 'center',
+      flexDirection: 'column',
+      fontFamily: 'inherit',
+    }}>
+      <h2 style={{ marginBottom: '2rem', fontSize: '2rem', fontWeight: 700 }}>Bienvenue sur Aventures Alpines</h2>
+      <label style={{ display: 'flex', alignItems: 'center', gap: '0.7rem', fontSize: '1.2rem', fontWeight: 500 }}>
+        <input
+          type="checkbox"
+          checked={checked}
+          onChange={e => setChecked(e.target.checked)}
+          style={{ width: '1.3em', height: '1.3em', accentColor: '#3b82f6' }}
+        />
+        Je confirme ne pas être un robot
+      </label>
+      <button
+        onClick={handleValidate}
+        disabled={!checked}
+        style={{
+          marginTop: '2rem',
+          padding: '0.9rem 2.2rem',
+          fontSize: '1.1rem',
+          fontWeight: 600,
+          background: checked ? 'linear-gradient(135deg,#3b82f6,#2563eb)' : '#333',
+          color: '#fff',
+          border: 'none',
+          borderRadius: '6px',
+          cursor: checked ? 'pointer' : 'not-allowed',
+          boxShadow: checked ? '0 2px 8px #3b82f6' : 'none',
+          transition: 'all 0.2s',
+        }}
+      >
+        Entrer sur le site
+      </button>
+      <p style={{ marginTop: '2rem', color: '#aaa', fontSize: '1rem' }}>Cette vérification est nécessaire pour protéger le site contre les robots.</p>
+    </div>
+  );
+}
 import React, { useState, lazy, Suspense, useEffect } from 'react';
 import { SpeedInsights } from "@vercel/speed-insights/react";
 // Utilitaire pour gérer le mode sombre/clair
@@ -5,89 +90,90 @@ function useDarkMode() {
   const [mode, setMode] = useState(() => {
     if (typeof window !== 'undefined') {
       return localStorage.getItem('theme') || 'dark';
-    }
-    return 'dark';
-  });
-  useEffect(() => {
-    document.body.classList.remove('theme-dark', 'theme-light');
-    document.body.classList.add(`theme-${mode}`);
-    localStorage.setItem('theme', mode);
-  }, [mode]);
-  return [mode, setMode];
-}
-import { Routes, Route, Link, useLocation } from 'react-router-dom';
-import './App.css';
-
-// Chargement immédiat des pages critiques
-import Home from './Home';
-
-// Lazy loading des autres pages
-const Adventures = lazy(() => import('./Adventures'));
-const Contact = lazy(() => import('./Contact'));
-const Activities = lazy(() => import('./pages/Activities'));
-const Articles = lazy(() => import('./pages/Articles'));
-const Videos = lazy(() => import('./pages/Videos'));
-const RoutesPage = lazy(() => import('./pages/RoutesPage'));
-const Blog = lazy(() => import('./pages/Blog'));
-const Login = lazy(() => import('./pages/Login'));
-const Register = lazy(() => import('./pages/Register'));
-const Dashboard = lazy(() => import('./pages/Dashboard'));
-const AdminLogin = lazy(() => import('./pages/AdminLogin'));
-const AdminDashboard = lazy(() => import('./pages/AdminDashboard'));
-const Randonnee = lazy(() => import('./pages/Randonnee'));
-const Escalade = lazy(() => import('./pages/Escalade'));
-const Ski = lazy(() => import('./pages/Ski'));
-const Reservation = lazy(() => import('./pages/Reservation'));
-const ReservationConfirmation = lazy(() => import('./pages/ReservationConfirmation'));
-
-// Composant de chargement optimisé
-const LoadingFallback = () => (
-  <div style={{ 
-    display: 'flex', 
-    justifyContent: 'center', 
-    alignItems: 'center', 
-    minHeight: '400px',
-    fontSize: '1.2rem',
-    color: '#6366f1',
-    animation: 'fadeIn 0.3s ease-in'
-  }}>
-    <div style={{
-      display: 'flex',
-      alignItems: 'center',
-      gap: '10px'
-    }}>
-      <div className="spinner" style={{
-        width: '20px',
-        height: '20px',
-        border: '3px solid rgba(99, 102, 241, 0.2)',
-        borderTop: '3px solid #6366f1',
-        borderRadius: '50%',
-        animation: 'spin 0.8s linear infinite'
-      }} />
-      Chargement...
-    </div>
-  </div>
-);
-
-function App() {
-  const [theme, setTheme] = useDarkMode();
-  const isLoggedIn = !!localStorage.getItem('token');
-  const user = JSON.parse(localStorage.getItem('user') || '{}');
-  const [newsletterEmail, setNewsletterEmail] = useState('');
-  const [newsletterMessage, setNewsletterMessage] = useState('');
-  const location = useLocation();
-
-  // Scroll to top on route change pour une navigation fluide
-  useEffect(() => {
-    window.scrollTo({ top: 0, behavior: 'smooth' });
-  }, [location.pathname]);
-
-  // Prefetch des pages populaires pour une navigation instantanée
-  useEffect(() => {
-    const prefetchPages = [Activities, Randonnee, Escalade, Ski, Contact];
-    prefetchPages.forEach(page => {
-      // Précharger les composants après le chargement initial
-      const timer = setTimeout(() => {
+    return (
+      <div className="App">
+        <AntiRobotGate />
+        <header className="App-header">
+          <div style={{display:'flex',alignItems:'center',justifyContent:'space-between',gap:'1rem'}}>
+            <h1>Aventures Alpines</h1>
+            <button
+              aria-label={theme === 'dark' ? 'Passer en mode clair' : 'Passer en mode sombre'}
+              onClick={() => setTheme(theme === 'dark' ? 'light' : 'dark')}
+              style={{
+                background: theme === 'dark' ? 'linear-gradient(135deg,#f3f4f6,#cbd5e1)' : 'linear-gradient(135deg,#232946,#16161a)',
+                color: theme === 'dark' ? '#232946' : '#f3f4f6',
+                border: 'none',
+                borderRadius: '8px',
+                padding: '8px 18px',
+                fontWeight: 600,
+                fontSize: '1rem',
+                cursor: 'pointer',
+                boxShadow: '0 2px 8px rgba(0,0,0,0.08)',
+                transition: 'all 0.2s',
+                outline: 'none',
+              }}
+            >
+              {theme === 'dark' ? 'Mode clair' : 'Mode sombre'}
+            </button>
+          </div>
+          <nav>
+            <ul>
+              <li><Link to="/">Accueil</Link></li>
+              <li><Link to="/activities">Activités</Link></li>
+              <li><Link to="/randonnee">Randonnée</Link></li>
+              <li><Link to="/escalade">Escalade</Link></li>
+              <li><Link to="/ski">Ski</Link></li>
+              <li><Link to="/articles">Articles</Link></li>
+              <li><Link to="/videos">Vidéos</Link></li>
+              <li><Link to="/routes">Itinéraires</Link></li>
+              <li><Link to="/blog">Blog</Link></li>
+              <li><Link to="/contact">Contact</Link></li>
+              {isLoggedIn ? (
+                <li className="auth-link">
+                  <Link to="/dashboard">{user.nom_utilisateur}</Link>
+                </li>
+              ) : (
+                <>
+                  <li className="auth-link"><Link to="/login">Connexion</Link></li>
+                  <li className="auth-link"><Link to="/register">Inscription</Link></li>
+                </>
+              )}
+            </ul>
+          </nav>
+        </header>
+        <main>
+          <Suspense fallback={<LoadingFallback />}>
+            <Routes>
+              <Route path="/" element={<Home />} />
+              <Route path="/activities" element={<Activities />} />
+              <Route path="/randonnee" element={<Randonnee />} />
+              <Route path="/escalade" element={<Escalade />} />
+              <Route path="/ski" element={<Ski />} />
+              <Route path="/articles" element={<Articles />} />
+              <Route path="/videos" element={<Videos />} />
+              <Route path="/routes" element={<RoutesPage />} />
+              <Route path="/blog" element={<Blog />} />
+              <Route path="/adventures" element={<Adventures />} />
+              <Route path="/contact" element={<Contact />} />
+              <Route path="/login" element={<Login />} />
+              <Route path="/register" element={<Register />} />
+              <Route path="/dashboard" element={<Dashboard />} />
+              <Route path="/admin/login" element={<AdminLogin />} />
+              <Route path="/admin/dashboard" element={<AdminDashboard />} />
+              <Route path="/randonnee" element={<Randonnee />} />
+              <Route path="/escalade" element={<Escalade />} />
+              <Route path="/ski" element={<Ski />} />
+              <Route path="/reservation" element={<Reservation />} />
+              <Route path="/reservation/confirmation" element={<ReservationConfirmation />} />
+            </Routes>
+          </Suspense>
+        </main>
+        <footer className="App-footer">
+          <SpeedInsights />
+          {/* ...footer... */}
+        </footer>
+      </div>
+    );
         page.preload && page.preload();
       }, 2000);
       return () => clearTimeout(timer);

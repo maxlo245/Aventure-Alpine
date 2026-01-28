@@ -1,4 +1,25 @@
 // ==============================
+// ANTIROBOT IP VALIDATION
+// ==============================
+const validatedIPs = new Set();
+
+function getClientIp(req) {
+  return req.headers['x-forwarded-for']?.split(',')[0]?.trim() || req.socket.remoteAddress;
+}
+
+// Vérifier si l'IP est validée
+app.get('/api/antirobot-check', (req, res) => {
+  const ip = getClientIp(req);
+  res.json({ validated: validatedIPs.has(ip) });
+});
+
+// Valider l'IP après passage du gate
+app.post('/api/antirobot-validate', (req, res) => {
+  const ip = getClientIp(req);
+  validatedIPs.add(ip);
+  res.json({ success: true });
+});
+// ==============================
 // API CONTENU PUBLIC (JSON statique)
 // ==============================
 import express from 'express';
