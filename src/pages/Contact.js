@@ -1,7 +1,6 @@
-```javascript
 import React from 'react';
 
-const ContactPage = () => {
+const Contact = () => {
   return (
     <div className="contact-page">
       <div className="contact-form card-dark">
@@ -14,5 +13,4 @@ const ContactPage = () => {
   );
 };
 
-export default ContactPage;
-```
+export default Contact;

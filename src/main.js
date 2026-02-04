@@ -3,6 +3,7 @@ import ReactDOM from 'react-dom/client'
 import { HashRouter as Router } from 'react-router-dom'
 import App from './App.js'
 import './index.css'
+import './App.css'
 
 // Optimisation du rendu
 const rootElement = document.getElementById('root');

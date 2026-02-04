@@ -16,9 +16,14 @@ const ExperienceFeed = () => {
     const load = async () => {
       try {
         const { data } = await api.get('/experiences');
-        setPosts(data);
+        if (Array.isArray(data) && data.length > 0) {
+          setPosts(data);
+        } else {
+          setPosts(fallbackPosts);
+        }
       } catch (err) {
         setError("Impossible d'atteindre l'API, données locales affichées.");
+        setPosts(fallbackPosts);
       } finally {
         setLoading(false);
       }

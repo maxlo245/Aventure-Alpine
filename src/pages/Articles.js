@@ -14,9 +14,14 @@ const Articles = () => {
     const load = async () => {
       try {
         const { data } = await api.get('/articles');
-        setItems(data);
+        if (Array.isArray(data) && data.length > 0) {
+          setItems(data);
+        } else {
+          setItems(localArticles);
+        }
       } catch (err) {
         setError("API indisponible, affichage des articles locaux.");
+        setItems(localArticles);
       }
     };
     load();
@@ -30,23 +35,28 @@ const Articles = () => {
     
     // Filtre par recherche (titre + description)
     if (searchTerm) {
-      list = list.filter((a) => 
-        a.title?.toLowerCase().includes(searchTerm.toLowerCase()) ||
-        a.description?.toLowerCase().includes(searchTerm.toLowerCase()) ||
-        a.content?.toLowerCase().includes(searchTerm.toLowerCase())
-      );
+      list = list.filter((a) => {
+        const title = a.title || '';
+        const description = a.description || a.excerpt || '';
+        const content = a.content || '';
+        return (
+          title.toLowerCase().includes(searchTerm.toLowerCase()) ||
+          description.toLowerCase().includes(searchTerm.toLowerCase()) ||
+          content.toLowerCase().includes(searchTerm.toLowerCase())
+        );
+      });
     }
 
     // Tri
     return [...list].sort((a, b) => {
-      if (sort === 'recent') return new Date(b.date) - new Date(a.date);
-      if (sort === 'old') return new Date(a.date) - new Date(b.date);
+      if (sort === 'recent') return new Date(b.date || 0) - new Date(a.date || 0);
+      if (sort === 'old') return new Date(a.date || 0) - new Date(b.date || 0);
       if (sort === 'popular') {
         const viewsA = a.views || a.popularity || 0;
         const viewsB = b.views || b.popularity || 0;
         return viewsB - viewsA;
       }
-      if (sort === 'title') return a.title.localeCompare(b.title);
+      if (sort === 'title') return (a.title || '').localeCompare(b.title || '');
       return 0;
     });
   }, [category, sort, searchTerm, items]);

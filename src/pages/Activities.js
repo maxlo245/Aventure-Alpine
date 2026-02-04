@@ -10,16 +10,17 @@ const Activities = () => {
     const load = async () => {
       try {
         const { data } = await api.get('/activities');
-        const mapped = data.map((a) => ({
-          id: a.id,
-          name: a.name,
-          summary: a.summary,
-          image: a.image,
-          sport: a.sport,
-        }));
-        setItems(mapped);
+        const mapped = Array.isArray(data) ? data.map((a) => ({
+          id: a.id || a.slug || Math.random(),
+          name: a.name || '',
+          summary: a.summary || a.description || '',
+          image: a.image || '',
+          sport: a.sport || '',
+        })) : [];
+        setItems(mapped.length > 0 ? mapped : localSports);
       } catch (err) {
         setError("API indisponible, activités locales affichées.");
+        setItems(localSports);
       }
     };
     load();

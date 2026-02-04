@@ -50,6 +50,7 @@ function ScrollWheelZoomControl({ onScrollWithoutCtrl }) {
 
 
 
+function Contact() {
   const [formData, setFormData] = useState({ name: '', email: '', message: '', antispam: false });
   const [loading, setLoading] = useState(false);
   const [showScrollMessage, setShowScrollMessage] = useState(false);
