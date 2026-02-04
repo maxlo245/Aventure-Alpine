@@ -32,9 +32,9 @@ const RoutesPage = () => {
 
   const difficulties = ['Toutes', ...new Set(items.map((r) => r.difficulty))];
 
-  return (
-    <section id="routes">
-      <div className="section-head">
+      return (
+        <section id="routes" className="page-itineraire">
+          <div className="section-head">
         <div>
           <h2 className="text-title">Itinéraires</h2>
           <p className="text-secondary">Recherchez un parcours par région ou niveau.</p>

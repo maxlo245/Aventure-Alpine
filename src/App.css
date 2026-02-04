@@ -1,3 +1,13 @@
+.page-randonnee *, .page-escalade *, .page-ski *, .page-articles *, .page-videos *, .page-itineraire *, .page-blog *, .page-contact * {
+  color: #18181b !important;
+}
+/* Texte noir sur les pages principales */
+.page-randonnee, .page-escalade, .page-ski, .page-articles, .page-videos, .page-itineraire, .page-blog, .page-contact {
+  color: #18181b !important;
+}
+* {
+  color: #fff !important;
+}
 .card-dark {
   background: var(--bg-card, #1a1f3a) !important;
   color: var(--text-primary, #fff) !important;
@@ -28,7 +38,7 @@ body.theme-light .text-title {
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
-  color: #18181b;
+  color: #fff !important;
   -webkit-text-stroke: 1px #18181b;
   text-stroke: 1px #18181b;
 }
@@ -46,8 +56,8 @@ body.theme-dark .text-secondary {
   color: #cbd5e1 !important;
 }
 body.theme-light .input-search {
-  background: var(--bg-card, #fff);
-  color: var(--text-primary, #232946);
+  background: var(--bg-card, #1a1f3a) !important;
+  color: #fff !important;
   border: 2px solid var(--border-light, #cbd5e1);
 }
 body.theme-dark .input-search {
@@ -141,11 +151,12 @@ body.theme-dark .text-secondary, .theme-dark .text-secondary {
 }
 }
 body.theme-dark h2,
+body.theme-dark h2,
 body.theme-dark h3,
 body.theme-dark h4,
 body.theme-dark h5,
 body.theme-dark h6 {
-  color: #f3f4f6 !important;
+  color: #fff !important;
 }
 }
 body.theme-light {
@@ -179,7 +190,7 @@ body.theme-light main {
   color: #f9fafb;
 }
 body.theme-light .auth-card {
-  background: #fff;
+  background: #1a1f3a !important;
   color: #232946;
 }
 }
@@ -190,7 +201,7 @@ body.theme-dark textarea {
 }
 body.theme-light input,
 body.theme-light textarea {
-  background: #fff;
+  background: #1a1f3a !important;
   color: #232946;
   border: 2px solid #cbd5e1;
 }
@@ -862,8 +873,8 @@ textarea {
   padding: 14px 18px;
   border: 2px solid #e2e8f0;
   border-radius: 0;
-  background: white;
-  color: #1a202c;
+  background: #1a1f3a !important;
+  color: #fff !important;
   transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
   font-size: 14px;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
@@ -879,7 +890,7 @@ textarea:focus {
   outline: none;
   border-color: #6366f1;
   box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.1), 0 2px 8px rgba(0, 0, 0, 0.15);
-  background: white;
+  background: #1a1f3a !important;
 }
 
 textarea {

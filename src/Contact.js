@@ -116,7 +116,7 @@ function Contact() {
   };
 
   return (
-    <section id="contact" style={{ padding: '2rem', maxWidth: '1200px', margin: '0 auto', background: 'white', borderRadius: '0', position: 'relative', zIndex: 1 }}>
+    <section id="contact" className="page-contact" style={{ padding: '2rem', maxWidth: '1200px', margin: '0 auto', background: 'white', borderRadius: '0', position: 'relative', zIndex: 1 }}>
       <h2 style={{ fontSize: '2.5rem', marginBottom: '1rem', textAlign: 'center', color: '#1a202c' }}>Contactez-nous</h2>
       <p style={{ textAlign: 'center', color: '#4a5568', marginBottom: '3rem' }}>
         Une question, une demande de réservation ou simplement envie de discuter de votre prochaine aventure ?

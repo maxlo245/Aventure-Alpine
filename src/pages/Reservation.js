@@ -450,16 +450,14 @@ export default function Reservation() {
         }
 
         .form-group input,
-        .form-group select,
-        .form-group textarea {
           width: 100%;
           padding: 0.75rem;
           border: 2px solid #e2e8f0;
           border-radius: 0;
           font-size: 1rem;
           transition: border-color 0.3s;
-          background: white;
-          color: #1a202c;
+          background: #1a1f3a !important;
+          color: #fff !important;
         }
 
         .form-group input:focus,

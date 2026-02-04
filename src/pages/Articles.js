@@ -70,7 +70,7 @@ const Articles = () => {
   };
 
   return (
-    <section id="articles" className="bg-card" style={{ padding: '2rem', borderRadius: '12px', minHeight: '100vh' }}>
+    <section id="articles" className="bg-card page-articles" style={{ padding: '2rem', borderRadius: '12px', minHeight: '100vh' }}>
       <div className="section-head" style={{ marginBottom: '2rem' }}>
         <div>
           <h2 className="text-title" style={{ fontSize: '2rem', marginBottom: '0.5rem' }}>Articles</h2>

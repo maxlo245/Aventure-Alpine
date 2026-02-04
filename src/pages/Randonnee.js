@@ -92,7 +92,7 @@ export default function Randonnee() {
   };
 
   return (
-    <div className="randonnee-page">
+    <div className="randonnee-page page-randonnee">
       {/* Hero Section */}
       <section className="hero-section">
         <div className="hero-content">
