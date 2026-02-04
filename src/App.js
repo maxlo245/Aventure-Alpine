@@ -1,3 +1,4 @@
+import RegexTester from './pages/RegexTester.js';
 import React, { useState, Suspense, Component } from 'react';
 
 class ErrorBoundary extends Component {
@@ -72,6 +73,7 @@ export default function App() {
               <li><Link to="/routes">Itinéraires</Link></li>
               <li><Link to="/blog">Blog</Link></li>
               <li><Link to="/contact">Contact</Link></li>
+              <li><Link to="/regex">Test REGEX</Link></li>
             </ul>
           </nav>
         </header>
@@ -88,6 +90,7 @@ export default function App() {
               <Route path="/routes" element={<RoutesPage />} />
               <Route path="/blog" element={<Blog />} />
               <Route path="/contact" element={<Contact />} />
+              <Route path="/regex" element={<RegexTester />} />
             </Routes>
           </Suspense>
         </main>
