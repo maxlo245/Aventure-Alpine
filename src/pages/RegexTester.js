@@ -4,22 +4,37 @@ import React, { useState } from 'react';
 // - 0X XX XX XX XX ou 0XXXXXXXXX (X = 0 à 9)
 // - +XX X XX XX XX XX ou +XXXXXXXXXXX (XX = 01 à 99, X = 0 à 9)
 const regexPhone = /^(0\d{9}|0\d{1}(?: \d{2}){4}|\+(0[1-9]|[1-9][0-9]) ?\d{9}|\+(0[1-9]|[1-9][0-9]) ?\d{1}(?: \d{2}){4})$/;
-const regexEmail = /^[\w.-]+@(gmail|outlook)\.(com|fr)$/i;
+// Accepte gmail, outlook, gouv, yahoo, protonmail, hotmail, live, icloud, orange, sfr, free, laposte et extensions .fr, .de, .be, .lu, .ch, .com, etc.
+const regexEmail = /^[\w.-]+@(gmail|outlook|gouv|yahoo|protonmail|hotmail|live|icloud|orange|sfr|free|laposte)\.[a-z]{2,}$/i;
 
 function phoneError(value) {
   if (!value) return '';
-  if (!/^\+(0[1-9]|[1-9][0-9])|^0/.test(value)) return 'Doit commencer par 0 ou +[indicatif pays 01 à 99].';
-  if (!/^([\d\s\+]+)$/.test(value)) return 'Ne doit contenir que des chiffres, espaces et +.';
-  if (!regexPhone.test(value)) return 'Format attendu : 0X XX XX XX XX, 0XXXXXXXXX, +XX X XX XX XX XX ou +XXXXXXXXXXX (XX = 01 à 99).';
+  if (!/^\+(0[1-9]|[1-9][0-9])|^0/.test(value)) return 'Erreur [TEL-001] : Le numéro doit commencer par 0 (national) ou +[indicatif pays 01 à 99] (international).';
+  if (!/^([\d\s\+]+)$/.test(value)) return 'Erreur [TEL-002] : Seuls les chiffres, espaces et le signe + sont autorisés.';
+  // Vérification de la longueur (hors espaces et +)
+  const digits = value.replace(/[^\d]/g, '');
+  if (value.startsWith('0')) {
+    if (digits.length < 10) return 'Erreur [TEL-003] : Numéro national trop court (10 chiffres requis).';
+    if (digits.length > 10) return 'Erreur [TEL-004] : Numéro national trop long (10 chiffres requis).';
+    if (!/^0[1-9]/.test(value)) return "Erreur [TEL-005] : Le deuxième chiffre après 0 doit être compris entre 1 et 9.";
+  }
+  if (value.startsWith('+')) {
+    if (digits.length < 11) return 'Erreur [TEL-006] : Numéro international trop court (11 chiffres requis après l’indicatif).';
+    if (digits.length > 11) return 'Erreur [TEL-007] : Numéro international trop long (11 chiffres requis après l’indicatif).';
+    if (!/^\+(0[1-9]|[1-9][0-9])/.test(value)) return "Erreur [TEL-008] : L’indicatif international doit être compris entre +01 et +99.";
+  }
+  if (!regexPhone.test(value)) return 'Erreur [TEL-009] : Format non reconnu. Exemple attendu : 06 12 34 56 78 ou +33 6 12 34 56 78.';
   return '';
 }
 
 function emailError(value) {
   if (!value) return '';
-  if (!/^[\w.-]+@/.test(value)) return 'Le nom d’utilisateur est incorrect.';
-  if (!/@(gmail|outlook|gouv|yahoo)\./i.test(value)) return 'Seuls gmail ou outlook gouv yahoo sont autorisés.';
-  if (!/\.(com|fr)$/i.test(value)) return 'Seules les extensions .com ou .fr sont autorisées.';
-  if (!regexEmail.test(value)) return 'Format incorrect.';
+  if (!/^[\w.-]+@/.test(value)) return 'Erreur [MAIL-001] : Le nom d’utilisateur (avant le @) doit contenir uniquement lettres, chiffres, points ou tirets.';
+  if (!/@/.test(value)) return "Erreur [MAIL-002] : Le caractère '@' est manquant.";
+  if (!/@(gmail|outlook|gouv|yahoo|protonmail|hotmail|live|icloud|orange|sfr|free|laposte)\./i.test(value)) return 'Erreur [MAIL-003] : Domaine non autorisé. Utilisez un fournisseur reconnu (gmail, outlook, gouv, yahoo, protonmail, hotmail, live, icloud, orange, sfr, free, laposte).';
+  if (!/\.[a-z]{2,}$/i.test(value)) return 'Erreur [MAIL-004] : Extension de domaine invalide. Utilisez une extension de pays ou .com (ex : .fr, .de, .be, .lu, .ch, .com, etc.).';
+  if (!/^[\w.-]+@[\w.-]+\.[a-z]{2,}$/i.test(value)) return 'Erreur [MAIL-005] : Format général de l’adresse email incorrect. Exemple attendu : nom@domaine.fr.';
+  if (!regexEmail.test(value)) return 'Erreur [MAIL-006] : Format général de l’adresse email incorrect ou domaine non autorisé.';
   return '';
 }
 
