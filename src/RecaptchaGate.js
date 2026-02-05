@@ -14,13 +14,15 @@ export default function RecaptchaGate({ onSuccess }) {
   };
 
   return (
-    <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', height: '100vh' }}>
-      <h2 style={{ fontWeight: 700 }}>Vérification anti-robot</h2>
-      <ReCAPTCHA
-        sitekey={SITE_KEY}
-        onChange={handleChange}
-      />
-      {!verified && <p style={{ marginTop: '1rem', color: '#444' }}>Veuillez valider le reCAPTCHA pour accéder au site.</p>}
+    <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', height: '100vh', background: '#fff' }}>
+      <h2 style={{ fontWeight: 700, color: '#18181b' }}>Vérification anti-robot</h2>
+      <div style={{ filter: 'invert(0)', color: '#18181b', background: '#fff', borderRadius: 8, padding: 8 }}>
+        <ReCAPTCHA
+          sitekey={SITE_KEY}
+          onChange={handleChange}
+        />
+      </div>
+      {!verified && <p style={{ marginTop: '1rem', color: '#18181b' }}>Veuillez valider le reCAPTCHA pour accéder au site.</p>}
     </div>
   );
 }
