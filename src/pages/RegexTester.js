@@ -2,15 +2,15 @@ import React, { useState } from 'react';
 
 // Accepte :
 // - 0X XX XX XX XX ou 0XXXXXXXXX (X = 0 à 9)
-// - +XX X XX XX XX XX ou +XXXXXXXXXXX (XX = 00 à 99, X = 0 à 9)
-const regexPhone = /^(0\d{9}|0\d{1}(?: \d{2}){4}|\+\d{1,3} ?\d{9}|\+\d{1,3} ?\d{1}(?: \d{2}){4})$/;
+// - +XX X XX XX XX XX ou +XXXXXXXXXXX (XX = 01 à 99, X = 0 à 9)
+const regexPhone = /^(0\d{9}|0\d{1}(?: \d{2}){4}|\+(0[1-9]|[1-9][0-9]) ?\d{9}|\+(0[1-9]|[1-9][0-9]) ?\d{1}(?: \d{2}){4})$/;
 const regexEmail = /^[\w.-]+@(gmail|outlook)\.(com|fr)$/i;
 
 function phoneError(value) {
   if (!value) return '';
-  if (!/^\+\d{1,3}|^0/.test(value)) return 'Doit commencer par 0 ou +[indicatif pays].';
+  if (!/^\+(0[1-9]|[1-9][0-9])|^0/.test(value)) return 'Doit commencer par 0 ou +[indicatif pays 01 à 99].';
   if (!/^([\d\s\+]+)$/.test(value)) return 'Ne doit contenir que des chiffres, espaces et +.';
-  if (!regexPhone.test(value)) return 'Format attendu : 0X XX XX XX XX, 0XXXXXXXXX, +XX X XX XX XX XX ou +XXXXXXXXXXX.';
+  if (!regexPhone.test(value)) return 'Format attendu : 0X XX XX XX XX, 0XXXXXXXXX, +XX X XX XX XX XX ou +XXXXXXXXXXX (XX = 01 à 99).';
   return '';
 }
 
