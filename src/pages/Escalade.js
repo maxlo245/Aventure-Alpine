@@ -52,7 +52,7 @@ export default function Escalade() {
   };
 
   return (
-    <div className="escalade-page">
+    <div className="escalade-page page-escalade">
       {/* Hero Section */}
       <section className="hero-section">
         <div className="hero-content">
@@ -278,14 +278,9 @@ export default function Escalade() {
         }
 
         .container > p,
-        .intro-section p,
-        .tip-card p,
-        .site-description {
-          color: #2d3748;
-        }
-
-        h2 {
-          font-size: 2rem;
+          padding: 3rem 2rem;
+          background: #1a1f3a !important;
+          color: #fff !important;
           margin-bottom: 1.5rem;
           color: #1a202c !important;
         }
@@ -372,8 +367,8 @@ export default function Escalade() {
         .difficulty-filters button {
           padding: 0.75rem 1.5rem;
           border: 2px solid #e2e8f0;
-          background: white;
-          color: #1a202c;
+          background: #1a1f3a !important;
+          color: #fff !important;
           border-radius: 0;
           cursor: pointer;
           font-weight: 600;

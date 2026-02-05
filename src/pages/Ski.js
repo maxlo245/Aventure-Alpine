@@ -96,7 +96,7 @@ export default function Ski() {
   };
 
   return (
-    <div className="ski-page">
+    <div className="ski-page page-ski">
       {/* Hero Section */}
       <section className="hero-section">
         <div className="hero-content">

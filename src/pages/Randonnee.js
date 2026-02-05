@@ -4,6 +4,7 @@ import HikingRouteCard from '../components/HikingRouteCard';
 import { MapContainer, TileLayer, Marker, Popup, useMap } from 'react-leaflet';
 import 'leaflet/dist/leaflet.css';
 import L from 'leaflet';
+import React from 'react';
 
 // Fix pour les icônes Leaflet avec Vite
 delete L.Icon.Default.prototype._getIconUrl;
@@ -92,7 +93,7 @@ export default function Randonnee() {
   };
 
   return (
-    <div className="randonnee-page">
+    <div className="randonnee-page page-randonnee">
       {/* Hero Section */}
       <section className="hero-section">
         <div className="hero-content">
@@ -394,11 +395,11 @@ export default function Randonnee() {
           <div className="photo-gallery">
             <div className="gallery-item">
               <img src="https://images.unsplash.com/photo-1551632811-561732d1e306?auto=format&fit=crop&w=800&q=80" alt="Lac de montagne" />
-              <p>Lac d'altitude dans les Écrins</p>
+              <p>Lac d&apos;altitude dans les Écrins</p>
             </div>
             <div className="gallery-item">
               <img src="https://images.unsplash.com/photo-1464207687429-7505649dae38?auto=format&fit=crop&w=800&q=80" alt="Sentier forestier" />
-              <p>Sentier en forêt d'altitude</p>
+              <p>Sentier en forêt d&apos;altitude</p>
             </div>
             <div className="gallery-item">
               <img src="https://images.unsplash.com/photo-1506905925346-21bda4d32df4?auto=format&fit=crop&w=800&q=80" alt="Panorama montagne" />
@@ -418,7 +419,7 @@ export default function Randonnee() {
           <h3>Informations importantes</h3>
           <ul>
             <li>✓ Confirmation immédiate par email</li>
-            <li>✓ Annulation gratuite jusqu'à 48h avant</li>
+            <li>✓ Annulation gratuite jusqu&apos;à 48h avant</li>
             <li>✓ Forfait valable dans 3 domaines skiables</li>
             <li>✓ Assurance incluse</li>
           </ul>
@@ -435,7 +436,7 @@ export default function Randonnee() {
         </div>
 
         <div className="info-card card-dark">
-          <h3>Besoin d'aide ?</h3>
+          <h3>Besoin d&apos;aide ?</h3>
           <p>Notre équipe est disponible</p>
           <p><strong>+33 4 50 12 34 56</strong></p>
           <p>contact@aventures-alpines.fr</p>

@@ -4,7 +4,7 @@ import Articles from './Articles';
 
 const Blog = () => {
   return (
-    <section id="blog">
+    <section id="blog" className="blog-page page-blog">
         <h2 className="text-title">Blog & expériences</h2>
         <p className="text-secondary">Retours terrain et contributions de la communauté.</p>
       <Articles />

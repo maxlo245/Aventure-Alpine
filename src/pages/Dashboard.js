@@ -1,3 +1,4 @@
+import React from 'react';
 import { useEffect, useState } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
 import axios from 'axios';
@@ -226,7 +227,7 @@ export default function Dashboard() {
         </section>
       </div>
 
-      <style jsx="true">{`
+      <style>{`
         .dashboard-container {
           min-height: 100vh;
           background: #f7fafc;
@@ -277,8 +278,8 @@ export default function Dashboard() {
         }
 
         .dashboard-section {
-          background: white;
-          color: #1a202c;
+          background: #1a1f3a !important;
+          color: #fff !important;
           border-radius: 0;
           padding: 2rem;
           margin-bottom: 2rem;
@@ -486,9 +487,9 @@ export default function Dashboard() {
         }
 
         .btn-secondary {
-          background: white;
-          color: #667eea;
-          border: 2px solid white;
+          background: #1a1f3a !important;
+          color: #fff !important;
+          border: 2px solid #fff !important;
         }
 
         .btn-secondary:hover {
