@@ -16,7 +16,7 @@ export default function RecaptchaGate({ onSuccess }) {
   return (
     <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', height: '100vh', background: '#fff' }}>
       <h2 style={{ fontWeight: 700, color: '#18181b' }}>Vérification anti-robot</h2>
-      <div style={{ filter: 'invert(0)', color: '#18181b', background: '#fff', borderRadius: 8, padding: 8 }}>
+      <div style={{ filter: 'invert(0)', color: '#18181b', background: '#000000', borderRadius: 8, padding: 8 }}>
         <ReCAPTCHA
           sitekey={SITE_KEY}
           onChange={handleChange}

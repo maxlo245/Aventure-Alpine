@@ -5,9 +5,6 @@
 .page-randonnee, .page-escalade, .page-ski, .page-articles, .page-videos, .page-itineraire, .page-blog, .page-contact {
   color: #18181b !important;
 }
-* {
-  color: #fff !important;
-}
 .card-dark {
   background: var(--bg-card) !important;
   color: var(--text-primary) !important;
@@ -32,6 +29,10 @@
   letter-spacing: -0.01em;
   font-weight: 700;
   padding: 0;
+}
+body {
+  background: #16161a !important;
+  color: #fff;
 }
 body.theme-light .text-title {
   background: linear-gradient(135deg, var(--bg-card) 0%, #c0c0c0 60%, #a3a3a3 100%);
