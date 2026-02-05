@@ -31,29 +31,29 @@ export default function RegexTester() {
   const emailMsg = email ? (emailValid ? 'Adresse valide ✅' : 'Adresse invalide ❌ ' + emailError(email)) : '';
 
   return (
-    <section className="page-regex" style={{ maxWidth: 500, margin: '2rem auto', padding: '2rem', background: '#fff', borderRadius: 12, boxShadow: '0 2px 12px rgba(0,0,0,0.08)' }}>
-      <h2 style={{ marginBottom: '1.5rem' }}>Testeur REGEX</h2>
+    <section className="page-regex" style={{ maxWidth: 500, margin: '2rem auto', padding: '2rem', background: '#fff', borderRadius: 12, boxShadow: '0 2px 12px rgba(0,0,0,0.08)', color: '#18181b' }}>
+      <h2 style={{ marginBottom: '1.5rem', color: '#2563eb', fontWeight: 700, fontSize: '2.2rem' }}>Testeur REGEX</h2>
       <div style={{ marginBottom: '2rem' }}>
-        <label>Numéro de téléphone français :</label>
+        <label style={{ color: '#2563eb', fontWeight: 600, display: 'block', marginBottom: 4 }}>Numéro de téléphone français :</label>
         <input
           type="text"
           id="phone"
           placeholder="Ex: 0612345678 ou +33612345678"
           value={phone}
           onChange={e => setPhone(e.target.value)}
-          style={{ width: '100%', padding: '0.75rem', marginTop: 8, border: '2px solid #e2e8f0', borderRadius: 6, fontSize: 16 }}
+          style={{ width: '100%', padding: '0.75rem', marginTop: 8, border: '2px solid #e2e8f0', borderRadius: 6, fontSize: 16, color: '#18181b', background: '#f5f7fa' }}
         />
         <div className="result" style={{ marginTop: 8, fontWeight: 500, color: phoneValid ? 'green' : (phone ? 'red' : undefined) }}>{phoneMsg}</div>
       </div>
       <div>
-        <label>Adresse mail :</label>
+        <label style={{ color: '#2563eb', fontWeight: 600, display: 'block', marginBottom: 4 }}>Adresse mail :</label>
         <input
           type="email"
           id="email"
           placeholder="Ex: exemple@mail.com"
           value={email}
           onChange={e => setEmail(e.target.value)}
-          style={{ width: '100%', padding: '0.75rem', marginTop: 8, border: '2px solid #e2e8f0', borderRadius: 6, fontSize: 16 }}
+          style={{ width: '100%', padding: '0.75rem', marginTop: 8, border: '2px solid #e2e8f0', borderRadius: 6, fontSize: 16, color: '#18181b', background: '#f5f7fa' }}
         />
         <div className="result" style={{ marginTop: 8, fontWeight: 500, color: emailValid ? 'green' : (email ? 'red' : undefined) }}>{emailMsg}</div>
       </div>
