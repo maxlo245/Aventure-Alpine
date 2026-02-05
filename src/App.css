@@ -1,12 +1,29 @@
+/* Correction RegexTester : forcer fond et texte */
+.regex-tester-card {
+  background: #fff !important;
+  color: #18181b !important;
+  border-radius: 16px;
+  box-shadow: 0 2px 16px rgba(0,0,0,0.10);
+}
+.regex-tester-card input {
+  background: #fff !important;
+  color: #18181b !important;
+  border: 2px solid #e2e8f0;
+  border-radius: 8px;
+  font-size: 17px;
+  box-sizing: border-box;
+}
+.regex-tester-card label {
+  color: #2563eb !important;
+  font-weight: 600;
+  font-size: 15px;
+}
+.regex-tester-card .result {
+  font-weight: 500;
+  font-size: 14px;
+}
 .page-randonnee *, .page-escalade *, .page-ski *, .page-articles *, .page-videos *, .page-itineraire *, .page-blog *, .page-contact * {
   color: #18181b !important;
-}
-/* Texte noir sur les pages principales */
-.page-randonnee, .page-escalade, .page-ski, .page-articles, .page-videos, .page-itineraire, .page-blog, .page-contact {
-  color: #18181b !important;
-}
-* {
-  color: #fff !important;
 }
 .card-dark {
   background: var(--bg-card) !important;
