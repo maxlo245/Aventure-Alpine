@@ -17,7 +17,7 @@ function phoneError(value) {
 function emailError(value) {
   if (!value) return '';
   if (!/^[\w.-]+@/.test(value)) return 'Le nom d’utilisateur est incorrect.';
-  if (!/@(gmail|outlook)\./i.test(value)) return 'Seuls gmail ou outlook sont autorisés.';
+  if (!/@(gmail|outlook|gouv|yahoo)\./i.test(value)) return 'Seuls gmail ou outlook gouv yahoo sont autorisés.';
   if (!/\.(com|fr)$/i.test(value)) return 'Seules les extensions .com ou .fr sont autorisées.';
   if (!regexEmail.test(value)) return 'Format incorrect.';
   return '';
@@ -29,8 +29,8 @@ export default function RegexTester() {
 
   const phoneValid = regexPhone.test(phone);
   const emailValid = regexEmail.test(email);
-  const phoneMsg = phone ? (phoneValid ? 'Numéro valide ✅' : 'Numéro invalide ❌ ' + phoneError(phone)) : '';
-  const emailMsg = email ? (emailValid ? 'Adresse valide ✅' : 'Adresse invalide ❌ ' + emailError(email)) : '';
+  const phoneMsg = phone ? (phoneValid ? 'Numéro valide ' : 'Numéro invalide  ' + phoneError(phone)) : '';
+  const emailMsg = email ? (emailValid ? 'Adresse valide ' : 'Adresse invalide  ' + emailError(email)) : '';
 
   return (
     <section className="page-regex" style={{ maxWidth: 420, margin: '2.5rem auto', padding: '2.2rem 1.2rem', background: 'var(--bg-card, #fff)', borderRadius: 16, boxShadow: '0 2px 16px rgba(0,0,0,0.10)', color: '#18181b' }}>
