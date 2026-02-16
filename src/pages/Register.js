@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
 import axios from 'axios';
+import { validateEmailFamilies, validatePassword, validatePasswordConfirmation, validateUsername } from '../utils/validators';
 
 const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:5000';
 
@@ -16,13 +17,36 @@ export default function Register() {
   });
   const [error, setError] = useState('');
   const [loading, setLoading] = useState(false);
+  const [fieldErrors, setFieldErrors] = useState({
+    nom_utilisateur: null,
+    email: null,
+    mot_de_passe: null,
+    mot_de_passe_confirmation: null
+  });
 
   const handleChange = (e) => {
-    setFormData({
-      ...formData,
-      [e.target.name]: e.target.value
-    });
+    const { name, value } = e.target;
+    const newFormData = { ...formData, [name]: value };
+    setFormData(newFormData);
     setError('');
+
+    // Validation regex en temps réel
+    if (name === 'email') {
+      setFieldErrors(prev => ({ ...prev, email: value ? validateEmailFamilies(value) : null }));
+    }
+    if (name === 'mot_de_passe') {
+      setFieldErrors(prev => ({
+        ...prev,
+        mot_de_passe: value ? validatePassword(value) : null,
+        mot_de_passe_confirmation: newFormData.mot_de_passe_confirmation ? validatePasswordConfirmation(value, newFormData.mot_de_passe_confirmation) : null
+      }));
+    }
+    if (name === 'mot_de_passe_confirmation') {
+      setFieldErrors(prev => ({ ...prev, mot_de_passe_confirmation: value ? validatePasswordConfirmation(newFormData.mot_de_passe, value) : null }));
+    }
+    if (name === 'nom_utilisateur') {
+      setFieldErrors(prev => ({ ...prev, nom_utilisateur: value ? validateUsername(value) : null }));
+    }
   };
 
   const handleSubmit = async (e) => {
@@ -30,13 +54,26 @@ export default function Register() {
     setError('');
 
     // Validation
-    if (formData.mot_de_passe !== formData.mot_de_passe_confirmation) {
-      setError('Les mots de passe ne correspondent pas');
+    const usernameErr = validateUsername(formData.nom_utilisateur);
+    if (usernameErr) {
+      setError(`Nom d'utilisateur invalide [${usernameErr.code}] : ${usernameErr.message}`);
       return;
     }
 
-    if (formData.mot_de_passe.length < 6) {
-      setError('Le mot de passe doit contenir au moins 6 caractères');
+    const emailErr = validateEmailFamilies(formData.email);
+    if (emailErr) {
+      setError(`Email invalide [${emailErr.code}] : ${emailErr.message}`);
+      return;
+    }
+
+    const pwdErr = validatePassword(formData.mot_de_passe);
+    if (pwdErr) {
+      setError(`Mot de passe invalide [${pwdErr.code}] : ${pwdErr.message}`);
+      return;
+    }
+
+    if (formData.mot_de_passe !== formData.mot_de_passe_confirmation) {
+      setError('Les mots de passe ne correspondent pas');
       return;
     }
 
@@ -112,7 +149,13 @@ export default function Register() {
               required
               placeholder="jeandupont"
               disabled={loading}
+              style={fieldErrors.nom_utilisateur ? { borderColor: '#f87171' } : formData.nom_utilisateur ? { borderColor: '#34d399' } : {}}
             />
+            {formData.nom_utilisateur && (
+              <span className="field-validation" style={{ color: fieldErrors.nom_utilisateur ? '#f87171' : '#34d399', fontSize: '0.82rem', marginTop: 4 }}>
+                {fieldErrors.nom_utilisateur ? `[${fieldErrors.nom_utilisateur.code}] ${fieldErrors.nom_utilisateur.message}` : '✓ Nom d\'utilisateur valide'}
+              </span>
+            )}
           </div>
 
           <div className="form-group">
@@ -126,7 +169,13 @@ export default function Register() {
               required
               placeholder="jean.dupont@email.com"
               disabled={loading}
+              style={fieldErrors.email ? { borderColor: '#f87171' } : formData.email ? { borderColor: '#34d399' } : {}}
             />
+            {formData.email && (
+              <span className="field-validation" style={{ color: fieldErrors.email ? '#f87171' : '#34d399', fontSize: '0.82rem', marginTop: 4 }}>
+                {fieldErrors.email ? `[${fieldErrors.email.code}] ${fieldErrors.email.message}` : '✓ Email valide'}
+              </span>
+            )}
           </div>
 
           <div className="form-group">
@@ -141,7 +190,13 @@ export default function Register() {
               placeholder="••••••••"
               minLength={6}
               disabled={loading}
+              style={fieldErrors.mot_de_passe ? { borderColor: '#f87171' } : formData.mot_de_passe ? { borderColor: '#34d399' } : {}}
             />
+            {formData.mot_de_passe && (
+              <span className="field-validation" style={{ color: fieldErrors.mot_de_passe ? '#f87171' : '#34d399', fontSize: '0.82rem', marginTop: 4 }}>
+                {fieldErrors.mot_de_passe ? `[${fieldErrors.mot_de_passe.code}] ${fieldErrors.mot_de_passe.message}` : '✓ Mot de passe valide'}
+              </span>
+            )}
           </div>
 
           <div className="form-group">
@@ -156,7 +211,13 @@ export default function Register() {
               placeholder="••••••••"
               minLength={6}
               disabled={loading}
+              style={fieldErrors.mot_de_passe_confirmation ? { borderColor: '#f87171' } : formData.mot_de_passe_confirmation ? { borderColor: '#34d399' } : {}}
             />
+            {formData.mot_de_passe_confirmation && (
+              <span className="field-validation" style={{ color: fieldErrors.mot_de_passe_confirmation ? '#f87171' : '#34d399', fontSize: '0.82rem', marginTop: 4 }}>
+                {fieldErrors.mot_de_passe_confirmation ? `[${fieldErrors.mot_de_passe_confirmation.code}] ${fieldErrors.mot_de_passe_confirmation.message}` : '✓ Confirmation valide'}
+              </span>
+            )}
           </div>
 
           <button 

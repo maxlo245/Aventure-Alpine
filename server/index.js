@@ -26,12 +26,17 @@ import express from 'express';
 import cors from 'cors';
 import dotenv from 'dotenv';
 import bcrypt from 'bcryptjs';
+import path from 'path';
+import { fileURLToPath } from 'url';
 import { pool, query, dbType } from './db/pool.js';
 import { authenticateToken, generateToken, requireAdmin } from './middleware/auth.js';
 import { articles } from '../src/data/articles.js';
 import { videos } from '../src/data/videos.js';
 import { sports } from '../src/data/sports.js';
 import { routes } from '../src/data/routes.js';
+
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
 
 dotenv.config();
 
@@ -628,6 +633,19 @@ app.patch('/api/contact-messages/:id', async (req, res) => {
   } catch (error) {
     console.error('DB error:', error.message);
     res.status(500).json({ error: 'Erreur base de données' });
+  }
+});
+
+// ==============================
+// SERVIR LE FRONTEND EN PRODUCTION (Docker)
+// ==============================
+const distPath = path.join(__dirname, '..', 'dist');
+app.use(express.static(distPath));
+
+// Fallback SPA : toutes les routes non-API renvoient index.html
+app.get('*', (req, res) => {
+  if (!req.path.startsWith('/api')) {
+    res.sendFile(path.join(distPath, 'index.html'));
   }
 });
 

@@ -213,8 +213,6 @@ CREATE TABLE IF NOT EXISTS reservations (
   INDEX idx_status (status)
 );
 
-);
-
 -- ============================================
 -- DONNEES DE TEST
 -- ============================================

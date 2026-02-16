@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
 import axios from 'axios';
+import { validateEmailFamilies, validatePassword } from '../utils/validators';
 
 const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:5000';
 
@@ -12,18 +13,42 @@ export default function Login() {
   });
   const [error, setError] = useState('');
   const [loading, setLoading] = useState(false);
+  const [fieldErrors, setFieldErrors] = useState({ email: null, mot_de_passe: null });
 
   const handleChange = (e) => {
+    const { name, value } = e.target;
     setFormData({
       ...formData,
-      [e.target.name]: e.target.value
+      [name]: value
     });
-    setError(''); // Réinitialiser l'erreur quand l'utilisateur tape
+    setError('');
+
+    // Validation regex en temps réel
+    if (name === 'email') {
+      setFieldErrors(prev => ({ ...prev, email: value ? validateEmailFamilies(value) : null }));
+    }
+    if (name === 'mot_de_passe') {
+      setFieldErrors(prev => ({ ...prev, mot_de_passe: value ? validatePassword(value) : null }));
+    }
   };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     setError('');
+
+    // Blocage si email invalide
+    const emailErr = validateEmailFamilies(formData.email);
+    if (emailErr) {
+      setError(`Email invalide [${emailErr.code}] : ${emailErr.message}`);
+      return;
+    }
+    // Blocage si mot de passe invalide
+    const pwdErr = validatePassword(formData.mot_de_passe);
+    if (pwdErr) {
+      setError(`Mot de passe invalide [${pwdErr.code}] : ${pwdErr.message}`);
+      return;
+    }
+
     setLoading(true);
 
     try {
@@ -67,7 +92,13 @@ export default function Login() {
               required
               placeholder="votre@email.com"
               disabled={loading}
+              style={fieldErrors.email ? { borderColor: '#f87171' } : formData.email ? { borderColor: '#34d399' } : {}}
             />
+            {formData.email && (
+              <span className="field-validation" style={{ color: fieldErrors.email ? '#f87171' : '#34d399', fontSize: '0.82rem', marginTop: 4 }}>
+                {fieldErrors.email ? `[${fieldErrors.email.code}] ${fieldErrors.email.message}` : '✓ Email valide'}
+              </span>
+            )}
           </div>
 
           <div className="form-group">
@@ -82,7 +113,13 @@ export default function Login() {
               placeholder="Votre mot de passe"
               minLength={6}
               disabled={loading}
+              style={fieldErrors.mot_de_passe ? { borderColor: '#f87171' } : formData.mot_de_passe ? { borderColor: '#34d399' } : {}}
             />
+            {formData.mot_de_passe && (
+              <span className="field-validation" style={{ color: fieldErrors.mot_de_passe ? '#f87171' : '#34d399', fontSize: '0.82rem', marginTop: 4 }}>
+                {fieldErrors.mot_de_passe ? `[${fieldErrors.mot_de_passe.code}] ${fieldErrors.mot_de_passe.message}` : '✓ Mot de passe valide'}
+              </span>
+            )}
           </div>
 
           <button 

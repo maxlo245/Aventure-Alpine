@@ -13,7 +13,11 @@
     "deploy": "gh-pages -d dist",
     "init-db": "node server/db/init-supabase.js",
     "init-mysql": "node server/db/init-mysql.js",
-    "setup-admin": "node server/db/setup-admin.js"
+    "setup-admin": "node server/db/setup-admin.js",
+    "docker:up": "docker compose up -d --build",
+    "docker:down": "docker compose down",
+    "docker:logs": "docker compose logs -f app",
+    "docker:reset": "docker compose down -v && docker compose up -d --build"
   },
   "dependencies": {
     "@vercel/speed-insights": "^1.3.1",
