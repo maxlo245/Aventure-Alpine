@@ -22,24 +22,29 @@ if errorlevel 1 (
 if not exist "node_modules" (
     echo [INFO] Installation des dépendances...
     call npm install
+    echo.
 )
 
-echo [1/2] Démarrage du serveur API sur http://localhost:5000
-start "API Aventures Alpines" cmd /k "npm run server"
+echo ╔══════════════════════════════════════════════════════════════╗
+echo ║  API:        http://localhost:5000                           ║
+echo ║  Frontend:   http://localhost:5173                           ║
+echo ╚══════════════════════════════════════════════════════════════╝
+echo.
+
+echo [1/2] Démarrage du serveur API...
+start "API Aventures Alpines" /min cmd /c "npm run server"
+echo [API] Serveur lancé (fenêtre minimisée)
 
 timeout /t 3 /nobreak >nul
 
-echo [2/2] Démarrage du frontend sur http://localhost:5173
-start "Frontend Aventures Alpines" cmd /k "npm run dev"
-
+echo [2/2] Démarrage du frontend Vite...
 echo.
-echo ╔══════════════════════════════════════════════════════════════╗
-echo ║  ✓ API:        http://localhost:5000                         ║
-echo ║  ✓ Frontend:   http://localhost:5173                         ║
-echo ║  ✓ phpMyAdmin: http://localhost/phpmyadmin                   ║
-echo ╚══════════════════════════════════════════════════════════════╝
-echo.
-echo Appuyez sur une touche pour ouvrir le navigateur...
-pause >nul
 
-start http://localhost:5173
+:: Ouvrir le navigateur après un court délai
+start "" cmd /c "timeout /t 5 /nobreak >nul & start http://localhost:5173"
+
+echo ══════════════════════ LOGS ══════════════════════════════════
+echo.
+
+:: Le frontend s'exécute au premier plan pour afficher les logs
+call npm run dev

@@ -37,6 +37,8 @@ import Articles from './pages/Articles.js';
 import Videos from './pages/Videos.js';
 import RoutesPage from './pages/RoutesPage.js';
 import Blog from './pages/Blog.js';
+import Login from './pages/Login.js';
+import Register from './pages/Register.js';
 
 import Footer from './components/Footer';
 import Contact from './Contact.js';
@@ -44,6 +46,19 @@ import Contact from './Contact.js';
 
 export default function App() {
   const [recaptchaValidated, setRecaptchaValidated] = useState(false);
+  const [theme, setTheme] = useState(() => {
+    return localStorage.getItem('theme') || 'dark';
+  });
+
+  // Appliquer le thème au body
+  React.useEffect(() => {
+    document.body.className = `theme-${theme}`;
+    localStorage.setItem('theme', theme);
+  }, [theme]);
+
+  const toggleTheme = () => {
+    setTheme(prev => prev === 'dark' ? 'light' : 'dark');
+  };
 
   if (!recaptchaValidated) {
     return <RecaptchaGate onSuccess={() => setRecaptchaValidated(true)} />;
@@ -58,7 +73,9 @@ export default function App() {
             <div className="header-actions">
               <Link to="/register" className="header-btn">Inscription</Link>
               <Link to="/login" className="header-btn">Connexion</Link>
-              <button className="header-btn theme-btn" aria-label="Changer le thème">🌙</button>
+              <button className="header-btn theme-btn" aria-label="Changer le thème" onClick={toggleTheme}>
+                {theme === 'dark' ? '☀️' : '🌙'}
+              </button>
             </div>
           </div>
           <nav>
@@ -90,6 +107,8 @@ export default function App() {
               <Route path="/routes" element={<RoutesPage />} />
               <Route path="/blog" element={<Blog />} />
               <Route path="/contact" element={<Contact />} />
+              <Route path="/login" element={<Login />} />
+              <Route path="/register" element={<Register />} />
               <Route path="/regex" element={<RegexTester />} />
             </Routes>
           </Suspense>

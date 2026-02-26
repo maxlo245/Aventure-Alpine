@@ -308,10 +308,6 @@ nav ul li a:hover {
   background: none;
   text-decoration: underline;
 }
-  color: var(--accent-light);
-  background: none;
-  text-decoration: underline;
-}
 
 /* Liens d'authentification stylisés */
 nav ul li.auth-link a {
@@ -434,8 +430,6 @@ body.theme-dark .App-header h1, .theme-dark .App-header h1 {
   background-clip: text;
   color: #f3f4f6;
   text-shadow: none;
-}
-  transition: left 0.5s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 .btn:hover::before {
