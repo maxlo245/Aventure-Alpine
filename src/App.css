@@ -1,20 +1,20 @@
-/* Correction RegexTester : forcer fond et texte */
+/* Correction RegexTester : respecter le thème */
 .regex-tester-card {
-  background: #fff !important;
-  color: #18181b !important;
+  background: var(--bg-card);
+  color: var(--text-primary);
   border-radius: 16px;
   box-shadow: 0 2px 16px rgba(0,0,0,0.10);
 }
 .regex-tester-card input {
-  background: #fff !important;
-  color: #18181b !important;
-  border: 2px solid #e2e8f0;
+  background: var(--bg-soft) !important;
+  color: var(--text-primary) !important;
+  border: 2px solid var(--border);
   border-radius: 8px;
   font-size: 17px;
   box-sizing: border-box;
 }
 .regex-tester-card label {
-  color: #2563eb !important;
+  color: var(--accent) !important;
   font-weight: 600;
   font-size: 15px;
 }
@@ -22,8 +22,16 @@
   font-weight: 500;
   font-size: 14px;
 }
-.page-randonnee *, .page-escalade *, .page-ski *, .page-articles *, .page-videos *, .page-itineraire *, .page-blog *, .page-contact * {
-  color: #18181b !important;
+/* Les pages utilisent var(--text-primary) via les thèmes, pas de forçage global */
+.page-randonnee,
+.page-escalade,
+.page-ski,
+.page-articles,
+.page-videos,
+.page-itineraire,
+.page-blog,
+.page-contact {
+  color: var(--text-primary);
 }
 .card-dark {
   background: var(--bg-card) !important;
@@ -51,13 +59,12 @@
   padding: 0;
 }
 body.theme-light .text-title {
-  background: linear-gradient(135deg, var(--bg-card) 0%, #c0c0c0 60%, #a3a3a3 100%);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-clip: text;
-  color: #fff !important;
-  -webkit-text-stroke: 1px #18181b;
-  text-stroke: 1px #18181b;
+  background: none;
+  -webkit-background-clip: unset;
+  -webkit-text-fill-color: unset;
+  background-clip: unset;
+  color: var(--text-primary) !important;
+  -webkit-text-stroke: unset;
 }
 body.theme-dark .text-title {
   background: linear-gradient(135deg, var(--accent) 0%, var(--accent-light) 100%);
@@ -65,6 +72,7 @@ body.theme-dark .text-title {
   -webkit-text-fill-color: transparent;
   background-clip: text;
   color: var(--text-primary);
+  -webkit-text-stroke: unset;
 }
 body.theme-light .text-secondary {
   color: var(--text-secondary) !important;
@@ -73,9 +81,9 @@ body.theme-dark .text-secondary {
   color: var(--text-secondary) !important;
 }
 body.theme-light .input-search {
-  background: var(--bg-card, #1a1f3a) !important;
-  color: #fff !important;
-  border: 2px solid var(--border-light, #cbd5e1);
+  background: var(--bg-card) !important;
+  color: var(--text-primary) !important;
+  border: 2px solid var(--border-light);
 }
 body.theme-dark .input-search {
   background: var(--bg-card);
@@ -116,13 +124,7 @@ body.theme-dark .bg-card {
   color: var(--text-primary);
 }
 .text-title {
-  background: linear-gradient(135deg, #fff 0%, #c0c0c0 60%, #a3a3a3 100%);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-clip: text;
-  color: #18181b;
-  -webkit-text-stroke: 1px #18181b;
-  text-stroke: 1px #18181b;
+  color: var(--text-primary);
 }
 body.theme-dark .text-title, .theme-dark .text-title {
   background: linear-gradient(135deg, #6366f1 0%, #818cf8 100%);
@@ -130,6 +132,7 @@ body.theme-dark .text-title, .theme-dark .text-title {
   -webkit-text-fill-color: transparent;
   background-clip: text;
   color: #f3f4f6;
+  -webkit-text-stroke: unset;
 }
 .text-secondary {
   color: var(--text-secondary) !important;
@@ -195,8 +198,8 @@ body.theme-dark .auth-card {
   color: #f9fafb;
 }
 body.theme-light .auth-card {
-  background: #1a1f3a !important;
-  color: #232946;
+  background: var(--bg-card) !important;
+  color: var(--text-primary);
 }
 body.theme-dark textarea {
   background: #232946;
@@ -205,9 +208,9 @@ body.theme-dark textarea {
 }
 body.theme-light input,
 body.theme-light textarea {
-  background: #1a1f3a !important;
-  color: #232946;
-  border: 2px solid #cbd5e1;
+  background: var(--bg-card) !important;
+  color: var(--text-primary) !important;
+  border: 2px solid var(--border);
 }
 body.theme-dark .btn-primary,
 body.theme-light .btn-primary {
@@ -256,22 +259,13 @@ body.theme-light .auth-footer {
   letter-spacing: -0.03em;
   font-size: clamp(26px, 3.5vw, 32px);
   font-weight: 700;
-  background: linear-gradient(135deg, #fff 0%, #cbd5e1 100%);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-clip: text;
-  color: var(--text-primary);
-  -webkit-text-stroke: 1px #18181b;
-  text-shadow: 0 1px 2px #fff;
+  color: #818cf8;
 }
 body.theme-dark .App-header h1, .theme-dark .App-header h1 {
-  background: linear-gradient(135deg, #6366f1 0%, #818cf8 100%);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-clip: text;
-  color: #f3f4f6;
-  -webkit-text-stroke: 1px #232946;
-  text-shadow: 0 1px 2px #232946;
+  color: #818cf8;
+}
+body.theme-light .App-header h1, .theme-light .App-header h1 {
+  color: #4f46e5;
 }
 nav ul {
   list-style: none;
@@ -413,22 +407,13 @@ footer p {
 
 .hero-copy h2 {
   transform: translateZ(0);
-  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
   margin: 0 0 16px;
   font-family: 'Poppins', sans-serif;
   letter-spacing: -0.03em;
   font-size: clamp(26px, 3.5vw, 32px);
-  color: #18181b;
+  color: var(--text-primary);
   background: none;
   font-weight: 700;
-  text-shadow: none;
-}
-body.theme-dark .App-header h1, .theme-dark .App-header h1 {
-  background: linear-gradient(135deg, #6366f1 0%, #818cf8 100%);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-clip: text;
-  color: #f3f4f6;
   text-shadow: none;
 }
 
@@ -867,10 +852,10 @@ input,
 textarea {
   width: 100%;
   padding: 14px 18px;
-  border: 2px solid #e2e8f0;
+  border: 2px solid var(--border);
   border-radius: 0;
-  background: #1a1f3a !important;
-  color: #fff !important;
+  background: var(--bg-card);
+  color: var(--text-primary);
   transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
   font-size: 14px;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
@@ -878,15 +863,15 @@ textarea {
 
 input::placeholder,
 textarea::placeholder {
-  color: #94a3b8;
+  color: var(--text-muted);
 }
 
 input:focus,
 textarea:focus {
   outline: none;
-  border-color: #6366f1;
+  border-color: var(--accent);
   box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.1), 0 2px 8px rgba(0, 0, 0, 0.15);
-  background: #1a1f3a !important;
+  background: var(--bg-card);
 }
 
 textarea {
