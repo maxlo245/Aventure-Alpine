@@ -79,6 +79,45 @@ const safeQuery = async (res, sql, params = []) => {
   }
 };
 
+// ============================================
+// LOGGER BASE DE DONNÉES
+// ============================================
+const COLORS = {
+  reset:  '\x1b[0m',
+  bold:   '\x1b[1m',
+  green:  '\x1b[32m',
+  yellow: '\x1b[33m',
+  red:    '\x1b[31m',
+  cyan:   '\x1b[36m',
+  blue:   '\x1b[34m',
+  gray:   '\x1b[90m',
+};
+
+const ICONS = { INSERT: '➕', UPDATE: '✏️ ', DELETE: '🗑️ ', LOGIN: '🔑', LOGOUT: '🔒' };
+
+function dbLog(operation, table, details = {}) {
+  const ts = new Date().toLocaleString('fr-FR', { hour12: false });
+  const color = {
+    INSERT: COLORS.green,
+    UPDATE: COLORS.yellow,
+    DELETE: COLORS.red,
+    LOGIN:  COLORS.cyan,
+  }[operation] || COLORS.blue;
+
+  const icon = ICONS[operation] || '•';
+  const detailStr = Object.entries(details)
+    .map(([k, v]) => `${COLORS.gray}${k}${COLORS.reset}=${COLORS.bold}${v}${COLORS.reset}`)
+    .join('  ');
+
+  console.log(
+    `${COLORS.gray}[${ts}]${COLORS.reset} ` +
+    `${color}${COLORS.bold}[DB ${operation}]${COLORS.reset} ` +
+    `${icon}  ` +
+    `${COLORS.blue}${COLORS.bold}${table}${COLORS.reset}` +
+    (detailStr ? `  ${detailStr}` : '')
+  );
+}
+
 app.get('/api/health', async (req, res) => {
   if (!pool) {
     return res.json({ status: 'degraded', message: 'Base de données non configurée - Mode localStorage' });
@@ -169,6 +208,7 @@ app.post('/api/auth/register', async (req, res) => {
     );
     
     const user = result.rows[0];
+    dbLog('INSERT', 'utilisateurs', { id: user.id, email: user.email, role: user.role });
     
     // Générer le token JWT
     const token = generateToken(user);
@@ -247,6 +287,7 @@ app.post('/api/auth/login', async (req, res) => {
       return res.status(401).json({ error: 'Email ou mot de passe incorrect' });
     }
     
+    dbLog('LOGIN', 'utilisateurs', { id: user.id, email: user.email, role: user.role });
     // Générer le token
     const token = generateToken(user);
     
@@ -339,7 +380,7 @@ app.post('/api/sites-escalade', authenticateToken, async (req, res) => {
                  emplacement AS location, site, temps_ascension AS duration, image_url AS image`,
       [name, description || null, difficulty, location || null, site || null, duration || null, image || null]
     );
-    
+    dbLog('INSERT', 'sites_escalade', { id: result.rows[0].id, nom: name, difficulte: difficulty });
     res.status(201).json(result.rows[0]);
   } catch (error) {
     console.error('Erreur création site escalade:', error.message);
@@ -384,7 +425,7 @@ app.post('/api/stations-ski', authenticateToken, async (req, res) => {
       [name, description || null, skiDomain || null, snowConditions || null,
        location || null, hasLifts || false, slopeType, image || null]
     );
-    
+    dbLog('INSERT', 'stations_ski', { id: result.rows[0].id, nom: name, piste: slopeType });
     res.status(201).json(result.rows[0]);
   } catch (error) {
     console.error('Erreur création station ski:', error.message);
@@ -425,7 +466,7 @@ app.post('/api/prestations', authenticateToken, async (req, res) => {
                  prix_base AS basePrice, duree_jours AS durationDays`,
       [name, description || null, activityType || null, basePrice, durationDays || 1]
     );
-    
+    dbLog('INSERT', 'prestations', { id: result.rows[0].id, nom: name, prix: basePrice, type: activityType });
     res.status(201).json(result.rows[0]);
   } catch (error) {
     console.error('Erreur création prestation:', error.message);
@@ -504,7 +545,7 @@ app.post('/api/reservations', authenticateToken, async (req, res) => {
                  status, created_at AS createdAt`,
       [clientId, prestationId, startDate, endDate, numPeople, totalPrice]
     );
-    
+    dbLog('INSERT', 'reservations', { id: result.rows[0].id, client_id: clientId, prestation_id: prestationId, debut: startDate, personnes: numPeople, prix: totalPrice });
     res.status(201).json({
       message: 'Réservation créée avec succès',
       reservation: result.rows[0]
@@ -581,6 +622,7 @@ app.post('/api/experiences', async (req, res) => {
       'INSERT INTO experiences (auteur, titre, contenu) VALUES ($1, $2, $3) RETURNING id, auteur AS author, titre AS title, contenu AS body, created_at AS createdAt',
       [author, title, body]
     );
+    dbLog('INSERT', 'experiences', { id: result.rows[0].id, auteur: author, titre: title });
     res.status(201).json(result.rows[0]);
   } catch (error) {
     console.error('DB error:', error.message);
@@ -611,6 +653,7 @@ app.post('/api/contact-messages', async (req, res) => {
       'INSERT INTO contact_messages (name, email, message) VALUES ($1, $2, $3) RETURNING id, name, email, message, created_at AS createdAt',
       [name, email, message]
     );
+    dbLog('INSERT', 'contact_messages', { id: result.rows[0].id, email, nom: name });
     res.status(201).json(result.rows[0]);
   } catch (error) {
     console.error('DB error:', error.message);
@@ -629,6 +672,7 @@ app.patch('/api/contact-messages/:id', async (req, res) => {
   }
   try {
     await pool.query('UPDATE contact_messages SET status = $1 WHERE id = $2', [status, id]);
+    dbLog('UPDATE', 'contact_messages', { id, status });
     res.json({ success: true });
   } catch (error) {
     console.error('DB error:', error.message);
@@ -675,8 +719,10 @@ app.post('/api/inscriptions', async (req, res) => {
           commentaire || null, prix_total ? parseFloat(prix_total) : null
         ]
       );
+      dbLog('INSERT', 'reservations (inscription)', { numero, email, activite, debut: date_debut, personnes: nombre_personnes, prix: prix_total });
+    } else {
+      dbLog('INSERT', 'reservations (inscription — mode dégradé)', { numero, email, activite });
     }
-    // Si pas de BDD, on renvoie quand même le succès (mode dégradé)
     res.status(201).json({ message: 'Inscription enregistrée', numero });
   } catch (error) {
     console.error('Erreur inscription activité:', error.message);
