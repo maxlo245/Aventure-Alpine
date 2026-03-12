@@ -34,3 +34,29 @@ CREATE TABLE IF NOT EXISTS contact_messages (
   INDEX idx_email (email)
 );
 
+-- ============================================
+-- TABLE RESERVATIONS
+-- ============================================
+CREATE TABLE IF NOT EXISTS reservations (
+  id INT AUTO_INCREMENT PRIMARY KEY,
+  utilisateur_id INT,                          -- Lié à un compte (optionnel)
+  nom VARCHAR(120) NOT NULL,
+  prenom VARCHAR(120) NOT NULL,
+  email VARCHAR(180) NOT NULL,
+  telephone VARCHAR(20),
+  activite VARCHAR(120) NOT NULL,              -- Ex: Randonnée, Escalade, Ski
+  date_debut DATE NOT NULL,
+  date_fin DATE,
+  nombre_personnes INT DEFAULT 1,
+  niveau VARCHAR(60),                          -- debutant, intermediaire, experimente
+  commentaire TEXT,
+  prix_total DECIMAL(10,2),
+  status VARCHAR(30) DEFAULT 'en_attente',     -- en_attente, confirmee, annulee
+  created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+  FOREIGN KEY (utilisateur_id) REFERENCES utilisateurs(id) ON DELETE SET NULL,
+  INDEX idx_utilisateur (utilisateur_id),
+  INDEX idx_status (status),
+  INDEX idx_date (date_debut),
+  INDEX idx_activite (activite)
+);
+
