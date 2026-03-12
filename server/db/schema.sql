@@ -111,7 +111,7 @@ CREATE TABLE IF NOT EXISTS articles_blog (
   categorie VARCHAR(80),
   auteur VARCHAR(120), -- Temporaire pour compatibilité
   auteur_id INT, -- Clé étrangère vers utilisateurs
-  date_publication DATE DEFAULT CURRENT_DATE,
+  date_publication DATE DEFAULT (CURRENT_DATE),
   read_time INT DEFAULT 5,
   FOREIGN KEY (auteur_id) REFERENCES utilisateurs(id) ON DELETE SET NULL,
   INDEX idx_auteur_id (auteur_id),

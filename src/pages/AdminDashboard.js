@@ -82,7 +82,7 @@ export default function AdminDashboard() {
                 background: 'none',
                 border: 'none',
                 borderBottom: activeTab === tab ? '3px solid #667eea' : '3px solid transparent',
-                color: activeTab === tab ? '#667eea' : '#666',
+                color: activeTab === tab ? '#667eea' : 'var(--text-muted)',
                 fontWeight: activeTab === tab ? '600' : '500',
                 cursor: 'pointer',
                 transition: 'all 0.3s',
@@ -121,7 +121,7 @@ export default function AdminDashboard() {
                 { title: 'Vidéos', value: stats.videos, icon: 'V', color: '#43e97b' }
               ].map((stat, idx) => (
                 <div key={idx} style={{
-                  background: 'white',
+                  background: 'var(--bg-card)',
                   padding: '2rem',
                   borderRadius: '12px',
                   boxShadow: '0 2px 8px rgba(0,0,0,0.08)',
@@ -164,7 +164,7 @@ export default function AdminDashboard() {
                   </h3>
                   <p style={{
                     margin: 0,
-                    color: '#666',
+                    color: 'var(--text-muted)',
                     fontSize: '0.9rem'
                   }}>
                     {stat.title}
@@ -175,7 +175,7 @@ export default function AdminDashboard() {
 
             {/* Recent Activity */}
             <div style={{
-              background: 'white',
+              background: 'var(--bg-card)',
               borderRadius: '12px',
               padding: '2rem',
               boxShadow: '0 2px 8px rgba(0,0,0,0.08)'
@@ -184,7 +184,7 @@ export default function AdminDashboard() {
                 margin: '0 0 1.5rem 0',
                 fontSize: '1.5rem',
                 fontWeight: '700',
-                color: '#333'
+                color: 'var(--text-primary)'
               }}>
                 Activité récente
               </h2>
@@ -200,17 +200,17 @@ export default function AdminDashboard() {
                     justifyContent: 'space-between',
                     alignItems: 'center',
                     padding: '1rem',
-                    background: '#f8f9fa',
+                    background: 'var(--bg-soft)',
                     borderRadius: '8px',
                     borderLeft: `4px solid ${activity.color}`
                   }}>
                     <div>
-                      <strong style={{ color: '#333' }}>{activity.action}</strong>
-                      <p style={{ margin: '0.25rem 0 0 0', color: '#666', fontSize: '0.9rem' }}>
+                      <strong style={{ color: 'var(--text-primary)' }}>{activity.action}</strong>
+                      <p style={{ margin: '0.25rem 0 0 0', color: 'var(--text-muted)', fontSize: '0.9rem' }}>
                         par {activity.user}
                       </p>
                     </div>
-                    <span style={{ color: '#999', fontSize: '0.85rem' }}>
+                    <span style={{ color: 'var(--text-muted)', fontSize: '0.85rem' }}>
                       {activity.time}
                     </span>
                   </div>
@@ -222,16 +222,16 @@ export default function AdminDashboard() {
 
         {activeTab === 'users' && (
           <div style={{
-            background: 'white',
+            background: 'var(--bg-card)',
             borderRadius: '12px',
             padding: '2rem',
             boxShadow: '0 2px 8px rgba(0,0,0,0.08)'
           }}>
             <h2 style={{ margin: '0 0 1.5rem 0' }}>Gestion des utilisateurs</h2>
-            <p style={{ color: '#666' }}>
+            <p style={{ color: 'var(--text-muted)' }}>
               Liste des utilisateurs inscrits, gestion des rôles et permissions...
             </p>
-            <div style={{ marginTop: '1rem', padding: '1rem', background: '#f8f9fa', borderRadius: '6px' }}>
+            <div style={{ marginTop: '1rem', padding: '1rem', background: 'var(--bg-soft)', borderRadius: '6px' }}>
               Note : Fonctionnalité à développer : intégration avec la base de données
             </div>
           </div>
@@ -239,7 +239,7 @@ export default function AdminDashboard() {
 
         {activeTab === 'content' && (
           <div style={{
-            background: 'white',
+            background: 'var(--bg-card)',
             borderRadius: '12px',
             padding: '2rem',
             boxShadow: '0 2px 8px rgba(0,0,0,0.08)'
@@ -288,13 +288,13 @@ export default function AdminDashboard() {
 
         {activeTab === 'reservations' && (
           <div style={{
-            background: 'white',
+            background: 'var(--bg-card)',
             borderRadius: '12px',
             padding: '2rem',
             boxShadow: '0 2px 8px rgba(0,0,0,0.08)'
           }}>
             <h2 style={{ margin: '0 0 1.5rem 0' }}>Gestion des réservations</h2>
-            <p style={{ color: '#666' }}>
+            <p style={{ color: 'var(--text-muted)' }}>
               Vue d'ensemble des réservations, confirmations, annulations...
             </p>
           </div>
@@ -302,7 +302,7 @@ export default function AdminDashboard() {
 
         {activeTab === 'settings' && (
           <div style={{
-            background: 'white',
+            background: 'var(--bg-card)',
             borderRadius: '12px',
             padding: '2rem',
             boxShadow: '0 2px 8px rgba(0,0,0,0.08)'
@@ -310,11 +310,11 @@ export default function AdminDashboard() {
             <h2 style={{ margin: '0 0 1.5rem 0' }}>Paramètres</h2>
             <div style={{ display: 'flex', flexDirection: 'column', gap: '1.5rem' }}>
               <div>
-                <h3 style={{ margin: '0 0 0.5rem 0', color: '#333' }}>Sécurité</h3>
+                <h3 style={{ margin: '0 0 0.5rem 0', color: 'var(--text-primary)' }}>Sécurité</h3>
                 <button style={{
                   padding: '0.75rem 1.5rem',
-                  background: '#f8f9fa',
-                  border: '1px solid #e0e0e0',
+                  background: 'var(--bg-soft)',
+                  border: '1px solid var(--border)',
                   borderRadius: '6px',
                   cursor: 'pointer'
                 }}>
@@ -322,8 +322,8 @@ export default function AdminDashboard() {
                 </button>
               </div>
               <div>
-                <h3 style={{ margin: '0 0 0.5rem 0', color: '#333' }}>Configuration du site</h3>
-                <p style={{ color: '#666', fontSize: '0.9rem' }}>
+                <h3 style={{ margin: '0 0 0.5rem 0', color: 'var(--text-primary)' }}>Configuration du site</h3>
+                <p style={{ color: 'var(--text-muted)', fontSize: '0.9rem' }}>
                   Gérer les paramètres généraux, notifications, intégrations...
                 </p>
               </div>

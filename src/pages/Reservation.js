@@ -366,7 +366,7 @@ export default function Reservation() {
 
         .reservation-header h1 {
           font-size: 2.5rem;
-          color: #1a202c;
+          color: var(--text-primary);
           margin-bottom: 1rem;
         }
 
@@ -418,7 +418,7 @@ export default function Reservation() {
         .form-section {
           margin-bottom: 2rem;
           padding-bottom: 2rem;
-          border-bottom: 2px solid #e2e8f0;
+          border-bottom: 2px solid var(--border);
         }
 
         .form-section:last-of-type {
@@ -452,12 +452,12 @@ export default function Reservation() {
         .form-group input,
           width: 100%;
           padding: 0.75rem;
-          border: 2px solid #e2e8f0;
+          border: 2px solid var(--border);
           border-radius: 0;
           font-size: 1rem;
           transition: border-color 0.3s;
-          background: #1a1f3a !important;
-          color: #fff !important;
+          background: var(--bg-card);
+          color: var(--text-primary);
         }
 
         .form-group input:focus,
@@ -491,14 +491,14 @@ export default function Reservation() {
           display: flex;
           justify-content: space-between;
           align-items: center;
-          margin-top: 2rem;
+          margin-top: '2rem';
           padding-top: 2rem;
-          border-top: 2px solid #e2e8f0;
+          border-top: 2px solid var(--border);
         }
 
         .total-price {
           font-size: 1.5rem;
-          color: #1a202c;
+          color: var(--text-primary);
         }
 
         .total-price strong {
@@ -567,12 +567,12 @@ export default function Reservation() {
 
         .info-card li {
           padding: 0.5rem 0;
-          color: #4a5568;
+          color: var(--text-secondary);
         }
 
         .info-card p {
           margin: 0.5rem 0;
-          color: #4a5568;
+          color: var(--text-secondary);
         }
 
         .info-card strong {

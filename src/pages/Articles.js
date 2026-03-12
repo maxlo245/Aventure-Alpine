@@ -108,10 +108,11 @@ const Articles = () => {
             onChange={(e) => setCategory(e.target.value)}
             style={{
               padding: '0.75rem 1rem',
-              border: '2px solid #e2e8f0',
+              border: '2px solid var(--border)',
               borderRadius: '8px',
               fontSize: '1rem',
-              background: 'white',
+              background: 'var(--bg-card)',
+              color: 'var(--text-primary)',
               cursor: 'pointer'
             }}
           >
@@ -125,10 +126,11 @@ const Articles = () => {
             onChange={(e) => setSort(e.target.value)}
             style={{
               padding: '0.75rem 1rem',
-              border: '2px solid #e2e8f0',
+              border: '2px solid var(--border)',
               borderRadius: '8px',
               fontSize: '1rem',
-              background: 'white',
+              background: 'var(--bg-card)',
+              color: 'var(--text-primary)',
               cursor: 'pointer'
             }}
           >
@@ -161,7 +163,7 @@ const Articles = () => {
       </div>
 
       {/* Compteur de résultats */}
-      <div style={{ marginBottom: '1.5rem', color: '#4a5568', fontSize: '0.95rem' }}>
+      <div style={{ marginBottom: '1.5rem', color: 'var(--text-secondary)', fontSize: '0.95rem' }}>
         <strong>{filtered.length}</strong> article{filtered.length > 1 ? 's' : ''} trouvé{filtered.length > 1 ? 's' : ''}
         {searchTerm && <span> pour "{searchTerm}"</span>}
       </div>
@@ -172,12 +174,12 @@ const Articles = () => {
         <div style={{
           textAlign: 'center',
           padding: '3rem',
-          background: '#f7fafc',
-          color: '#1a202c',
+          background: 'var(--bg-soft)',
+          color: 'var(--text-primary)',
           borderRadius: '12px'
         }}>
           <p style={{ fontSize: '3rem', margin: '0 0 1rem 0' }}>∅</p>
-          <p style={{ fontSize: '1.25rem', color: '#4a5568', margin: 0 }}>Aucun article ne correspond à vos critères</p>
+          <p style={{ fontSize: '1.25rem', color: 'var(--text-secondary)', margin: 0 }}>Aucun article ne correspond à vos critères</p>
           <button
             onClick={handleReset}
             style={{

@@ -116,20 +116,20 @@ function Contact() {
   };
 
   return (
-    <section id="contact" className="page-contact" style={{ padding: '2rem', maxWidth: '1200px', margin: '0 auto', background: 'white', borderRadius: '0', position: 'relative', zIndex: 1 }}>
-      <h2 style={{ fontSize: '2.5rem', marginBottom: '1rem', textAlign: 'center', color: '#1a202c' }}>Contactez-nous</h2>
-      <p style={{ textAlign: 'center', color: '#4a5568', marginBottom: '3rem' }}>
+    <section id="contact" className="page-contact" style={{ padding: '2rem', maxWidth: '1200px', margin: '0 auto', background: 'var(--bg-card)', borderRadius: '0', position: 'relative', zIndex: 1 }}>
+      <h2 style={{ fontSize: '2.5rem', marginBottom: '1rem', textAlign: 'center', color: 'var(--text-primary)' }}>Contactez-nous</h2>
+      <p style={{ textAlign: 'center', color: 'var(--text-secondary)', marginBottom: '3rem' }}>
         Une question, une demande de réservation ou simplement envie de discuter de votre prochaine aventure ?
       </p>
 
       <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))', gap: '3rem', marginBottom: '3rem' }}>
         {/* Formulaire de contact */}
-        <div style={{ background: 'white', padding: '2rem', borderRadius: '0', boxShadow: '0 2px 8px rgba(0,0,0,0.1)' }}>
-          <h3 style={{ marginBottom: '1.5rem', fontSize: '1.5rem', color: '#1a202c' }}>Envoyez-nous un message</h3>
+        <div style={{ background: 'var(--bg-card)', padding: '2rem', borderRadius: '0', boxShadow: '0 2px 8px rgba(0,0,0,0.1)' }}>
+          <h3 style={{ marginBottom: '1.5rem', fontSize: '1.5rem', color: 'var(--text-primary)' }}>Envoyez-nous un message</h3>
           <form onSubmit={handleSubmit} style={{ display: 'flex', flexDirection: 'column', gap: '1rem' }} autoComplete="off">
                         {/* Case à cocher anti-robot */}
                         <div>
-                          <label style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', fontWeight: 600, color: '#2d3748' }}>
+                          <label style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', fontWeight: 600, color: 'var(--text-primary)' }}>
                             <input
                               type="checkbox"
                               name="antispam"
@@ -143,7 +143,7 @@ function Contact() {
                           {antispamError && <span style={{ color: '#ef4444', fontSize: '0.95em' }}>{antispamError}</span>}
                         </div>
             <div>
-              <label style={{ display: 'block', marginBottom: '0.5rem', fontWeight: '600', color: '#2d3748' }}>Nom complet</label>
+              <label style={{ display: 'block', marginBottom: '0.5rem', fontWeight: '600', color: 'var(--text-primary)' }}>Nom complet</label>
               <input 
                 type="text" 
                 name="name" 
@@ -153,10 +153,11 @@ function Contact() {
                 style={{
                   width: '100%',
                   padding: '0.75rem',
-                  border: '2px solid #e2e8f0',
+                  border: '2px solid var(--border)',
                   borderRadius: '0',
                   fontSize: '1rem',
-                  color: '#1a202c',
+                  color: 'var(--text-primary)',
+                  background: 'var(--bg-card)',
                   outline: 'none',
                   transition: 'border 0.2s'
                 }}
@@ -165,7 +166,7 @@ function Contact() {
               />
             </div>
             <div>
-              <label style={{ display: 'block', marginBottom: '0.5rem', fontWeight: '600', color: '#2d3748' }}>Email</label>
+              <label style={{ display: 'block', marginBottom: '0.5rem', fontWeight: '600', color: 'var(--text-primary)' }}>Email</label>
               <input 
                 type="email" 
                 name="email" 
@@ -175,10 +176,11 @@ function Contact() {
                 style={{
                   width: '100%',
                   padding: '0.75rem',
-                  border: '2px solid #e2e8f0',
+                  border: '2px solid var(--border)',
                   borderRadius: '0',
                   fontSize: '1rem',
-                  color: '#1a202c',
+                  color: 'var(--text-primary)',
+                  background: 'var(--bg-card)',
                   outline: 'none',
                   transition: 'border 0.2s'
                 }}
@@ -187,7 +189,7 @@ function Contact() {
               />
             </div>
             <div>
-              <label style={{ display: 'block', marginBottom: '0.5rem', fontWeight: '600', color: '#2d3748' }}>Message</label>
+              <label style={{ display: 'block', marginBottom: '0.5rem', fontWeight: '600', color: 'var(--text-primary)' }}>Message</label>
               <textarea 
                 name="message" 
                 value={formData.message} 
@@ -197,10 +199,11 @@ function Contact() {
                 style={{
                   width: '100%',
                   padding: '0.75rem',
-                  border: '2px solid #e2e8f0',
+                  border: '2px solid var(--border)',
                   borderRadius: '0',
                   fontSize: '1rem',
-                  color: '#1a202c',
+                  color: 'var(--text-primary)',
+                  background: 'var(--bg-card)',
                   outline: 'none',
                   resize: 'vertical',
                   fontFamily: 'inherit',
@@ -234,21 +237,21 @@ function Contact() {
 
         {/* Informations de contact */}
         <div style={{ display: 'flex', flexDirection: 'column', gap: '2rem' }}>
-          <div style={{ background: 'white', padding: '2rem', borderRadius: '0', boxShadow: '0 2px 8px rgba(0,0,0,0.1)' }}>
-            <h3 style={{ marginBottom: '1.5rem', fontSize: '1.5rem', color: '#1a202c' }}>Nos coordonnées</h3>
+          <div style={{ background: 'var(--bg-card)', padding: '2rem', borderRadius: '0', boxShadow: '0 2px 8px rgba(0,0,0,0.1)' }}>
+            <h3 style={{ marginBottom: '1.5rem', fontSize: '1.5rem', color: 'var(--text-primary)' }}>Nos coordonnées</h3>
             <div style={{ display: 'flex', flexDirection: 'column', gap: '1rem' }}>
               <div style={{ display: 'flex', alignItems: 'start', gap: '1rem' }}>
                 <span style={{ fontSize: '1.5rem' }}>■</span>
                 <div>
-                  <strong style={{ display: 'block', color: '#2d3748' }}>Adresse</strong>
-                  <p style={{ margin: '0.25rem 0 0 0', color: '#718096' }}>123 Rue de la Montagne<br />74400 Chamonix-Mont-Blanc<br />Haute-Savoie, France</p>
+                  <strong style={{ display: 'block', color: 'var(--text-primary)' }}>Adresse</strong>
+                  <p style={{ margin: '0.25rem 0 0 0', color: 'var(--text-muted)' }}>123 Rue de la Montagne<br />74400 Chamonix-Mont-Blanc<br />Haute-Savoie, France</p>
                 </div>
               </div>
               
               <div style={{ display: 'flex', alignItems: 'start', gap: '1rem' }}>
                 <span style={{ fontSize: '1.5rem' }}>■</span>
                 <div>
-                  <strong style={{ display: 'block', color: '#2d3748' }}>Email</strong>
+                  <strong style={{ display: 'block', color: 'var(--text-primary)' }}>Email</strong>
                   <a href="mailto:contact@aventures-alpines.fr" style={{ margin: '0.25rem 0 0 0', color: '#3b82f6', textDecoration: 'none' }}>
                     contact@aventures-alpines.fr
                   </a>
@@ -258,7 +261,7 @@ function Contact() {
               <div style={{ display: 'flex', alignItems: 'start', gap: '1rem' }}>
                 <span style={{ fontSize: '1.5rem' }}>■</span>
                 <div>
-                  <strong style={{ display: 'block', color: '#2d3748' }}>Téléphone</strong>
+                  <strong style={{ display: 'block', color: 'var(--text-primary)' }}>Téléphone</strong>
                   <a href="tel:+33450123456" style={{ margin: '0.25rem 0 0 0', color: '#3b82f6', textDecoration: 'none' }}>
                     +33 4 50 12 34 56
                   </a>
@@ -268,8 +271,8 @@ function Contact() {
               <div style={{ display: 'flex', alignItems: 'start', gap: '1rem' }}>
                 <span style={{ fontSize: '1.5rem' }}>■</span>
                 <div>
-                  <strong style={{ display: 'block', color: '#2d3748' }}>Horaires</strong>
-                  <p style={{ margin: '0.25rem 0 0 0', color: '#718096' }}>
+                  <strong style={{ display: 'block', color: 'var(--text-primary)' }}>Horaires</strong>
+                  <p style={{ margin: '0.25rem 0 0 0', color: 'var(--text-muted)' }}>
                     Lundi - Vendredi : 9h - 18h<br />
                     Samedi : 9h - 12h<br />
                     Dimanche : Fermé
@@ -279,9 +282,9 @@ function Contact() {
             </div>
           </div>
 
-          <div style={{ background: '#f0f9ff', padding: '1.5rem', borderRadius: '0', border: '2px solid #bfdbfe' }}>
-            <h4 style={{ margin: '0 0 0.5rem 0', color: '#1e40af' }}>Besoin d'aide ?</h4>
-            <p style={{ margin: 0, color: '#1e3a8a', fontSize: '0.95rem' }}>
+          <div style={{ background: 'var(--bg-soft)', padding: '1.5rem', borderRadius: '0', border: '2px solid var(--border-light)' }}>
+            <h4 style={{ margin: '0 0 0.5rem 0', color: 'var(--accent)' }}>Besoin d'aide ?</h4>
+            <p style={{ margin: 0, color: 'var(--text-secondary)', fontSize: '0.95rem' }}>
               Consultez notre <a href="/faq" style={{ color: '#2563eb', fontWeight: '600' }}>FAQ</a> ou appelez-nous directement pour une réponse immédiate.
             </p>
           </div>
@@ -290,8 +293,8 @@ function Contact() {
 
       {/* Carte de localisation */}
       <div style={{ marginTop: '3rem' }}>
-        <h3 style={{ fontSize: '1.75rem', marginBottom: '1rem', color: '#1a202c' }}>Nous trouver</h3>
-        <p style={{ color: '#4a5568', marginBottom: '1.5rem' }}>
+        <h3 style={{ fontSize: '1.75rem', marginBottom: '1rem', color: 'var(--text-primary)' }}>Nous trouver</h3>
+        <p style={{ color: 'var(--text-secondary)', marginBottom: '1.5rem' }}>
           Notre bureau est situé au cœur de Chamonix, au pied du Mont-Blanc
         </p>
         <div style={{ borderRadius: '0', overflow: 'hidden', boxShadow: '0 4px 12px rgba(0,0,0,0.1)', position: 'relative' }}>

@@ -98,15 +98,16 @@ const Videos = () => {
               flex: '1',
               minWidth: '250px',
               padding: '0.75rem 1rem',
-              border: '2px solid #e2e8f0',
+              border: '2px solid var(--border)',
               borderRadius: '8px',
               fontSize: '1rem',
-              color: '#1a202c',
+              color: 'var(--text-primary)',
+              background: 'var(--bg-card)',
               outline: 'none',
               transition: 'border 0.2s'
             }}
             onFocus={(e) => e.target.style.borderColor = '#3b82f6'}
-            onBlur={(e) => e.target.style.borderColor = '#e2e8f0'}
+            onBlur={(e) => e.target.style.borderColor = 'var(--border)'}
           />
           
           <select 
@@ -114,10 +115,11 @@ const Videos = () => {
             onChange={(e) => setSport(e.target.value)}
             style={{
               padding: '0.75rem 1rem',
-              border: '2px solid #e2e8f0',
+              border: '2px solid var(--border)',
               borderRadius: '8px',
               fontSize: '1rem',
-              background: 'white',
+              background: 'var(--bg-card)',
+              color: 'var(--text-primary)',
               cursor: 'pointer'
             }}
           >
@@ -131,10 +133,11 @@ const Videos = () => {
             onChange={(e) => setSort(e.target.value)}
             style={{
               padding: '0.75rem 1rem',
-              border: '2px solid #e2e8f0',
+              border: '2px solid var(--border)',
               borderRadius: '8px',
               fontSize: '1rem',
-              background: 'white',
+              background: 'var(--bg-card)',
+              color: 'var(--text-primary)',
               cursor: 'pointer'
             }}
           >
@@ -168,7 +171,7 @@ const Videos = () => {
       </div>
 
       {/* Compteur de résultats */}
-      <div style={{ marginBottom: '1.5rem', color: '#4a5568', fontSize: '0.95rem' }}>
+      <div style={{ marginBottom: '1.5rem', color: 'var(--text-secondary)', fontSize: '0.95rem' }}>
         <strong>{filtered.length}</strong> vidéo{filtered.length > 1 ? 's' : ''} trouvée{filtered.length > 1 ? 's' : ''}
         {searchTerm && <span> pour "{searchTerm}"</span>}
       </div>
@@ -179,12 +182,12 @@ const Videos = () => {
         <div style={{
           textAlign: 'center',
           padding: '3rem',
-          background: '#f7fafc',
-          color: '#1a202c',
+          background: 'var(--bg-soft)',
+          color: 'var(--text-primary)',
           borderRadius: '12px'
         }}>
           <p style={{ fontSize: '3rem', margin: '0 0 1rem 0' }}>∅</p>
-          <p style={{ fontSize: '1.25rem', color: '#4a5568', margin: 0 }}>Aucune vidéo ne correspond à vos critères</p>
+          <p style={{ fontSize: '1.25rem', color: 'var(--text-secondary)', margin: 0 }}>Aucune vidéo ne correspond à vos critères</p>
           <button
             onClick={handleReset}
             style={{

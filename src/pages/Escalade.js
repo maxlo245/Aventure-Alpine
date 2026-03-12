@@ -258,18 +258,18 @@ export default function Escalade() {
         .sites-section,
         .videos-section {
           padding: 3rem 2rem;
-          background: white;
-          color: #1a202c;
+          background: var(--bg-card);
+          color: var(--text-primary);
         }
 
         .beginners-section {
-          background: #f0f9ff;
-          color: #1a202c;
+          background: var(--bg-soft);
+          color: var(--text-primary);
         }
 
         .safety-section {
-          background: #fef2f2;
-          color: #1a202c;
+          background: var(--bg-soft);
+          color: var(--text-primary);
         }
 
         .container {
@@ -277,16 +277,13 @@ export default function Escalade() {
           margin: 0 auto;
         }
 
-        .container > p,
-          padding: 3rem 2rem;
-          background: #1a1f3a !important;
-          color: #fff !important;
+        .container > p {
+          color: var(--text-secondary);
           margin-bottom: 1.5rem;
-          color: #1a202c !important;
         }
 
         h3 {
-          color: #1a202c !important;
+          color: var(--text-primary);
         }
 
         .intro-section h2,
@@ -294,7 +291,7 @@ export default function Escalade() {
         .safety-section h2,
         .sites-section h2,
         .videos-section h2 {
-          color: #1a202c !important;
+          color: var(--text-primary);
         }
 
         .tips-grid {
@@ -319,7 +316,7 @@ export default function Escalade() {
 
         .tip-card h3 {
           margin: 0 0 0.75rem 0;
-          color: #1e3a8a;
+          color: var(--accent);
         }
 
         .tip-card p {
@@ -343,7 +340,7 @@ export default function Escalade() {
 
         .safety-column h3 {
           margin: 0 0 1rem 0;
-          color: #1a202c;
+          color: var(--text-primary);
         }
 
         .safety-column ul {
@@ -354,7 +351,7 @@ export default function Escalade() {
 
         .safety-column li {
           padding: 0.5rem 0;
-          color: #4a5568;
+          color: var(--text-secondary);
         }
 
         .difficulty-filters {
@@ -366,9 +363,9 @@ export default function Escalade() {
 
         .difficulty-filters button {
           padding: 0.75rem 1.5rem;
-          border: 2px solid #e2e8f0;
-          background: #1a1f3a !important;
-          color: #fff !important;
+          border: 2px solid var(--border);
+          background: var(--bg-card);
+          color: var(--text-primary);
           border-radius: 0;
           cursor: pointer;
           font-weight: 600;
@@ -414,7 +411,7 @@ export default function Escalade() {
         .site-header h3 {
           margin: 0;
           flex: 1;
-          color: #1a202c;
+          color: var(--text-primary);
         }
 
         .difficulty-badge {
@@ -427,7 +424,7 @@ export default function Escalade() {
         }
 
         .site-description {
-          color: #4a5568;
+          color: var(--text-secondary);
           margin-bottom: 1rem;
         }
 
@@ -441,12 +438,12 @@ export default function Escalade() {
           display: flex;
           align-items: center;
           gap: 0.5rem;
-          color: #718096;
+          color: var(--text-muted);
           font-size: 0.95rem;
         }
 
         .section-subtitle {
-          color: #718096;
+          color: var(--text-muted);
           margin-bottom: 2rem;
         }
 
@@ -500,20 +497,20 @@ export default function Escalade() {
           padding: 1rem;
           margin: 0;
           font-size: 1.1rem;
-          color: #1a202c;
+          color: var(--text-primary);
         }
 
         .video-duration {
           padding: 0 1rem 1rem;
           margin: 0;
-          color: #718096;
+          color: var(--text-muted);
           font-size: 0.9rem;
         }
 
         .loading {
           text-align: center;
           padding: 3rem;
-          color: #718096;
+          color: var(--text-muted);
         }
 
         @media (max-width: 768px) {

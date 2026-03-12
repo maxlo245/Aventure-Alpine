@@ -149,7 +149,7 @@ export default function Login() {
           align-items: center;
           justify-content: center;
           padding: 2rem;
-          background: linear-gradient(135deg, #232946 0%, #16161a 100%);
+          background: var(--bg-main);
         }
 
         .auth-card {
@@ -159,7 +159,8 @@ export default function Login() {
           padding: 3rem;
           max-width: 450px;
           width: 100%;
-          box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5);
+          box-shadow: 0 20px 60px rgba(0, 0, 0, 0.15);
+          border: 1px solid var(--border);
         }
 
         .auth-card h1 {
@@ -177,15 +178,15 @@ export default function Login() {
 
         .alert {
           padding: 1rem;
-          border-radius: 0;
+          border-radius: 8px;
           margin-bottom: 1.5rem;
           font-size: 0.95rem;
         }
 
         .alert-error {
-          background-color: #2d3748;
-          color: #f87171;
-          border: 1px solid #f87171;
+          background-color: rgba(239, 68, 68, 0.1);
+          color: var(--danger);
+          border: 1px solid var(--danger);
         }
 
         .auth-form {
@@ -202,36 +203,36 @@ export default function Login() {
         .form-group label {
           font-weight: 600;
           margin-bottom: 0.5rem;
-          color: #e0e7ef;
+          color: var(--text-secondary);
           font-size: 0.95rem;
         }
 
         .form-group input {
           padding: 0.75rem;
-          border: 2px solid #334155;
-          border-radius: 0;
+          border: 2px solid var(--border);
+          border-radius: 8px;
           font-size: 1rem;
-          background: #232946;
-          color: #f9fafb;
+          background: var(--bg-soft);
+          color: var(--text-primary);
           transition: all 0.2s;
         }
 
         .form-group input:focus {
           outline: none;
-          border-color: #a5b4fc;
-          box-shadow: 0 0 0 3px rgba(165, 180, 252, 0.15);
+          border-color: var(--accent);
+          box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.15);
         }
 
         .form-group input:disabled {
-          background-color: #232946;
-          color: #94a3b8;
+          background-color: var(--bg-soft);
+          color: var(--text-muted);
           cursor: not-allowed;
         }
 
         .btn {
           padding: 0.875rem;
           border: none;
-          border-radius: 0;
+          border-radius: 8px;
           font-size: 1rem;
           font-weight: 600;
           cursor: pointer;
@@ -239,8 +240,8 @@ export default function Login() {
         }
 
         .btn-primary {
-          background: linear-gradient(135deg, #6366f1 0%, #0ea5e9 100%);
-          color: #f9fafb;
+          background: linear-gradient(135deg, var(--accent) 0%, #0ea5e9 100%);
+          color: #fff;
         }
 
         .btn-primary:hover:not(:disabled) {
@@ -260,7 +261,7 @@ export default function Login() {
         .auth-footer {
           margin-top: 2rem;
           text-align: center;
-          color: #cbd5e1;
+          color: var(--text-secondary);
           font-size: 0.95rem;
         }
 
@@ -269,7 +270,7 @@ export default function Login() {
         }
 
         .auth-footer a {
-          color: #38bdf8;
+          color: var(--accent-light);
           text-decoration: none;
           font-weight: 600;
         }

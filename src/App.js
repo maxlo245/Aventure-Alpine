@@ -1,4 +1,3 @@
-import RegexTester from './pages/RegexTester.js';
 import React, { useState, Suspense, Component } from 'react';
 
 class ErrorBoundary extends Component {
@@ -39,6 +38,11 @@ import RoutesPage from './pages/RoutesPage.js';
 import Blog from './pages/Blog.js';
 import Login from './pages/Login.js';
 import Register from './pages/Register.js';
+import PhpMyAdmin from './pages/PhpMyAdmin.js';
+import NotFound from './pages/NotFound.js';
+import PolitiqueConfidentialite from './pages/PolitiqueConfidentialite.js';
+import APropos from './pages/APropos.js';
+import ConditionsUtilisation from './pages/ConditionsUtilisation.js';
 
 import Footer from './components/Footer';
 import Contact from './Contact.js';
@@ -46,9 +50,26 @@ import Contact from './Contact.js';
 
 export default function App() {
   const [recaptchaValidated, setRecaptchaValidated] = useState(false);
+  const [pmaStatus, setPmaStatus] = useState('offline');
   const [theme, setTheme] = useState(() => {
     return localStorage.getItem('theme') || 'dark';
   });
+
+  // Vérifier le statut phpMyAdmin
+  React.useEffect(() => {
+    const checkPma = async () => {
+      try {
+        const ctrl = new AbortController();
+        const t = setTimeout(() => ctrl.abort(), 3000);
+        await fetch('http://localhost:8080', { mode: 'no-cors', signal: ctrl.signal });
+        clearTimeout(t);
+        setPmaStatus('online');
+      } catch { setPmaStatus('offline'); }
+    };
+    checkPma();
+    const id = setInterval(checkPma, 10000);
+    return () => clearInterval(id);
+  }, []);
 
   // Appliquer le thème au body
   React.useEffect(() => {
@@ -90,7 +111,7 @@ export default function App() {
               <li><Link to="/routes">Itinéraires</Link></li>
               <li><Link to="/blog">Blog</Link></li>
               <li><Link to="/contact">Contact</Link></li>
-              <li><Link to="/regex">Test REGEX</Link></li>
+              <li><Link to="/phpmyadmin"><span style={{display:'inline-block',width:8,height:8,borderRadius:'50%',background:pmaStatus==='online'?'#10b981':'#ef4444',marginRight:5,boxShadow:`0 0 6px ${pmaStatus==='online'?'#10b981':'#ef4444'}`}} />phpMyAdmin</Link></li>
             </ul>
           </nav>
         </header>
@@ -109,7 +130,12 @@ export default function App() {
               <Route path="/contact" element={<Contact />} />
               <Route path="/login" element={<Login />} />
               <Route path="/register" element={<Register />} />
-              <Route path="/regex" element={<RegexTester />} />
+              <Route path="/phpmyadmin" element={<PhpMyAdmin />} />
+              <Route path="/confidentialite" element={<PolitiqueConfidentialite />} />
+              <Route path="/a-propos" element={<APropos />} />
+              <Route path="/conditions" element={<ConditionsUtilisation />} />
+              <Route path="/404" element={<NotFound />} />
+              <Route path="*" element={<NotFound />} />
             </Routes>
           </Suspense>
         </main>

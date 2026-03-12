@@ -422,7 +422,7 @@ export default function Ski() {
 
         .discipline-card h3 {
           margin: 0 0 0.5rem 0;
-          color: #0c4a6e;
+          color: var(--text-primary);
         }
 
         .stations-grid {
@@ -453,7 +453,7 @@ export default function Ski() {
 
         .station-header h3 {
           margin: 0;
-          color: #1a202c;
+          color: var(--text-primary);
         }
 
         .lift-badge {
@@ -466,7 +466,7 @@ export default function Ski() {
         }
 
         .snow-status {
-          background: #f0f9ff;
+          background: var(--bg-soft);
           padding: 1rem;
           border-radius: 0;
           margin-bottom: 1rem;
@@ -500,7 +500,7 @@ export default function Ski() {
           display: flex;
           align-items: center;
           gap: 0.5rem;
-          color: #4a5568;
+          color: var(--text-secondary);
           font-size: 0.95rem;
         }
 
@@ -575,7 +575,7 @@ export default function Ski() {
         }
 
         .testimonial-text {
-          color: #4a5568;
+          color: var(--text-secondary);
           font-style: italic;
           margin-bottom: 0.5rem;
         }
@@ -614,11 +614,11 @@ export default function Ski() {
 
         .offer-card h3 {
           margin: 0 0 0.5rem 0;
-          color: #0c4a6e;
+          color: var(--text-primary);
         }
 
         .offer-card > p {
-          color: #718096;
+          color: var(--text-muted);
           margin-bottom: 1rem;
         }
 
@@ -653,7 +653,7 @@ export default function Ski() {
         .loading {
           text-align: center;
           padding: 3rem;
-          color: #718096;
+          color: var(--text-muted);
         }
 
         @media (max-width: 768px) {

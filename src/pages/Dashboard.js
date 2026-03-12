@@ -230,8 +230,8 @@ export default function Dashboard() {
       <style>{`
         .dashboard-container {
           min-height: 100vh;
-          background: #f7fafc;
-          color: #1a202c;
+          background: var(--bg-main);
+          color: var(--text-primary);
         }
 
         .dashboard-header,
@@ -278,8 +278,8 @@ export default function Dashboard() {
         }
 
         .dashboard-section {
-          background: #1a1f3a !important;
-          color: #fff !important;
+          background: var(--bg-card);
+          color: var(--text-primary);
           border-radius: 0;
           padding: 2rem;
           margin-bottom: 2rem;
@@ -288,7 +288,7 @@ export default function Dashboard() {
 
         .dashboard-section h2 {
           margin: 0 0 1.5rem 0;
-          color: #1a202c;
+          color: var(--text-primary);
           font-size: 1.5rem;
         }
 
@@ -301,23 +301,23 @@ export default function Dashboard() {
           display: flex;
           justify-content: space-between;
           padding: 1rem;
-          background: #f7fafc;
+          background: var(--bg-soft);
           border-radius: 0;
         }
 
         .label {
           font-weight: 600;
-          color: #4a5568;
+          color: var(--text-secondary);
         }
 
         .value {
-          color: #1a202c;
+          color: var(--text-primary);
         }
 
         .empty-state {
           text-align: center;
           padding: 3rem;
-          color: #718096;
+          color: var(--text-muted);
         }
 
         .empty-state p {
@@ -333,7 +333,7 @@ export default function Dashboard() {
 
         .reservation-card,
         .prestation-card {
-          border: 2px solid #e2e8f0;
+          border: 2px solid var(--border);
           border-radius: 0;
           padding: 1.5rem;
           transition: all 0.2s;
@@ -355,7 +355,7 @@ export default function Dashboard() {
         .reservation-header h3 {
           margin: 0;
           font-size: 1.25rem;
-          color: #1a202c;
+          color: var(--text-primary);
         }
 
         .status-badge {
@@ -390,7 +390,7 @@ export default function Dashboard() {
           display: flex;
           align-items: center;
           gap: 0.5rem;
-          color: #4a5568;
+          color: var(--text-secondary);
         }
 
         .icon {
@@ -405,12 +405,12 @@ export default function Dashboard() {
 
         .prestation-card h3 {
           margin: 0 0 0.5rem 0;
-          color: #1a202c;
+          color: var(--text-primary);
           font-size: 1.1rem;
         }
 
         .description {
-          color: #718096;
+          color: var(--text-muted);
           margin: 0 0 1rem 0;
           font-size: 0.95rem;
         }
@@ -420,15 +420,15 @@ export default function Dashboard() {
           justify-content: space-between;
           align-items: center;
           padding-top: 1rem;
-          border-top: 1px solid #e2e8f0;
+          border-top: 1px solid var(--border);
         }
 
         .type {
-          background: #edf2f7;
+          background: var(--bg-soft);
           padding: 0.25rem 0.75rem;
           border-radius: 0;
           font-size: 0.85rem;
-          color: #4a5568;
+          color: var(--text-secondary);
         }
 
         .quick-links {
@@ -443,10 +443,10 @@ export default function Dashboard() {
           align-items: center;
           gap: 0.75rem;
           padding: 1.5rem;
-          background: #f7fafc;
+          background: var(--bg-soft);
           border-radius: 0;
           text-decoration: none;
-          color: #1a202c;
+          color: var(--text-primary);
           transition: all 0.2s;
         }
 
@@ -487,9 +487,9 @@ export default function Dashboard() {
         }
 
         .btn-secondary {
-          background: #1a1f3a !important;
-          color: #fff !important;
-          border: 2px solid #fff !important;
+          background: var(--bg-soft);
+          color: var(--text-primary);
+          border: 2px solid var(--border);
         }
 
         .btn-secondary:hover {
@@ -499,7 +499,7 @@ export default function Dashboard() {
         .loading {
           text-align: center;
           padding: 3rem;
-          color: #718096;
+          color: var(--text-muted);
           font-size: 1.25rem;
         }
 

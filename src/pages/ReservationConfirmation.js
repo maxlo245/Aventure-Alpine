@@ -161,7 +161,7 @@ export default function ReservationConfirmation() {
         .confirmation-page {
           min-height: 100vh;
           padding: 2rem 1rem;
-          background: linear-gradient(135deg, #f0f9ff 0%, #e0f2fe 100%);
+          background: var(--bg-main);
         }
 
         .confirmation-container {
@@ -196,13 +196,13 @@ export default function ReservationConfirmation() {
         .confirmation-subtitle {
           text-align: center;
           font-size: 1.1rem;
-          color: #4a5568;
+          color: var(--text-secondary);
           margin-bottom: 2rem;
           line-height: 1.6;
         }
 
         .confirmation-subtitle strong {
-          color: #1a202c;
+          color: var(--text-primary);
         }
 
         .reservation-number {

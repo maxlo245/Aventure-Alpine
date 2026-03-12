@@ -17,6 +17,9 @@ function Footer() {
           <Link to="/routes">Itinéraires</Link>
           <Link to="/blog">Blog</Link>
           <Link to="/contact">Contact</Link>
+          <Link to="/a-propos">À propos</Link>
+          <Link to="/confidentialite">Confidentialité</Link>
+          <Link to="/conditions">CGU</Link>
         </nav>
         <div className="footer-social">
           <a href="https://facebook.com" target="_blank" rel="noopener noreferrer">Facebook</a>
