@@ -661,7 +661,7 @@ export default function InscriptionActivite() {
         /* Compteur personnes */
         .number-input-wrap {
           display: flex;
-          align-items: center;
+          align-items: stretch;
           gap: 0;
           width: fit-content;
         }
@@ -672,8 +672,13 @@ export default function InscriptionActivite() {
           background: var(--bg-soft);
           color: var(--text-primary);
           font-size: 1.2rem;
+          line-height: 1;
           cursor: pointer;
+          display: flex;
+          align-items: center;
+          justify-content: center;
           transition: background 0.2s;
+          padding: 0;
         }
         .nb-btn:hover { background: #6366f1; color: white; border-color: #6366f1; }
         .number-input-wrap input {
@@ -683,6 +688,7 @@ export default function InscriptionActivite() {
           border-right: none;
           height: 2.5rem;
           padding: 0;
+          box-sizing: border-box;
         }
 
         /* Form actions */
