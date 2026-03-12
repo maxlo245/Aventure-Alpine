@@ -43,6 +43,7 @@ import NotFound from './pages/NotFound.js';
 import PolitiqueConfidentialite from './pages/PolitiqueConfidentialite.js';
 import APropos from './pages/APropos.js';
 import ConditionsUtilisation from './pages/ConditionsUtilisation.js';
+import InscriptionActivite from './pages/InscriptionActivite.js';
 
 import Footer from './components/Footer';
 import Contact from './Contact.js';
@@ -111,6 +112,7 @@ export default function App() {
               <li><Link to="/routes">Itinéraires</Link></li>
               <li><Link to="/blog">Blog</Link></li>
               <li><Link to="/contact">Contact</Link></li>
+              <li><Link to="/inscription-activite" style={{color:'#a5b4fc',fontWeight:700}}>S'inscrire</Link></li>
               <li><Link to="/phpmyadmin"><span style={{display:'inline-block',width:8,height:8,borderRadius:'50%',background:pmaStatus==='online'?'#10b981':'#ef4444',marginRight:5,boxShadow:`0 0 6px ${pmaStatus==='online'?'#10b981':'#ef4444'}`}} />phpMyAdmin</Link></li>
             </ul>
           </nav>
@@ -134,6 +136,7 @@ export default function App() {
               <Route path="/confidentialite" element={<PolitiqueConfidentialite />} />
               <Route path="/a-propos" element={<APropos />} />
               <Route path="/conditions" element={<ConditionsUtilisation />} />
+              <Route path="/inscription-activite" element={<InscriptionActivite />} />
               <Route path="/404" element={<NotFound />} />
               <Route path="*" element={<NotFound />} />
             </Routes>

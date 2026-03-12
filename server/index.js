@@ -636,6 +636,70 @@ app.patch('/api/contact-messages/:id', async (req, res) => {
   }
 });
 
+// ============================================
+// INSCRIPTIONS AUX ACTIVITÉS
+// ============================================
+
+app.post('/api/inscriptions', async (req, res) => {
+  const {
+    nom, prenom, email, telephone,
+    activite, date_debut, date_fin,
+    nombre_personnes, niveau, commentaire, prix_total
+  } = req.body;
+
+  // Validation serveur
+  if (!nom || !prenom || !email || !telephone || !activite || !date_debut || !nombre_personnes) {
+    return res.status(400).json({ error: 'Champs obligatoires manquants (nom, prénom, email, téléphone, activité, date_debut, nombre_personnes)' });
+  }
+  const emailRe = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+  if (!emailRe.test(email)) {
+    return res.status(400).json({ error: 'Format d\'email invalide' });
+  }
+  if (parseInt(nombre_personnes) < 1 || parseInt(nombre_personnes) > 20) {
+    return res.status(400).json({ error: 'Nombre de participants entre 1 et 20' });
+  }
+
+  const numero = 'ALP-' + Date.now().toString(36).toUpperCase();
+
+  try {
+    if (pool) {
+      await query(
+        `INSERT INTO reservations
+           (nom, prenom, email, telephone, activite, date_debut, date_fin,
+            nombre_personnes, niveau, commentaire, prix_total, status)
+         VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, 'en_attente')`,
+        [
+          nom.trim(), prenom.trim(), email.trim(), telephone.trim(),
+          activite, date_debut, date_fin || null,
+          parseInt(nombre_personnes), niveau || null,
+          commentaire || null, prix_total ? parseFloat(prix_total) : null
+        ]
+      );
+    }
+    // Si pas de BDD, on renvoie quand même le succès (mode dégradé)
+    res.status(201).json({ message: 'Inscription enregistrée', numero });
+  } catch (error) {
+    console.error('Erreur inscription activité:', error.message);
+    res.status(500).json({ error: 'Erreur lors de l\'enregistrement de l\'inscription' });
+  }
+});
+
+app.get('/api/inscriptions', authenticateToken, requireAdmin, async (req, res) => {
+  try {
+    const result = await query(
+      `SELECT id, nom, prenom, email, telephone, activite,
+              date_debut, date_fin, nombre_personnes, niveau,
+              commentaire, prix_total, status, created_at
+       FROM reservations
+       ORDER BY created_at DESC`
+    );
+    res.json(result);
+  } catch (error) {
+    console.error('Erreur récupération inscriptions:', error.message);
+    res.status(500).json({ error: 'Erreur base de données' });
+  }
+});
+
 // ==============================
 // SERVIR LE FRONTEND EN PRODUCTION (Docker)
 // ==============================
