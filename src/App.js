@@ -25,7 +25,7 @@ class ErrorBoundary extends Component {
     return this.props.children;
   }
 }
-import { Routes, Route, Link, useNavigate, useLocation } from 'react-router-dom';
+import { Routes, Route, Link } from 'react-router-dom';
 import RecaptchaGate from './RecaptchaGate';
 import Home from './Home.js';
 import Activities from './pages/Activities.js';

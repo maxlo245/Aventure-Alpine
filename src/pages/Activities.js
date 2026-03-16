@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { sports as localSports } from '../data/sports';
 import api from '../api/client';
-import ReservationCTA from '../components/ReservationCTA';
 
 const Activities = () => {
   const [items, setItems] = useState(localSports);
@@ -42,9 +41,6 @@ const Activities = () => {
             <h3 className="text-title">{sport.name}</h3>
             <p className="text-secondary">{sport.summary}</p>
             <a className="link" href={`/articles?category=${sport.name}`}>Voir les conseils</a>
-            <div style={{marginTop: '0.5rem'}}>
-              <ReservationCTA activite={sport.slug || sport.name?.toLowerCase()} label={`Réserver — ${sport.name}`} />
-            </div>
           </article>
         ))}
       </div>

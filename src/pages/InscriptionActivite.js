@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Link, useSearchParams } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 
 const ACTIVITES = [
   {
@@ -65,16 +65,8 @@ const NIVEAU_MULTIPLICATEUR = {
 };
 
 export default function InscriptionActivite() {
-  const [searchParams] = useSearchParams();
-  const activiteParam = searchParams.get('activite');
-
-  // Pré-sélectionner l'activité si passée via URL
-  const activiteInitiale = activiteParam
-    ? ACTIVITES.find(a => a.slug === activiteParam.toLowerCase()) || null
-    : null;
-
-  const [etape, setEtape] = useState(activiteInitiale ? 2 : 1);
-  const [activiteChoisie, setActiviteChoisie] = useState(activiteInitiale);
+  const [etape, setEtape] = useState(1); // 1: choix activité, 2: formulaire, 3: succès
+  const [activiteChoisie, setActiviteChoisie] = useState(null);
   const [loading, setLoading] = useState(false);
   const [numeroInscription, setNumeroInscription] = useState('');
 
@@ -153,13 +145,9 @@ export default function InscriptionActivite() {
         prix_total: parseFloat(calculerPrix()),
       };
 
-      const token = localStorage.getItem('token');
-      const headers = { 'Content-Type': 'application/json' };
-      if (token) headers['Authorization'] = `Bearer ${token}`;
-
       const res = await fetch('/api/inscriptions', {
         method: 'POST',
-        headers,
+        headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(payload),
       });
 
