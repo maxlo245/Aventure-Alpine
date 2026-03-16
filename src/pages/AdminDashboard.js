@@ -34,7 +34,14 @@ export default function AdminDashboard() {
   };
 
   const handleLogout = () => {
+    const token = localStorage.getItem('token');
+    if (token) {
+      import('axios').then(({ default: axios }) =>
+        axios.post('/api/auth/logout', {}, { headers: { Authorization: `Bearer ${token}` } }).catch(() => {})
+      );
+    }
     localStorage.removeItem('adminSession');
+    localStorage.removeItem('token');
     navigate('/admin/login');
   };
 

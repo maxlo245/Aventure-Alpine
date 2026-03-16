@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react';
 import axios from 'axios';
+import ReservationCTA from '../components/ReservationCTA';
 
 const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:5000';
 
@@ -60,6 +61,7 @@ export default function Escalade() {
           <p className="hero-subtitle">
             Des parois mythiques aux voies d'initiation, explorez l'escalade alpine
           </p>
+          <ReservationCTA activite="escalade" label="Réserver une session escalade" />
         </div>
       </section>
 

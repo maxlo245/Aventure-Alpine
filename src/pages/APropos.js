@@ -12,10 +12,10 @@ export default function APropos() {
   ];
 
   const valeurs = [
-    { titre: 'Sécurité', icon: '🛡️', description: 'La sécurité de nos clients est notre priorité absolue. Tous nos guides sont certifiés et notre matériel est contrôlé régulièrement.' },
-    { titre: 'Passion', icon: '🏔️', description: 'Nous vivons pour la montagne. Chaque sortie est une occasion de partager notre passion et de créer des souvenirs inoubliables.' },
-    { titre: 'Respect', icon: '🌿', description: 'Nous pratiquons un tourisme responsable, respectueux de l\'environnement montagnard et des communautés locales.' },
-    { titre: 'Accessibilité', icon: '🤝', description: 'Nous proposons des activités pour tous les niveaux, du débutant à l\'expert, afin que chacun puisse vivre l\'aventure.' }
+    { titre: 'Sécurité', description: 'La sécurité de nos clients est notre priorité absolue. Tous nos guides sont certifiés et notre matériel est contrôlé régulièrement.' },
+    { titre: 'Passion', description: 'Nous vivons pour la montagne. Chaque sortie est une occasion de partager notre passion et de créer des souvenirs inoubliables.' },
+    { titre: 'Respect', description: 'Nous pratiquons un tourisme responsable, respectueux de l\'environnement montagnard et des communautés locales.' },
+    { titre: 'Accessibilité', description: 'Nous proposons des activités pour tous les niveaux, du débutant à l\'expert, afin que chacun puisse vivre l\'aventure.' }
   ];
 
   return (
@@ -57,7 +57,6 @@ export default function APropos() {
           <div className="values-grid">
             {valeurs.map((valeur, idx) => (
               <div key={idx} className="value-card">
-                <span className="value-icon">{valeur.icon}</span>
                 <h3>{valeur.titre}</h3>
                 <p>{valeur.description}</p>
               </div>

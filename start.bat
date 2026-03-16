@@ -18,6 +18,10 @@ if errorlevel 1 (
     exit /b 1
 )
 
+echo [INFO] Arrêt des instances Node.js existantes...
+taskkill /F /IM node.exe /T >nul 2>&1
+timeout /t 1 /nobreak >nul
+
 :: Vérifier node_modules
 if not exist "node_modules" (
     echo [INFO] Installation des dépendances...
@@ -47,4 +51,14 @@ echo ══════════════════════ LOGS ═
 echo.
 
 :: Le frontend s'exécute au premier plan pour afficher les logs
+:: Quand l'utilisateur fait Ctrl+C, on arrive ici automatiquement
 call npm run dev
+
+:cleanup
+echo.
+echo [INFO] Arrêt en cours...
+taskkill /F /IM node.exe /T >nul 2>&1
+taskkill /FI "WINDOWTITLE eq API Aventures Alpines" /F /T >nul 2>&1
+echo [OK] Tous les processus arrêtés.
+timeout /t 2 /nobreak >nul
+exit /b 0

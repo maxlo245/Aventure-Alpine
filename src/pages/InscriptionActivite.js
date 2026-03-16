@@ -1,11 +1,11 @@
 import React, { useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useSearchParams } from 'react-router-dom';
 
 const ACTIVITES = [
   {
     slug: 'randonnee',
     nom: 'Randonnée',
-    emoji: '🥾',
+
     prix: 45,
     description: 'Sentiers balisés, balades familiales ou treks multi-jours',
     image: 'https://images.unsplash.com/photo-1441974231531-c6227db76b6e?auto=format&fit=crop&w=600&q=60',
@@ -14,25 +14,25 @@ const ACTIVITES = [
   {
     slug: 'escalade',
     nom: 'Escalade',
-    emoji: '🧗',
+
     prix: 65,
     description: 'Sites écoles et grandes voies, du 4a au 7b+',
-    image: 'https://images.unsplash.com/photo-1509644851169-2acc09a45ca0?auto=format&fit=crop&w=600&q=60',
+    image: 'https://images.unsplash.com/photo-1516592673884-4a382d1124c2?auto=format&fit=crop&w=600&q=60',
     niveaux: ['Débutant (4a-5b)', 'Intermédiaire (5c-6b)', 'Confirmé (6c+)'],
   },
   {
     slug: 'ski',
     nom: 'Ski',
-    emoji: '⛷️',
+
     prix: 85,
     description: 'Ski alpin, freeride et ski de randonnée',
-    image: 'https://images.unsplash.com/photo-1456120573098-9d5db83386f0?auto=format&fit=crop&w=600&q=60',
+    image: 'https://images.unsplash.com/photo-1559386484-97dfc0e15539?auto=format&fit=crop&w=600&q=60',
     niveaux: ['Débutant (vert/bleu)', 'Intermédiaire (rouge)', 'Confirmé (noir/hors-piste)'],
   },
   {
     slug: 'alpinisme',
     nom: 'Alpinisme',
-    emoji: '🏔️',
+
     prix: 120,
     description: 'Courses d\'altitude et sommets mythiques avec guides UIAGM',
     image: 'https://images.unsplash.com/photo-1519904981063-b0cf448d479e?auto=format&fit=crop&w=600&q=60',
@@ -41,7 +41,7 @@ const ACTIVITES = [
   {
     slug: 'via-ferrata',
     nom: 'Via Ferrata',
-    emoji: '⛰️',
+
     prix: 55,
     description: 'Parcours aériens équipés entre randonnée et escalade',
     image: 'https://images.unsplash.com/photo-1522163723043-478ef79a5bb4?auto=format&fit=crop&w=600&q=60',
@@ -50,7 +50,7 @@ const ACTIVITES = [
   {
     slug: 'trail',
     nom: 'Trail Running',
-    emoji: '🏃',
+
     prix: 40,
     description: 'Courses en montagne, de la sortie matinale aux ultras',
     image: 'https://images.unsplash.com/photo-1445308394109-4ec2920981b1?auto=format&fit=crop&w=600&q=60',
@@ -65,8 +65,16 @@ const NIVEAU_MULTIPLICATEUR = {
 };
 
 export default function InscriptionActivite() {
-  const [etape, setEtape] = useState(1); // 1: choix activité, 2: formulaire, 3: succès
-  const [activiteChoisie, setActiviteChoisie] = useState(null);
+  const [searchParams] = useSearchParams();
+  const activiteParam = searchParams.get('activite');
+
+  // Pré-sélectionner l'activité si passée via URL
+  const activiteInitiale = activiteParam
+    ? ACTIVITES.find(a => a.slug === activiteParam.toLowerCase()) || null
+    : null;
+
+  const [etape, setEtape] = useState(activiteInitiale ? 2 : 1);
+  const [activiteChoisie, setActiviteChoisie] = useState(activiteInitiale);
   const [loading, setLoading] = useState(false);
   const [numeroInscription, setNumeroInscription] = useState('');
 
@@ -145,9 +153,13 @@ export default function InscriptionActivite() {
         prix_total: parseFloat(calculerPrix()),
       };
 
+      const token = localStorage.getItem('token');
+      const headers = { 'Content-Type': 'application/json' };
+      if (token) headers['Authorization'] = `Bearer ${token}`;
+
       const res = await fetch('/api/inscriptions', {
         method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
+        headers,
         body: JSON.stringify(payload),
       });
 
@@ -186,7 +198,6 @@ export default function InscriptionActivite() {
                 <img src={act.image} alt={act.nom} />
                 <div className="activite-card-body">
                   <div className="activite-card-title">
-                    <span className="activite-emoji">{act.emoji}</span>
                     <h2>{act.nom}</h2>
                   </div>
                   <p>{act.description}</p>
@@ -208,7 +219,6 @@ export default function InscriptionActivite() {
               ← Changer d&apos;activité
             </button>
             <div className="activite-choisie-badge">
-              <span>{activiteChoisie.emoji}</span>
               <strong>{activiteChoisie.nom}</strong>
             </div>
           </div>
@@ -394,14 +404,14 @@ export default function InscriptionActivite() {
             {/* Sidebar */}
             <aside className="inscription-aside">
               <div className="aside-card">
-                <h3>{activiteChoisie.emoji} {activiteChoisie.nom}</h3>
+                <h3>{activiteChoisie.nom}</h3>
                 <p>{activiteChoisie.description}</p>
                 <hr />
                 <ul>
-                  <li>✓ Confirmation par email sous 24h</li>
-                  <li>✓ Annulation gratuite 48h avant</li>
-                  <li>✓ Guide certifié inclus</li>
-                  <li>✓ Assurance montagne incluse</li>
+                  <li>Confirmation par email sous 24h</li>
+                  <li>Annulation gratuite 48h avant</li>
+                  <li>Guide certifié inclus</li>
+                  <li>Assurance montagne incluse</li>
                 </ul>
               </div>
               <div className="aside-card">
@@ -420,7 +430,7 @@ export default function InscriptionActivite() {
       {etape === 3 && (
         <div className="inscription-succes">
           <div className="succes-card">
-            <div className="succes-icon">✅</div>
+
             <h1>Inscription enregistrée !</h1>
             <p>
               Votre inscription à <strong>{activiteChoisie?.nom}</strong> a bien été reçue.<br />

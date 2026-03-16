@@ -25,7 +25,7 @@ class ErrorBoundary extends Component {
     return this.props.children;
   }
 }
-import { Routes, Route, Link } from 'react-router-dom';
+import { Routes, Route, Link, useNavigate, useLocation } from 'react-router-dom';
 import RecaptchaGate from './RecaptchaGate';
 import Home from './Home.js';
 import Activities from './pages/Activities.js';
@@ -47,6 +47,11 @@ import InscriptionActivite from './pages/InscriptionActivite.js';
 
 import Footer from './components/Footer';
 import Contact from './Contact.js';
+import Dashboard from './pages/Dashboard.js';
+import Reservation from './pages/Reservation.js';
+import ReservationConfirmation from './pages/ReservationConfirmation.js';
+import AdminLogin from './pages/AdminLogin.js';
+import AdminDashboard from './pages/AdminDashboard.js';
 
 
 export default function App() {
@@ -55,6 +60,25 @@ export default function App() {
   const [theme, setTheme] = useState(() => {
     return localStorage.getItem('theme') || 'dark';
   });
+  const navigate = useNavigate();
+  const location = useLocation();
+
+  // Re-lire l'utilisateur connecté à chaque changement de route
+  const [user, setUser] = useState(() => {
+    try { return JSON.parse(localStorage.getItem('user')); } catch { return null; }
+  });
+
+  React.useEffect(() => {
+    try { setUser(JSON.parse(localStorage.getItem('user'))); } catch { setUser(null); }
+  }, [location.pathname]);
+
+  const handleLogout = async () => {
+    try { await fetch('/api/auth/logout', { method: 'POST', headers: { Authorization: `Bearer ${localStorage.getItem('token')}` } }); } catch {}
+    localStorage.removeItem('token');
+    localStorage.removeItem('user');
+    setUser(null);
+    navigate('/');
+  };
 
   // Vérifier le statut phpMyAdmin
   React.useEffect(() => {
@@ -93,10 +117,23 @@ export default function App() {
           <div className="header-row">
             <h1 className="header-title">Aventures Alpines</h1>
             <div className="header-actions">
-              <Link to="/register" className="header-btn">Inscription</Link>
-              <Link to="/login" className="header-btn">Connexion</Link>
+              {user ? (
+                <>
+                  <Link to="/dashboard" className="header-btn" style={{fontWeight:700}}>
+                    👤 {user.prenom || user.nom_utilisateur}
+                  </Link>
+                  <button className="header-btn" onClick={handleLogout} style={{cursor:'pointer'}}>
+                    Déconnexion
+                  </button>
+                </>
+              ) : (
+                <>
+                  <Link to="/register" className="header-btn">Inscription</Link>
+                  <Link to="/login" className="header-btn">Connexion</Link>
+                </>
+              )}
               <button className="header-btn theme-btn" aria-label="Changer le thème" onClick={toggleTheme}>
-                {theme === 'dark' ? '☀️' : '🌙'}
+                {theme === 'dark' ? 'Clair' : 'Sombre'}
               </button>
             </div>
           </div>
@@ -137,6 +174,11 @@ export default function App() {
               <Route path="/a-propos" element={<APropos />} />
               <Route path="/conditions" element={<ConditionsUtilisation />} />
               <Route path="/inscription-activite" element={<InscriptionActivite />} />
+              <Route path="/dashboard" element={<Dashboard />} />
+              <Route path="/reservation" element={<Reservation />} />
+              <Route path="/reservation-confirmation" element={<ReservationConfirmation />} />
+              <Route path="/admin/login" element={<AdminLogin />} />
+              <Route path="/admin/dashboard" element={<AdminDashboard />} />
               <Route path="/404" element={<NotFound />} />
               <Route path="*" element={<NotFound />} />
             </Routes>

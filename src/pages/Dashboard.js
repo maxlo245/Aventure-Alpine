@@ -3,8 +3,6 @@ import { useEffect, useState } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
 import axios from 'axios';
 
-const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:5000';
-
 export default function Dashboard() {
   const navigate = useNavigate();
   const [user, setUser] = useState(null);
@@ -29,33 +27,33 @@ export default function Dashboard() {
   const loadData = async (token) => {
     try {
       // Charger les réservations
-      const resReservations = await axios.get(`${API_URL}/api/reservations`, {
+      const resReservations = await axios.get(`/api/reservations`, {
         headers: { Authorization: `Bearer ${token}` }
       });
-      setReservations(resReservations.data);
-
-      // Charger les prestations disponibles
-      const resPrestations = await axios.get(`${API_URL}/api/prestations`);
-      setPrestations(resPrestations.data);
+      setReservations(Array.isArray(resReservations.data) ? resReservations.data : []);
     } catch (err) {
-      console.error('Erreur chargement données:', err);
       if (err.response?.status === 401 || err.response?.status === 403) {
-        // Token invalide ou expiré
         handleLogout();
-      } else if (err.response?.status === 503) {
-        // Base de données non configurée - mode dégradé
-        setError('Mode sans base de données - Les réservations ne sont pas disponibles');
-        setReservations([]);
-        setPrestations([]);
-      } else {
-        setError('Erreur lors du chargement des données');
+        return;
       }
+      // Erreur non bloquante : réservations vides
+      setReservations([]);
+    }
+    try {
+      const resPrestations = await axios.get(`/api/prestations`);
+      setPrestations(resPrestations.data);
+    } catch {
+      setPrestations([]);
     } finally {
       setLoading(false);
     }
   };
 
   const handleLogout = () => {
+    const token = localStorage.getItem('token');
+    if (token) {
+      axios.post('/api/auth/logout', {}, { headers: { Authorization: `Bearer ${token}` } }).catch(() => {});
+    }
     localStorage.removeItem('token');
     localStorage.removeItem('user');
     navigate('/login');
@@ -152,7 +150,7 @@ export default function Dashboard() {
               {reservations.map((reservation) => (
                 <div key={reservation.id} className="reservation-card">
                   <div className="reservation-header">
-                    <h3>{reservation.prestationname}</h3>
+                    <h3>{reservation.activite || reservation.prestationname || 'Activité'}</h3>
                     <span className={`status-badge status-${reservation.status}`}>
                       {reservation.status === 'en_attente' ? 'En attente' :
                        reservation.status === 'confirmee' ? 'Confirmée' : 'Annulée'}
@@ -160,25 +158,28 @@ export default function Dashboard() {
                   </div>
                   <div className="reservation-details">
                     <div className="detail-item">
-                      <span className="icon"></span>
+                      <span className="icon">📅</span>
                       <span>
-                        Du {new Date(reservation.startdate).toLocaleDateString('fr-FR')} 
-                        {' au '}
-                        {new Date(reservation.enddate).toLocaleDateString('fr-FR')}
+                        Du {reservation.date_debut ? new Date(reservation.date_debut).toLocaleDateString('fr-FR') : '—'}
+                        {reservation.date_fin ? ` au ${new Date(reservation.date_fin).toLocaleDateString('fr-FR')}` : ''}
                       </span>
                     </div>
                     <div className="detail-item">
-                      <span className="icon"></span>
-                      <span>{reservation.numpeople} personne(s)</span>
+                      <span className="icon">👥</span>
+                      <span>{reservation.nombre_personnes || reservation.numpeople || 1} personne(s)</span>
                     </div>
-                    <div className="detail-item">
-                      <span className="icon"></span>
-                      <span>{reservation.totalprice} €</span>
-                    </div>
-                    <div className="detail-item">
-                      <span className="icon"></span>
-                      <span>{reservation.activitytype}</span>
-                    </div>
+                    {(reservation.prix_total || reservation.totalprice) && (
+                      <div className="detail-item">
+                        <span className="icon">💶</span>
+                        <span>{reservation.prix_total || reservation.totalprice} €</span>
+                      </div>
+                    )}
+                    {reservation.niveau && (
+                      <div className="detail-item">
+                        <span className="icon">🎯</span>
+                        <span>{reservation.niveau}</span>
+                      </div>
+                    )}
                   </div>
                 </div>
               ))}

@@ -1,25 +1,4 @@
 // ==============================
-// ANTIROBOT IP VALIDATION
-// ==============================
-const validatedIPs = new Set();
-
-function getClientIp(req) {
-  return req.headers['x-forwarded-for']?.split(',')[0]?.trim() || req.socket.remoteAddress;
-}
-
-// Vérifier si l'IP est validée
-app.get('/api/antirobot-check', (req, res) => {
-  const ip = getClientIp(req);
-  res.json({ validated: validatedIPs.has(ip) });
-});
-
-// Valider l'IP après passage du gate
-app.post('/api/antirobot-validate', (req, res) => {
-  const ip = getClientIp(req);
-  validatedIPs.add(ip);
-  res.json({ success: true });
-});
-// ==============================
 // API CONTENU PUBLIC (JSON statique)
 // ==============================
 import express from 'express';
@@ -27,6 +6,7 @@ import cors from 'cors';
 import dotenv from 'dotenv';
 import bcrypt from 'bcryptjs';
 import path from 'path';
+import fs from 'fs';
 import { fileURLToPath } from 'url';
 import { pool, query, dbType } from './db/pool.js';
 import { authenticateToken, generateToken, requireAdmin } from './middleware/auth.js';
@@ -44,6 +24,84 @@ const app = express();
 const PORT = process.env.PORT || 5000;
 
 app.use(cors());
+app.use(express.json());
+
+// ==============================
+// LOGGER HTTP
+// ==============================
+const C = {
+  reset:  '\x1b[0m',
+  bold:   '\x1b[1m',
+  green:  '\x1b[32m',
+  yellow: '\x1b[33m',
+  red:    '\x1b[31m',
+  cyan:   '\x1b[36m',
+  blue:   '\x1b[34m',
+  magenta:'\x1b[35m',
+  gray:   '\x1b[90m',
+  white:  '\x1b[97m',
+};
+
+function methodColor(method) {
+  return { GET: C.green, POST: C.blue, PUT: C.yellow, PATCH: C.yellow, DELETE: C.red }[method] || C.white;
+}
+
+function statusColor(code) {
+  if (code >= 500) return C.red;
+  if (code >= 400) return C.yellow;
+  if (code >= 300) return C.cyan;
+  return C.green;
+}
+
+app.use((req, res, next) => {
+  const start = Date.now();
+  const ts = new Date().toLocaleTimeString('fr-FR', { hour12: false });
+  res.on('finish', () => {
+    const ms = Date.now() - start;
+    const mc = methodColor(req.method);
+    const sc = statusColor(res.statusCode);
+    console.log(
+      `${C.gray}[${ts}]${C.reset} ` +
+      `${mc}${C.bold}${req.method.padEnd(6)}${C.reset} ` +
+      `${C.white}${req.originalUrl.padEnd(40)}${C.reset} ` +
+      `${sc}${C.bold}${res.statusCode}${C.reset} ` +
+      `${C.gray}${ms}ms${C.reset}`
+    );
+  });
+  next();
+});
+
+// Auto-création des tables manquantes au démarrage
+if (pool) {
+  query(`CREATE TABLE IF NOT EXISTS experiences (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    auteur VARCHAR(120) NOT NULL,
+    titre VARCHAR(255) NOT NULL,
+    contenu TEXT NOT NULL,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    INDEX idx_created_at (created_at)
+  )`).catch(() => {});
+}
+
+// ==============================
+// ANTIROBOT IP VALIDATION
+// ==============================
+const validatedIPs = new Set();
+
+function getClientIp(req) {
+  return req.headers['x-forwarded-for']?.split(',')[0]?.trim() || req.socket.remoteAddress;
+}
+
+app.get('/api/antirobot-check', (req, res) => {
+  const ip = getClientIp(req);
+  res.json({ validated: validatedIPs.has(ip) });
+});
+
+app.post('/api/antirobot-validate', (req, res) => {
+  const ip = getClientIp(req);
+  validatedIPs.add(ip);
+  res.json({ success: true });
+});
 
 // Articles
 app.get('/api/public/articles', (req, res) => {
@@ -64,7 +122,6 @@ app.get('/api/public/sports', (req, res) => {
 app.get('/api/public/routes', (req, res) => {
   res.json(routes);
 });
-app.use(express.json());
 
 const safeQuery = async (res, sql, params = []) => {
   if (!pool) {
@@ -187,12 +244,14 @@ app.post('/api/auth/register', async (req, res) => {
   
   try {
     // Vérifier si l'utilisateur existe déjà
-    const existingUser = await pool.query(
+    const existingUser = await query(
       'SELECT id FROM utilisateurs WHERE email = $1 OR nom_utilisateur = $2',
       [email, nom_utilisateur]
     );
     
     if (existingUser.rows.length > 0) {
+      const ts = new Date().toLocaleTimeString('fr-FR', { hour12: false });
+      console.log(`${C.gray}[${ts}]${C.reset} ${C.yellow}${C.bold}REGISTER REFUSÉ${C.reset}  email/username déjà utilisé → ${C.yellow}${email}${C.reset}`);
       return res.status(409).json({ error: 'Cet email ou nom d\'utilisateur est déjà utilisé' });
     }
     
@@ -200,15 +259,16 @@ app.post('/api/auth/register', async (req, res) => {
     const hashedPassword = await bcrypt.hash(mot_de_passe, 10);
     
     // Créer l'utilisateur
-    const result = await pool.query(
+    const result = await query(
       `INSERT INTO utilisateurs (nom_utilisateur, email, mot_de_passe, nom, prenom, role)
-       VALUES ($1, $2, $3, $4, $5, $6)
-       RETURNING id, nom_utilisateur, email, nom, prenom, role, date_inscription`,
+       VALUES ($1, $2, $3, $4, $5, $6)`,
       [nom_utilisateur, email, hashedPassword, nom || null, prenom || null, 'user']
     );
-    
-    const user = result.rows[0];
-    dbLog('INSERT', 'utilisateurs', { id: user.id, email: user.email, role: user.role });
+    const newId = result.rows?.insertId ?? result.insertId;
+    const user = { id: newId, nom_utilisateur, email, nom: nom || null, prenom: prenom || null, role: 'user', date_inscription: new Date() };
+    dbLog('INSERT', 'utilisateurs', { id: newId, email, role: 'user' });
+    const ts = new Date().toLocaleTimeString('fr-FR', { hour12: false });
+    console.log(`${C.gray}[${ts}]${C.reset} ${C.green}${C.bold}✔ INSCRIPTION${C.reset}       @${C.white}${nom_utilisateur}${C.reset} — ${email} — rôle: user`);
     
     // Générer le token JWT
     const token = generateToken(user);
@@ -216,19 +276,12 @@ app.post('/api/auth/register', async (req, res) => {
     // Retourner l'utilisateur (sans le mot de passe) et le token
     res.status(201).json({
       message: 'Inscription réussie',
-      user: {
-        id: user.id,
-        nom_utilisateur: user.nom_utilisateur,
-        email: user.email,
-        nom: user.nom,
-        prenom: user.prenom,
-        role: user.role,
-        date_inscription: user.date_inscription
-      },
+      user,
       token
     });
   } catch (error) {
-    console.error('Erreur inscription:', error.message);
+    const ts = new Date().toLocaleTimeString('fr-FR', { hour12: false });
+    console.log(`${C.gray}[${ts}]${C.reset} ${C.red}${C.bold}✖ INSCRIPTION ERREUR${C.reset} ${error.message}`);
     res.status(500).json({ error: 'Erreur lors de l\'inscription' });
   }
 });
@@ -269,12 +322,14 @@ app.post('/api/auth/login', async (req, res) => {
   
   try {
     // Chercher l'utilisateur
-    const result = await pool.query(
+    const result = await query(
       'SELECT * FROM utilisateurs WHERE email = $1',
       [email]
     );
     
     if (result.rows.length === 0) {
+      const ts = new Date().toLocaleTimeString('fr-FR', { hour12: false });
+      console.log(`${C.gray}[${ts}]${C.reset} ${C.red}${C.bold}✖ CONNEXION REFUSÉE${C.reset} email inconnu → ${C.yellow}${email}${C.reset}`);
       return res.status(401).json({ error: 'Email ou mot de passe incorrect' });
     }
     
@@ -284,10 +339,15 @@ app.post('/api/auth/login', async (req, res) => {
     const validPassword = await bcrypt.compare(mot_de_passe, user.mot_de_passe);
     
     if (!validPassword) {
+      const ts = new Date().toLocaleTimeString('fr-FR', { hour12: false });
+      console.log(`${C.gray}[${ts}]${C.reset} ${C.red}${C.bold}✖ CONNEXION REFUSÉE${C.reset} mot de passe incorrect → ${C.yellow}${email}${C.reset}`);
       return res.status(401).json({ error: 'Email ou mot de passe incorrect' });
     }
     
     dbLog('LOGIN', 'utilisateurs', { id: user.id, email: user.email, role: user.role });
+    const ts2 = new Date().toLocaleTimeString('fr-FR', { hour12: false });
+    const roleLabel = user.role === 'admin' ? `${C.magenta}${C.bold}ADMIN${C.reset}` : `${C.cyan}user${C.reset}`;
+    console.log(`${C.gray}[${ts2}]${C.reset} ${C.green}${C.bold}✔ CONNEXION${C.reset}         @${C.white}${user.nom_utilisateur}${C.reset} — ${user.email} — rôle: ${roleLabel}`);
     // Générer le token
     const token = generateToken(user);
     
@@ -306,9 +366,18 @@ app.post('/api/auth/login', async (req, res) => {
       token
     });
   } catch (error) {
-    console.error('Erreur connexion:', error.message);
+    const ts = new Date().toLocaleTimeString('fr-FR', { hour12: false });
+    console.log(`${C.gray}[${ts}]${C.reset} ${C.red}${C.bold}✖ CONNEXION ERREUR${C.reset}   ${error.message}`);
     res.status(500).json({ error: 'Erreur lors de la connexion' });
   }
+});
+
+// Déconnexion (log côté serveur)
+app.post('/api/auth/logout', authenticateToken, (req, res) => {
+  const ts = new Date().toLocaleTimeString('fr-FR', { hour12: false });
+  const u = req.user;
+  console.log(`${C.gray}[${ts}]${C.reset} ${C.yellow}${C.bold}◀ DÉCONNEXION${C.reset}        @${C.white}${u.nom_utilisateur || u.email}${C.reset} — id: ${u.id}`);
+  res.json({ message: 'Déconnexion enregistrée' });
 });
 
 // Récupérer les infos de l'utilisateur connecté (route protégée)
@@ -318,7 +387,7 @@ app.get('/api/auth/me', authenticateToken, async (req, res) => {
   }
   
   try {
-    const result = await pool.query(
+    const result = await query(
       'SELECT id, nom_utilisateur, email, nom, prenom, role, date_inscription FROM utilisateurs WHERE id = $1',
       [req.user.id]
     );
@@ -351,15 +420,20 @@ app.get('/api/auth/check-admin', authenticateToken, requireAdmin, (req, res) => 
 // SITES D'ESCALADE
 // ============================================
 
-app.get('/api/sites-escalade', (req, res) =>
-  safeQuery(
-    res,
-    `SELECT id, nom AS name, description, niveau_difficulte AS difficulty,
-            emplacement AS location, site, temps_ascension AS duration, image_url AS image
-     FROM sites_escalade
-     ORDER BY id DESC`
-  )
-);
+app.get('/api/sites-escalade', async (req, res) => {
+  if (!pool) return res.json([]);
+  try {
+    const result = await query(
+      `SELECT id, nom AS name, description, niveau_difficulte AS difficulty,
+              emplacement AS location, site, temps_ascension AS duration, image_url AS image
+       FROM sites_escalade
+       ORDER BY id DESC`
+    );
+    res.json(result.rows);
+  } catch {
+    res.json([]);
+  }
+});
 
 app.post('/api/sites-escalade', authenticateToken, async (req, res) => {
   if (!pool) {
@@ -373,15 +447,13 @@ app.post('/api/sites-escalade', authenticateToken, async (req, res) => {
   }
   
   try {
-    const result = await pool.query(
+    const result = await query(
       `INSERT INTO sites_escalade (nom, description, niveau_difficulte, emplacement, site, temps_ascension, image_url)
-       VALUES ($1, $2, $3, $4, $5, $6, $7)
-       RETURNING id, nom AS name, description, niveau_difficulte AS difficulty,
-                 emplacement AS location, site, temps_ascension AS duration, image_url AS image`,
+       VALUES ($1, $2, $3, $4, $5, $6, $7)`,
       [name, description || null, difficulty, location || null, site || null, duration || null, image || null]
     );
-    dbLog('INSERT', 'sites_escalade', { id: result.rows[0].id, nom: name, difficulte: difficulty });
-    res.status(201).json(result.rows[0]);
+    dbLog('INSERT', 'sites_escalade', { nom: name, difficulte: difficulty });
+    res.status(201).json({ id: result.insertId, name, description, difficulty, location, site, duration, image });
   } catch (error) {
     console.error('Erreur création site escalade:', error.message);
     res.status(500).json({ error: 'Erreur lors de la création du site' });
@@ -392,16 +464,21 @@ app.post('/api/sites-escalade', authenticateToken, async (req, res) => {
 // STATIONS DE SKI
 // ============================================
 
-app.get('/api/stations-ski', (req, res) =>
-  safeQuery(
-    res,
-    `SELECT id, nom AS name, description, domaine_skiable AS skiDomain,
-            conditions_enneigement AS snowConditions, emplacement AS location,
-            remontees_mecaniques AS hasLifts, type_piste AS slopeType, image_url AS image
-     FROM stations_ski
-     ORDER BY id DESC`
-  )
-);
+app.get('/api/stations-ski', async (req, res) => {
+  if (!pool) return res.json([]);
+  try {
+    const result = await query(
+      `SELECT id, nom AS name, description, domaine_skiable AS skiDomain,
+              conditions_enneigement AS snowConditions, emplacement AS location,
+              remontees_mecaniques AS hasLifts, type_piste AS slopeType, image_url AS image
+       FROM stations_ski
+       ORDER BY id DESC`
+    );
+    res.json(result.rows);
+  } catch {
+    res.json([]);
+  }
+});
 
 app.post('/api/stations-ski', authenticateToken, async (req, res) => {
   if (!pool) {
@@ -415,18 +492,15 @@ app.post('/api/stations-ski', authenticateToken, async (req, res) => {
   }
   
   try {
-    const result = await pool.query(
+    const result = await query(
       `INSERT INTO stations_ski (nom, description, domaine_skiable, conditions_enneigement,
                                   emplacement, remontees_mecaniques, type_piste, image_url)
-       VALUES ($1, $2, $3, $4, $5, $6, $7, $8)
-       RETURNING id, nom AS name, description, domaine_skiable AS skiDomain,
-                 conditions_enneigement AS snowConditions, emplacement AS location,
-                 remontees_mecaniques AS hasLifts, type_piste AS slopeType, image_url AS image`,
+       VALUES ($1, $2, $3, $4, $5, $6, $7, $8)`,
       [name, description || null, skiDomain || null, snowConditions || null,
        location || null, hasLifts || false, slopeType, image || null]
     );
-    dbLog('INSERT', 'stations_ski', { id: result.rows[0].id, nom: name, piste: slopeType });
-    res.status(201).json(result.rows[0]);
+    dbLog('INSERT', 'stations_ski', { nom: name, piste: slopeType });
+    res.status(201).json({ id: result.insertId, name, description, skiDomain, snowConditions, location, hasLifts, slopeType, image });
   } catch (error) {
     console.error('Erreur création station ski:', error.message);
     res.status(500).json({ error: 'Erreur lors de la création de la station' });
@@ -437,15 +511,20 @@ app.post('/api/stations-ski', authenticateToken, async (req, res) => {
 // PRESTATIONS
 // ============================================
 
-app.get('/api/prestations', (req, res) =>
-  safeQuery(
-    res,
-    `SELECT id, nom AS name, description, type_activite AS activityType,
-            prix_base AS basePrice, duree_jours AS durationDays
-     FROM prestations
-     ORDER BY id DESC`
-  )
-);
+app.get('/api/prestations', async (req, res) => {
+  if (!pool) return res.json([]);
+  try {
+    const result = await query(
+      `SELECT id, nom AS name, description, type_activite AS activityType,
+              prix_base AS basePrice, duree_jours AS durationDays
+       FROM prestations
+       ORDER BY id DESC`
+    );
+    res.json(result.rows);
+  } catch {
+    res.json([]);
+  }
+});
 
 app.post('/api/prestations', authenticateToken, async (req, res) => {
   if (!pool) {
@@ -459,15 +538,13 @@ app.post('/api/prestations', authenticateToken, async (req, res) => {
   }
   
   try {
-    const result = await pool.query(
+    const result = await query(
       `INSERT INTO prestations (nom, description, type_activite, prix_base, duree_jours)
-       VALUES ($1, $2, $3, $4, $5)
-       RETURNING id, nom AS name, description, type_activite AS activityType,
-                 prix_base AS basePrice, duree_jours AS durationDays`,
+       VALUES ($1, $2, $3, $4, $5)`,
       [name, description || null, activityType || null, basePrice, durationDays || 1]
     );
-    dbLog('INSERT', 'prestations', { id: result.rows[0].id, nom: name, prix: basePrice, type: activityType });
-    res.status(201).json(result.rows[0]);
+    dbLog('INSERT', 'prestations', { nom: name, prix: basePrice, type: activityType });
+    res.status(201).json({ id: result.insertId, name, description, activityType, basePrice, durationDays });
   } catch (error) {
     console.error('Erreur création prestation:', error.message);
     res.status(500).json({ error: 'Erreur lors de la création de la prestation' });
@@ -484,17 +561,12 @@ app.get('/api/reservations', authenticateToken, async (req, res) => {
   }
   
   try {
-    const result = await pool.query(
-      `SELECT r.id, r.date_debut AS startDate, r.date_fin AS endDate,
-              r.nombre_personnes AS numPeople, r.prix_total AS totalPrice,
-              r.status, r.created_at AS createdAt,
-              c.nom AS clientLastName, c.prenom AS clientFirstName, c.email AS clientEmail,
-              p.nom AS prestationName, p.type_activite AS activityType
-       FROM reservations r
-       JOIN clients c ON r.client_id = c.id
-       JOIN prestations p ON r.prestation_id = p.id
-       WHERE c.utilisateur_id = $1
-       ORDER BY r.created_at DESC`,
+    const result = await query(
+      `SELECT id, nom, prenom, email, activite, date_debut, date_fin,
+              nombre_personnes, niveau, commentaire, prix_total, status, created_at
+       FROM reservations
+       WHERE utilisateur_id = $1
+       ORDER BY created_at DESC`,
       [req.user.id]
     );
     
@@ -510,45 +582,21 @@ app.post('/api/reservations', authenticateToken, async (req, res) => {
     return res.status(503).json({ error: 'Base de données non configurée' });
   }
   
-  const { prestationId, startDate, endDate, numPeople, totalPrice } = req.body;
+  const { nom, prenom, email, telephone, activite, date_debut, date_fin, nombre_personnes, niveau, commentaire, prix_total } = req.body;
   
-  if (!prestationId || !startDate || !endDate || !numPeople || !totalPrice) {
-    return res.status(400).json({ error: 'Tous les champs sont requis' });
+  if (!activite || !date_debut || !nom || !prenom || !email) {
+    return res.status(400).json({ error: 'Les champs nom, prénom, email, activité et date sont requis' });
   }
   
   try {
-    // Vérifier si le client existe pour cet utilisateur
-    let client = await pool.query(
-      'SELECT id FROM clients WHERE utilisateur_id = $1',
-      [req.user.id]
+    const result = await query(
+      `INSERT INTO reservations (utilisateur_id, nom, prenom, email, telephone, activite, date_debut, date_fin, nombre_personnes, niveau, commentaire, prix_total)
+       VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12)`,
+      [req.user.id, nom, prenom, email, telephone || null, activite, date_debut, date_fin || null, nombre_personnes || 1, niveau || null, commentaire || null, prix_total || null]
     );
-    
-    let clientId;
-    
-    // Si le client n'existe pas, le créer
-    if (client.rows.length === 0) {
-      const newClient = await pool.query(
-        'INSERT INTO clients (utilisateur_id, nom, prenom) VALUES ($1, $2, $3) RETURNING id',
-        [req.user.id, req.user.nom || 'À compléter', req.user.prenom || 'À compléter']
-      );
-      clientId = newClient.rows[0].id;
-    } else {
-      clientId = client.rows[0].id;
-    }
-    
-    // Créer la réservation
-    const result = await pool.query(
-      `INSERT INTO reservations (client_id, prestation_id, date_debut, date_fin, nombre_personnes, prix_total)
-       VALUES ($1, $2, $3, $4, $5, $6)
-       RETURNING id, date_debut AS startDate, date_fin AS endDate,
-                 nombre_personnes AS numPeople, prix_total AS totalPrice,
-                 status, created_at AS createdAt`,
-      [clientId, prestationId, startDate, endDate, numPeople, totalPrice]
-    );
-    dbLog('INSERT', 'reservations', { id: result.rows[0].id, client_id: clientId, prestation_id: prestationId, debut: startDate, personnes: numPeople, prix: totalPrice });
+    dbLog('INSERT', 'reservations', { utilisateur_id: req.user.id, activite, date_debut, nom, prenom });
     res.status(201).json({
-      message: 'Réservation créée avec succès',
-      reservation: result.rows[0]
+      message: 'Réservation créée avec succès'
     });
   } catch (error) {
     console.error('Erreur création réservation:', error.message);
@@ -561,53 +609,80 @@ app.post('/api/reservations', authenticateToken, async (req, res) => {
 // ============================================
 
 
-app.get('/api/articles', (req, res) =>
-  safeQuery(
-    res,
-    `SELECT id, titre AS title, contenu AS excerpt, categorie AS category,
-            auteur AS author, date_publication AS date, read_time
-     FROM articles_blog
-     ORDER BY date_publication DESC`
-  )
-);
+app.get('/api/articles', async (req, res) => {
+  if (!pool) return res.json(articles);
+  try {
+    const result = await query(
+      `SELECT id, titre AS title, contenu AS excerpt, categorie AS category,
+              auteur AS author, date_publication AS date, read_time
+       FROM articles_blog
+       ORDER BY date_publication DESC`
+    );
+    res.json(result.rows);
+  } catch {
+    res.json(articles);
+  }
+});
 
-app.get('/api/videos', (req, res) =>
-  safeQuery(
-    res,
-    `SELECT id, titre AS title, sport, duree AS duration, vignette AS thumbnail
-     FROM videos
-     ORDER BY id DESC`
-  )
-);
+app.get('/api/videos', async (req, res) => {
+  if (!pool) return res.json(videos);
+  try {
+    const result = await query(
+      `SELECT id, titre AS title, sport, duree AS duration, vignette AS thumbnail
+       FROM videos
+       ORDER BY id DESC`
+    );
+    res.json(result.rows);
+  } catch {
+    res.json(videos);
+  }
+});
 
-app.get('/api/routes', (req, res) =>
-  safeQuery(
-    res,
-    `SELECT id, nom AS name, region, distance_km AS distanceKm, difficulte AS difficulty,
-            saison AS season, depart AS start, arrivee AS end, avec_guide AS withGuide
-     FROM routes
-     ORDER BY id DESC`
-  )
-);
+app.get('/api/routes', async (req, res) => {
+  if (!pool) return res.json(routes);
+  try {
+    const result = await query(
+      `SELECT id, nom AS name, region, distance_km AS distanceKm, difficulte AS difficulty,
+              saison AS season, depart AS start, arrivee AS end, avec_guide AS withGuide
+       FROM routes
+       ORDER BY id DESC`
+    );
+    if (!result.rows.length) return res.json(routes);
+    res.json(result.rows);
+  } catch {
+    res.json(routes);
+  }
+});
 
-app.get('/api/activities', (req, res) =>
-  safeQuery(
-    res,
-    `SELECT id, nom AS name, sport, resume AS summary, image_url AS image,
-            niveau AS level, saison AS season
-     FROM activities
-     ORDER BY id DESC`
-  )
-);
+app.get('/api/activities', async (req, res) => {
+  if (!pool) return res.json(sports);
+  try {
+    const result = await query(
+      `SELECT id, nom AS name, sport, resume AS summary, image_url AS image,
+              niveau AS level, saison AS season
+       FROM activities
+       ORDER BY id DESC`
+    );
+    if (!result.rows.length) return res.json(sports);
+    res.json(result.rows);
+  } catch {
+    res.json(sports);
+  }
+});
 
-app.get('/api/experiences', (req, res) =>
-  safeQuery(
-    res,
-    `SELECT id, auteur AS author, titre AS title, contenu AS body, created_at AS createdAt
-     FROM experiences
-     ORDER BY created_at DESC`
-  )
-);
+app.get('/api/experiences', async (req, res) => {
+  if (!pool) return res.json([]);
+  try {
+    const result = await query(
+      `SELECT id, auteur AS author, titre AS title, contenu AS body, created_at AS createdAt
+       FROM experiences
+       ORDER BY created_at DESC`
+    );
+    res.json(result.rows);
+  } catch {
+    res.json([]);
+  }
+});
 
 app.post('/api/experiences', async (req, res) => {
   if (!pool) {
@@ -618,12 +693,13 @@ app.post('/api/experiences', async (req, res) => {
     return res.status(400).json({ error: 'Champs manquants' });
   }
   try {
-    const result = await pool.query(
-      'INSERT INTO experiences (auteur, titre, contenu) VALUES ($1, $2, $3) RETURNING id, auteur AS author, titre AS title, contenu AS body, created_at AS createdAt',
+    const result = await query(
+      'INSERT INTO experiences (auteur, titre, contenu) VALUES ($1, $2, $3)',
       [author, title, body]
     );
-    dbLog('INSERT', 'experiences', { id: result.rows[0].id, auteur: author, titre: title });
-    res.status(201).json(result.rows[0]);
+    const newId = result.rows?.insertId || result.insertId;
+    dbLog('INSERT', 'experiences', { auteur: author, titre: title });
+    res.status(201).json({ id: newId, author, title, body, createdAt: new Date() });
   } catch (error) {
     console.error('DB error:', error.message);
     res.status(500).json({ error: 'Erreur base de données' });
@@ -631,14 +707,19 @@ app.post('/api/experiences', async (req, res) => {
 });
 
 // Contact messages
-app.get('/api/contact-messages', (req, res) =>
-  safeQuery(
-    res,
-    `SELECT id, nom AS name, email, message, status, created_at AS createdAt
-     FROM contact_messages
-     ORDER BY created_at DESC`
-  )
-);
+app.get('/api/contact-messages', async (req, res) => {
+  if (!pool) return res.json([]);
+  try {
+    const result = await query(
+      `SELECT id, nom AS name, email, message, status, created_at AS createdAt
+       FROM contact_messages
+       ORDER BY created_at DESC`
+    );
+    res.json(result.rows);
+  } catch {
+    res.json([]);
+  }
+});
 
 app.post('/api/contact-messages', async (req, res) => {
   if (!pool) {
@@ -649,12 +730,13 @@ app.post('/api/contact-messages', async (req, res) => {
     return res.status(400).json({ error: 'Champs manquants' });
   }
   try {
-    const result = await pool.query(
-      'INSERT INTO contact_messages (name, email, message) VALUES ($1, $2, $3) RETURNING id, name, email, message, created_at AS createdAt',
+    const result = await query(
+      'INSERT INTO contact_messages (nom, email, message) VALUES ($1, $2, $3)',
       [name, email, message]
     );
-    dbLog('INSERT', 'contact_messages', { id: result.rows[0].id, email, nom: name });
-    res.status(201).json(result.rows[0]);
+    const newId = result.rows?.insertId || result.insertId;
+    dbLog('INSERT', 'contact_messages', { email, nom: name });
+    res.status(201).json({ id: newId, name, email, message, createdAt: new Date() });
   } catch (error) {
     console.error('DB error:', error.message);
     res.status(500).json({ error: 'Erreur base de données' });
@@ -671,7 +753,7 @@ app.patch('/api/contact-messages/:id', async (req, res) => {
     return res.status(400).json({ error: 'Status manquant' });
   }
   try {
-    await pool.query('UPDATE contact_messages SET status = $1 WHERE id = $2', [status, id]);
+    await query('UPDATE contact_messages SET status = $1 WHERE id = $2', [status, id]);
     dbLog('UPDATE', 'contact_messages', { id, status });
     res.json({ success: true });
   } catch (error) {
@@ -685,6 +767,18 @@ app.patch('/api/contact-messages/:id', async (req, res) => {
 // ============================================
 
 app.post('/api/inscriptions', async (req, res) => {
+  // Auth optionnelle : si un token est fourni, on lie la réservation au compte
+  let utilisateur_id = null;
+  const authHeader = req.headers['authorization'];
+  if (authHeader && authHeader.startsWith('Bearer ')) {
+    try {
+      const jwt = await import('jsonwebtoken');
+      const JWT_SECRET = process.env.JWT_SECRET || 'votre_secret_jwt_a_changer_en_production';
+      const decoded = jwt.default.verify(authHeader.split(' ')[1], JWT_SECRET);
+      utilisateur_id = decoded.id;
+    } catch { /* token invalide ou absent, on continue sans lié */ }
+  }
+
   const {
     nom, prenom, email, telephone,
     activite, date_debut, date_fin,
@@ -709,10 +803,11 @@ app.post('/api/inscriptions', async (req, res) => {
     if (pool) {
       await query(
         `INSERT INTO reservations
-           (nom, prenom, email, telephone, activite, date_debut, date_fin,
+           (utilisateur_id, nom, prenom, email, telephone, activite, date_debut, date_fin,
             nombre_personnes, niveau, commentaire, prix_total, status)
-         VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, 'en_attente')`,
+         VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, 'en_attente')`,
         [
+          utilisateur_id || null,
           nom.trim(), prenom.trim(), email.trim(), telephone.trim(),
           activite, date_debut, date_fin || null,
           parseInt(nombre_personnes), niveau || null,
@@ -739,7 +834,7 @@ app.get('/api/inscriptions', authenticateToken, requireAdmin, async (req, res) =
        FROM reservations
        ORDER BY created_at DESC`
     );
-    res.json(result);
+    res.json(result.rows);
   } catch (error) {
     console.error('Erreur récupération inscriptions:', error.message);
     res.status(500).json({ error: 'Erreur base de données' });
@@ -750,15 +845,25 @@ app.get('/api/inscriptions', authenticateToken, requireAdmin, async (req, res) =
 // SERVIR LE FRONTEND EN PRODUCTION (Docker)
 // ==============================
 const distPath = path.join(__dirname, '..', 'dist');
-app.use(express.static(distPath));
-
-// Fallback SPA : toutes les routes non-API renvoient index.html
-app.get('*', (req, res) => {
-  if (!req.path.startsWith('/api')) {
-    res.sendFile(path.join(distPath, 'index.html'));
-  }
-});
+if (fs.existsSync(distPath)) {
+  app.use(express.static(distPath));
+  app.get('*', (req, res) => {
+    if (!req.path.startsWith('/api')) {
+      res.sendFile(path.join(distPath, 'index.html'));
+    }
+  });
+}
 
 app.listen(PORT, () => {
-  console.log(`API Aventures Alpines en écoute sur http://localhost:${PORT}`);
+  const line = '═'.repeat(60);
+  console.log(`\n${C.cyan}${C.bold}${line}${C.reset}`);
+  console.log(`${C.cyan}${C.bold}  AVENTURES ALPINES — API SERVER${C.reset}`);
+  console.log(`${C.cyan}${C.bold}${line}${C.reset}`);
+  console.log(`  ${C.green}${C.bold}URL     ${C.reset}: http://localhost:${PORT}`);
+  console.log(`  ${C.green}${C.bold}DB      ${C.reset}: ${pool ? C.green + 'MySQL connecté' + C.reset : C.yellow + 'Mode local (pas de DB)' + C.reset}`);
+  console.log(`  ${C.green}${C.bold}ENV     ${C.reset}: ${process.env.NODE_ENV || 'development'}`);
+  console.log(`  ${C.green}${C.bold}Routes  ${C.reset}: /api/articles · /api/activities · /api/routes`);
+  console.log(`           /api/experiences · /api/auth/* · /api/reservations`);
+  console.log(`${C.cyan}${C.bold}${line}${C.reset}\n`);
+  console.log(`${C.gray}En attente de requêtes...${C.reset}\n`);
 });

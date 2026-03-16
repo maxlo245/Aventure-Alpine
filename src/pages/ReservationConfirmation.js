@@ -127,22 +127,22 @@ export default function ReservationConfirmation() {
 
         <div className="info-boxes">
           <div className="info-box">
-            <h3>📧 Email de confirmation</h3>
+            <h3>Email de confirmation</h3>
             <p>Un email récapitulatif vous a été envoyé. Vérifiez vos spams si vous ne le recevez pas.</p>
           </div>
 
           <div className="info-box">
-            <h3>🎿 Location de matériel</h3>
+            <h3>Location de matériel</h3>
             <p>Besoin de louer du matériel ? Réservez en ligne pour bénéficier de -10%.</p>
           </div>
 
           <div className="info-box">
-            <h3>🏔️ Conditions météo</h3>
+            <h3>Conditions météo</h3>
             <p>Consultez les conditions d'enneigement avant votre venue sur notre site.</p>
           </div>
 
           <div className="info-box">
-            <h3>📞 Besoin d'aide ?</h3>
+            <h3>Besoin d'aide ?</h3>
             <p>Notre équipe est disponible au +33 4 50 12 34 56</p>
           </div>
         </div>

@@ -196,6 +196,65 @@ Voir [server/db/schema.sql](server/db/schema.sql)
 
 ---
 
+## Base de données
+
+### Schéma MCD
+
+```mermaid
+erDiagram
+    UTILISATEURS {
+        INT id PK
+        VARCHAR nom_utilisateur
+        VARCHAR email
+        VARCHAR mot_de_passe
+        VARCHAR nom
+        VARCHAR prenom
+        VARCHAR telephone
+        VARCHAR role
+        TIMESTAMP date_inscription
+    }
+
+    RESERVATIONS {
+        INT id PK
+        INT utilisateur_id FK
+        VARCHAR nom
+        VARCHAR prenom
+        VARCHAR email
+        VARCHAR telephone
+        VARCHAR activite
+        DATE date_debut
+        DATE date_fin
+        INT nombre_personnes
+        VARCHAR niveau
+        TEXT commentaire
+        DECIMAL prix_total
+        VARCHAR status
+        TIMESTAMP created_at
+    }
+
+    CONTACT_MESSAGES {
+        INT id PK
+        VARCHAR nom
+        VARCHAR email
+        VARCHAR telephone
+        TEXT message
+        VARCHAR status
+        TIMESTAMP created_at
+    }
+
+    UTILISATEURS ||--o{ RESERVATIONS : "effectue"
+```
+
+| Table | Rôle |
+|---|---|
+| `utilisateurs` | Comptes, authentification JWT |
+| `reservations` | Réservations d'activités (liée ou non à un compte) |
+| `contact_messages` | Messages du formulaire de contact |
+
+> Schéma complet : [server/db/schema.sql](server/db/schema.sql)
+
+---
+
 ## Contribution
 
 1. Fork → Créer branche `feature/NomFeature`

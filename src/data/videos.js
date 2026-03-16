@@ -40,7 +40,7 @@ export const videos = [
     title: "Escalade sportive : falaise de Buoux",
     sport: "Escalade",
     duration: "05:47",
-    thumbnail: "https://images.unsplash.com/photo-1509644851169-2acc09a45ca0?w=800&q=80",
+    thumbnail: "https://images.unsplash.com/photo-1516592673884-4a382d1124c2?w=800&q=80",
     description: "Grimpe sportive sur les voies mythiques de Buoux",
     views: "6.8k"
   },
@@ -49,7 +49,7 @@ export const videos = [
     title: "Ski freeride : couloirs des Grands Montets",
     sport: "Ski",
     duration: "07:33",
-    thumbnail: "https://images.unsplash.com/photo-1518684079-3c830dcef090?w=800&q=80",
+    thumbnail: "https://images.unsplash.com/photo-1463852247062-1bbca38f7805?w=800&q=80",
     description: "Descente des couloirs techniques des Grands Montets à Chamonix",
     views: "18.7k"
   },

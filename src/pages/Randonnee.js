@@ -5,6 +5,7 @@ import { MapContainer, TileLayer, Marker, Popup, useMap } from 'react-leaflet';
 import 'leaflet/dist/leaflet.css';
 import L from 'leaflet';
 import React from 'react';
+import ReservationCTA from '../components/ReservationCTA';
 
 // Fix pour les icônes Leaflet avec Vite
 delete L.Icon.Default.prototype._getIconUrl;
@@ -101,6 +102,7 @@ export default function Randonnee() {
           <p className="hero-subtitle">
             Explorez les plus beaux sentiers des Alpes françaises
           </p>
+          <ReservationCTA activite="randonnee" label="Réserver une randonnée" />
         </div>
       </section>
 
@@ -263,7 +265,7 @@ export default function Randonnee() {
             color: 'var(--text-primary)',
             border: '1px solid var(--border)'
           }}>
-            💡 Maintenez <kbd style={{
+            Maintenez <kbd style={{
               background: 'var(--bg-card)',
               padding: '2px 6px',
               borderRadius: '4px',
@@ -418,10 +420,10 @@ export default function Randonnee() {
         <div className="info-card card-dark">
           <h3>Informations importantes</h3>
           <ul>
-            <li>✓ Confirmation immédiate par email</li>
-            <li>✓ Annulation gratuite jusqu&apos;à 48h avant</li>
-            <li>✓ Forfait valable dans 3 domaines skiables</li>
-            <li>✓ Assurance incluse</li>
+            <li>Confirmation immédiate par email</li>
+            <li>Annulation gratuite jusqu&apos;à 48h avant</li>
+            <li>Forfait valable dans 3 domaines skiables</li>
+            <li>Assurance incluse</li>
           </ul>
         </div>
 

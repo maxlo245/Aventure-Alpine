@@ -325,10 +325,10 @@ export default function Reservation() {
           <div className="info-card">
             <h3>Informations importantes</h3>
             <ul>
-              <li>✓ Confirmation immédiate par email</li>
-              <li>✓ Annulation gratuite jusqu'à 48h avant</li>
-              <li>✓ Forfait valable dans 3 domaines skiables</li>
-              <li>✓ Assurance incluse</li>
+              <li>Confirmation immédiate par email</li>
+              <li>Annulation gratuite jusqu'à 48h avant</li>
+              <li>Forfait valable dans 3 domaines skiables</li>
+              <li>Assurance incluse</li>
             </ul>
           </div>
 
